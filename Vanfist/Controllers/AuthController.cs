@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vanfist.DTOs.Requests;
 using Vanfist.DTOs.Responses;
@@ -16,12 +17,14 @@ public class AuthController : Controller
         _logger = logger;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult Login()
     {
         return View();
     }
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Login(LoginRequest request)
     {
@@ -50,12 +53,14 @@ public class AuthController : Controller
         }
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult Register()
     {
         return View();
     }
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
@@ -85,6 +90,7 @@ public class AuthController : Controller
         }
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult Logout()
     {

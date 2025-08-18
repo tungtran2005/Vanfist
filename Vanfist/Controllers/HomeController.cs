@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vanfist.Constants;
 using Vanfist.Models;
@@ -18,6 +19,8 @@ public class HomeController : Controller
         _accountService = accountService;
     }
 
+    [AllowAnonymous]
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var userId = HttpContext.Session.GetInt32(Session.AccountId);
@@ -45,11 +48,15 @@ public class HomeController : Controller
         return View();
     }
 
+    [AllowAnonymous]
+    [HttpGet]
     public IActionResult Privacy()
     {
         return View();
     }
 
+    [AllowAnonymous]
+    [HttpGet]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Vanfist.Constants;
 using Vanfist.Services;
 
@@ -16,6 +17,7 @@ public class AccountController : Controller
         _accountService = accountService;
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> Index()
     {

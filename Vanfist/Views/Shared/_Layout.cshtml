@@ -28,22 +28,28 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Services</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Discover</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    @if ((bool?)ViewBag.IsLoggedIn == true)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Index">Profile</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Auth" asp-action="Login">Profile</a>
-                        </li>
-                    }
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Index">
+                            <img src="~/image/user.png" alt="Profile" class="navbar-toggler-icon">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">
+                            <img src="~/image/speech-bubble.png" alt="Support" class="navbar-toggler-icon">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">
+                            <img src="~/image/earth-globe.png" alt="Language" class="navbar-toggler-icon">
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

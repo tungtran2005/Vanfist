@@ -144,7 +144,6 @@ D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
 D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\scopedcss\bundle\Vanfist.styles.css
 D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\scopedcss\projectbundle\Vanfist.bundle.scp.css
-D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\compressed\867p45gjio-sm5gml01y5.gz
 D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\compressed\zebslptgfk-b9sayid5wm.gz
 D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\compressed\9h15aze1pk-61n19gt1b8.gz
 D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\compressed\3mjyn9fedj-xtxxf3hu2r.gz
@@ -219,3 +218,4 @@ D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\refint\Vanfist.dll
 D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\Vanfist.pdb
 D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\Vanfist.genruntimeconfig.cache
 D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\ref\Vanfist.dll
+D:\Custom_C#\Vanfist\Vanfist\obj\Debug\net9.0\compressed\867p45gjio-w95c5nmtbp.gz
