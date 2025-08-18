@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using Vanfist.Entities;
 
-namespace Vanfist.Models;
+namespace Vanfist.Entities;
 
 public class Role
 {
@@ -10,7 +11,7 @@ public class Role
     [StringLength(50)]
     public string Name { get; set; } = string.Empty;
     
-    [StringLength(200)]
+    [StringLength(255)]
     public string? Description { get; set; }
     
     public ICollection<Account> Accounts { get; set; } = new List<Account>();

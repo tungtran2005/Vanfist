@@ -1,14 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Vanfist.Models;
+namespace Vanfist.Entities;
 
 public class Account
 {
     public int Id { get; set; }
-    
-    [Required]
-    [StringLength(50)]
-    public string Username { get; set; } = string.Empty;
     
     [Required]
     [EmailAddress]
@@ -17,12 +13,12 @@ public class Account
     
     [Required]
     [StringLength(255)]
-    public string PasswordHash { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
     
-    [StringLength(50)]
+    [StringLength(255)]
     public string? FirstName { get; set; }
     
-    [StringLength(50)]
+    [StringLength(255)]
     public string? LastName { get; set; }
 
     [StringLength(20)] 

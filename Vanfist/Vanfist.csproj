@@ -13,10 +13,4 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Constants\" />
-      <Folder Include="DTOs\Requests\" />
-      <Folder Include="Services\" />
-    </ItemGroup>
-
 </Project>

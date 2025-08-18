@@ -3,6 +3,25 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome to Vanfist</h1>
+    
+    @if (ViewBag.IsLoggedIn)
+    {
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Welcome back, @ViewBag.Account.FirstName!</h4>
+            <p>You are successfully logged in with email: <strong>@ViewBag.Account.Email</strong></p>
+            <hr>
+            <p class="mb-0">You can now access all the features of the application.</p>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Welcome to Vanfist!</h4>
+            <p>Please <a asp-controller="Auth" asp-action="Login" class="alert-link">login</a> or 
+               <a asp-controller="Auth" asp-action="Register" class="alert-link">register</a> to access the application features.</p>
+        </div>
+    }
+    
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

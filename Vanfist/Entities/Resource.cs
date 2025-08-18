@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Vanfist.Models;
+namespace Vanfist.Entities;
 
 public class Resource
 {
@@ -9,7 +9,7 @@ public class Resource
     [StringLength(50)]
     public string Name { get; set; } = string.Empty;
 
-    [StringLength(200)]
+    [StringLength(255)]
     public string? Description { get; set; }
     
     // Navigation properties

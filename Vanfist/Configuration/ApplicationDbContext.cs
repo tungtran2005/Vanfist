@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Vanfist.Entities;
 using Vanfist.Models;
 
 namespace Vanfist.Configuration;
@@ -24,15 +25,13 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Account>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Username).IsRequired().HasMaxLength(50);
             entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
-            entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(255);
+            entity.Property(e => e.Password).IsRequired().HasMaxLength(255);
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
             entity.Property(e => e.Number).HasMaxLength(20);
 
             // Unique constraints
-            entity.HasIndex(e => e.Username).IsUnique();
             entity.HasIndex(e => e.Email).IsUnique();
         });
 

@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Vanfist.Configuration;
 using Vanfist.Repositories;
+using Vanfist.Repositories.Impl;
+using Vanfist.Services;
+using Vanfist.Services.Base;
+using Vanfist.Services.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +16,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register repositories
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
-// Register RBAC service
-// builder.Services.AddScoped<IRbacService, RbacService>();
+// Register services
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
+builder.Services.AddHttpContextAccessor();
+
+// Add session support
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -35,7 +50,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
+
+// Add session middleware
+app.UseSession();
 
 app.UseAuthorization();
 
