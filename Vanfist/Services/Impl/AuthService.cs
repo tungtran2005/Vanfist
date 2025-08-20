@@ -1,12 +1,12 @@
 ﻿using Vanfist.Entities;
 using Vanfist.Repositories;
 using Vanfist.DTOs.Responses;
-using Vanfist.Configuration;
 using LoginRequest = Vanfist.DTOs.Requests.LoginRequest;
 using RegisterRequest = Vanfist.DTOs.Requests.RegisterRequest;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
+using Vanfist.Configuration.Database;
 using Vanfist.Constants;
 using Vanfist.Services.Base;
 

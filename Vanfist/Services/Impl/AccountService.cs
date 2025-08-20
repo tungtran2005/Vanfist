@@ -1,9 +1,8 @@
-﻿using Vanfist.Configuration;
-using Vanfist.DTOs.Responses;
-using Vanfist.Entities;
+﻿using Vanfist.DTOs.Responses;
 using Vanfist.Repositories;
 using Vanfist.Services.Base;
 using Microsoft.EntityFrameworkCore;
+using Vanfist.Configuration.Database;
 
 namespace Vanfist.Services.Impl;
 

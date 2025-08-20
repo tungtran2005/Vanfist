@@ -1,4 +1,4 @@
-﻿using Vanfist.Configuration;
+﻿using Vanfist.Configuration.Database;
 using Vanfist.Entities;
 
 namespace Vanfist.Repositories.Impl;

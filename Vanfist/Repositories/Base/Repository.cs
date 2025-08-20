@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Vanfist.Configuration;
-
-namespace Vanfist.Repositories;
+using Vanfist.Configuration.Database;
+using Vanfist.Repositories;
 
 public class Repository<T> : IRepository<T> where T : class
 {

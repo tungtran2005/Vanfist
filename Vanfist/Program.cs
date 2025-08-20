@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Vanfist.Configuration;
+using Vanfist.Configuration.Database;
 using Vanfist.Repositories;
 using Vanfist.Repositories.Impl;
 using Vanfist.Seeders;

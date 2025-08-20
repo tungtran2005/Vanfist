@@ -1,63 +1,62 @@
 using Microsoft.EntityFrameworkCore;
 using Vanfist.Entities;
-using Vanfist.Models;
 
-namespace Vanfist.Configuration;
+namespace Vanfist.Configuration.Database;
 
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
+        : base(options) { }
 
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Role> Roles { get; set; }
+    public DbSet<Address> Addresses { get; set; }
+    public DbSet<Model> Models { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Attachment> Attachments { get; set; }
+    public DbSet<Invoice> Invoices { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configure Account entity
-        modelBuilder.Entity<Account>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
-            entity.Property(e => e.Password).IsRequired().HasMaxLength(255);
-            entity.Property(e => e.FirstName).HasMaxLength(50);
-            entity.Property(e => e.LastName).HasMaxLength(50);
-            entity.Property(e => e.Number).HasMaxLength(20);
-
-            // Unique constraints
-            entity.HasIndex(e => e.Email).IsUnique();
-        });
-
-        // Configure Role entity
-        modelBuilder.Entity<Role>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.Name).IsRequired().HasMaxLength(50);
-            entity.Property(e => e.Description).HasMaxLength(200);
-
-            // Unique constraint
-            entity.HasIndex(e => e.Name).IsUnique();
-        });
-
-        // Configure many-to-many relationships
-
-        // Account <-> Role (many-to-many)
+        // Account - Role (many-to-many)
         modelBuilder.Entity<Account>()
             .HasMany(a => a.Roles)
             .WithMany(r => r.Accounts)
-            .UsingEntity(
-                "AccountRoles",
-                l => l.HasOne(typeof(Role)).WithMany().HasForeignKey("RoleId").HasPrincipalKey(nameof(Role.Id)),
-                r => r.HasOne(typeof(Account)).WithMany().HasForeignKey("AccountId")
-                    .HasPrincipalKey(nameof(Account.Id)),
-                j =>
-                {
-                    j.HasKey("AccountId", "RoleId");
-                    j.ToTable("AccountRoles");
-                });
+            .UsingEntity(j => j.ToTable("AccountRoles"));
+
+        // Account - Address (one-to-many)
+        modelBuilder.Entity<Address>()
+            .HasOne(a => a.Account)
+            .WithMany(acc => acc.Addresses)
+            .HasForeignKey(a => a.AccountId);
+
+        // Account - Invoice (one-to-many)
+        modelBuilder.Entity<Invoice>()
+            .HasOne(i => i.Account)
+            .WithMany(a => a.Invoices)
+            .HasForeignKey(i => i.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Category - Car (one-to-many)
+        modelBuilder.Entity<Model>()
+            .HasOne(c => c.Category)
+            .WithMany(cat => cat.Models)
+            .HasForeignKey(c => c.CategoryId);
+
+        // Car - Attachment (one-to-many)
+        modelBuilder.Entity<Attachment>()
+            .HasOne(a => a.Model)
+            .WithMany(c => c.Attachments)
+            .HasForeignKey(a => a.ModelId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Car - Invoice (one-to-many)
+        modelBuilder.Entity<Invoice>()
+            .HasOne(i => i.Model)
+            .WithMany()
+            .HasForeignKey(i => i.ModelId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
