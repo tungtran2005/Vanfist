@@ -13,35 +13,35 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet = context.Set<T>();
     }
 
-    public async Task<T?> GetByIdAsync(int id)
+    public async Task<T?> FindById(int id)
     {
         return await _dbSet.FindAsync(id);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T>> FindAll()
     {
         return await _dbSet.ToListAsync();
     }
 
-    public async Task<T> AddAsync(T entity)
+    public async Task<T> Save(T entity)
     {
         await _dbSet.AddAsync(entity);
         return entity;
     }
 
-    public Task UpdateAsync(T entity)
+    public Task Update(T entity)
     {
         _dbSet.Update(entity);
         return Task.CompletedTask;
     }
 
-    public Task DeleteAsync(T entity)
+    public Task Delete(T entity)
     {
         _dbSet.Remove(entity);
         return Task.CompletedTask;
     }
 
-    public async Task SaveChangesAsync()
+    public async Task SaveChanges()
     {
         await _context.SaveChangesAsync();
     }

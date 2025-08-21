@@ -29,4 +29,15 @@ public class AccountResponse
             account.Number ?? string.Empty
         );
     }
+
+    public override string ToString()
+    {
+        return $"\nAccountResponse {{" +
+               $"\n\tId: {Id}, " +
+               $"\n\tEmail: {Email}, " +
+               $"\n\tFirstName: {FirstName}, " +
+               $"\n\tLastName: {LastName}, " +
+               $"\n\tNumber: {Number}" +
+               $"\n}}";
+    }
 }

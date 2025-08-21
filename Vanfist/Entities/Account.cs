@@ -8,9 +8,9 @@ public class Account
 
     [Required, StringLength(255)]
     [EmailAddress]
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; }
 
-    [Required, StringLength(255)] public string Password { get; set; } = string.Empty;
+    [Required, StringLength(255)] public string Password { get; set; }
 
     [StringLength(255)] public string? FirstName { get; set; }
 
@@ -23,4 +23,15 @@ public class Account
     public ICollection<Address> Addresses { get; set; } = new List<Address>();
 
     public ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+
+    public override string ToString()
+    {
+        return $"\nAccount {{" +
+               $"\nId: {Id}, " +
+               $"\nEmail: {Email}, " +
+               $"\nFirstName: {FirstName}, " +
+               $"\nLastName: {LastName}, " +
+               $"\nNumber: {Number}" +
+               $"}}";
+    }
 }

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vanfist.DTOs.Requests;
@@ -9,11 +11,15 @@ namespace Vanfist.Controllers;
 public class AuthController : Controller
 {
     private readonly IAuthService _authService;
+    private readonly IAccountService _accountService;
     private readonly ILogger<AuthController> _logger;
 
-    public AuthController(IAuthService authService, ILogger<AuthController> logger)
+    public AuthController(IAuthService authService, 
+        IAccountService accountService,
+        ILogger<AuthController> logger)
     {
         _authService = authService;
+        _accountService = accountService;
         _logger = logger;
     }
 
@@ -90,11 +96,11 @@ public class AuthController : Controller
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = Constants.Role.User + "," + Constants.Role.Admin)]
     [HttpPost]
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
-        HttpContext.Session.Clear();
-        return RedirectToAction("Index", "Home");
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Login", "Auth");
     }
 }

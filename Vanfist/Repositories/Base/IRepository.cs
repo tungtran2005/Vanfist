@@ -2,10 +2,10 @@ namespace Vanfist.Repositories;
 
 public interface IRepository<T> where T : class
 {
-    Task<T?> GetByIdAsync(int id);
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<T> AddAsync(T entity);
-    Task UpdateAsync(T entity);
-    Task DeleteAsync(T entity);
-    Task SaveChangesAsync();
+    Task<T?> FindById(int id);
+    Task<IEnumerable<T>> FindAll();
+    Task<T> Save(T entity);
+    Task Update(T entity);
+    Task Delete(T entity);
+    Task SaveChanges();
 }

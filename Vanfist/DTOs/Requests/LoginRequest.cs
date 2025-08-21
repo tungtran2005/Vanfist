@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Vanfist.DTOs.Requests;
 
@@ -13,4 +12,12 @@ public class LoginRequest
     [Required]
     [StringLength(255)]
     public string Password { get; set; } = string.Empty;
+
+    public override string ToString()
+    {
+        return $"\nLoginRequest {{" +
+               $"\n\tEmail: {Email}, " +
+               $"\n\tPassword: {Password}" +
+               $"\n}}";
+    }
 }

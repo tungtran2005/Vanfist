@@ -1,4 +1,5 @@
-﻿using Vanfist.Entities;
+﻿using System.Security.Claims;
+using Vanfist.Entities;
 using Vanfist.Repositories;
 using Vanfist.DTOs.Responses;
 using LoginRequest = Vanfist.DTOs.Requests.LoginRequest;
@@ -6,9 +7,12 @@ using RegisterRequest = Vanfist.DTOs.Requests.RegisterRequest;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Vanfist.Configuration.Database;
 using Vanfist.Constants;
 using Vanfist.Services.Base;
+using Vanfist.Utils;
 
 namespace Vanfist.Services.Impl;
 
@@ -17,18 +21,22 @@ public class AuthService : Service, IAuthService
     private readonly ILogger<AuthService> _logger;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IAccountRepository _accountRepository;
+    private readonly IRoleRepository _roleRepository;
 
-    public AuthService(ILogger<AuthService> logger,
+    public AuthService(
+        ILogger<AuthService> logger,
         IHttpContextAccessor httpContextAccessor,
         IAccountRepository accountRepository,
+        IRoleRepository roleRepository,
         ApplicationDbContext context) 
         : base(context)
     {
         _logger = logger;
         _httpContextAccessor = httpContextAccessor;
         _accountRepository = accountRepository;
+        _roleRepository = roleRepository;
     }
-
+    
     public async Task<AccountResponse> Register(RegisterRequest request)
     {
         _logger.LogInformation("(Register) request: {request}", request);
@@ -46,14 +54,21 @@ public class AuthService : Service, IAuthService
         var account = new Account
         {
             Email = request.Email,
-            Password = Encode(request.Password),
+            Password = PasswordUtil.Encode(request.Password),
             FirstName = request.FirstName,
             LastName = request.LastName,
             Number = request.Number
         };
-
-        await _accountRepository.AddAsync(account);
-        await _accountRepository.SaveChangesAsync();
+        
+        var userRole = await _roleRepository.FindByName(Constants.Role.User);
+        if (userRole == null)
+        {
+            throw new InvalidOperationException("User role not found");
+        }
+        account.Roles.Add(userRole);
+        
+        await _accountRepository.Save(account);
+        await _accountRepository.SaveChanges();
 
         _logger.LogInformation("(Register) create account successfully. Account: {account}", account);
 
@@ -62,45 +77,60 @@ public class AuthService : Service, IAuthService
 
     public async Task<AccountResponse> Login(LoginRequest request)
     {
-        _logger.LogInformation("(Login) request: {request}", request);
+        _logger.LogInformation("(Login) request: {request}", request.ToString());
 
         _logger.LogDebug("(Login) find account by email");
-        var account = await _context.Accounts
-            .FirstOrDefaultAsync(a => a.Email == request.Email);
-
+        var account = await _accountRepository.FindByEmail(request.Email);
         if (account == null)
         {
-            throw new InvalidOperationException("Email not found");
+            throw new InvalidOperationException("Email này chưa được đăng ký");
         }
 
         _logger.LogDebug("(Login) verify password");
-        if (!VerifyPassword(request.Password, account.Password))
+        if (!PasswordUtil.Verify(request.Password, account.Password))
         {
-            throw new InvalidOperationException("Password is incorrect");
+            throw new InvalidOperationException("Mật khẩu không đúng");
         }
 
-        _logger.LogDebug("(Login) create session");
-        var context = _httpContextAccessor.HttpContext
-            ?? throw new InvalidOperationException("HttpContext is null");
+        _logger.LogDebug("(Login) create cookie");
+        CreateLoginCookie(account);
         
-        context.Session.SetInt32(Session.AccountId, account.Id);
-
         var response = AccountResponse.From(account);
         _logger.LogInformation("(Login) User logged in successfully. Response: {response}", response);
 
         return response;
     }
-
-    private string Encode(string password)
+    
+    private void CreateLoginCookie(Account account)
     {
-        using var sha256 = SHA256.Create();
-        var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-        return Convert.ToBase64String(hashedBytes);
-    }
+        _logger.LogDebug("(Login) create login cookie for account: {account}", account);
+        
+        var context = _httpContextAccessor.HttpContext
+            ?? throw new InvalidOperationException("HttpContext is null");
 
-    private bool VerifyPassword(string password, string hashedPassword)
-    {
-        var hashedInput = Encode(password);
-        return hashedInput == hashedPassword;
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+            new Claim(ClaimTypes.Email, account.Email)
+        };
+        
+        foreach (var role in account.Roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role.Name));
+        }
+
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        var authProperties = new AuthenticationProperties
+        {
+            IsPersistent = true,
+            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+        };
+
+        context.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity),
+            authProperties
+        ).GetAwaiter().GetResult();
     }
 }

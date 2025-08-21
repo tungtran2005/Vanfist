@@ -3,5 +3,5 @@
 public class Attachment
 {
     public const string Banner = "Banner";
-    public const string Car = "Car";
+    public const string Model = "Model";
 }

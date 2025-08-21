@@ -3,6 +3,9 @@ using Vanfist.Repositories;
 using Vanfist.Services.Base;
 using Microsoft.EntityFrameworkCore;
 using Vanfist.Configuration.Database;
+using Vanfist.DTOs.Requests;
+using Vanfist.Entities;
+using Vanfist.Utils;
 
 namespace Vanfist.Services.Impl;
 
@@ -11,7 +14,8 @@ public class AccountService : Service, IAccountService
     private readonly ILogger<AccountService> _logger;
     private readonly IAccountRepository _accountRepository;
 
-    public AccountService(ILogger<AccountService> logger,
+    public AccountService(
+        ILogger<AccountService> logger,
         IAccountRepository accountRepository,
         ApplicationDbContext context)
         : base(context)
@@ -24,8 +28,7 @@ public class AccountService : Service, IAccountService
     {
         _logger.LogInformation("(FindById) id: {id}", id);
         
-        var account = await _context.Accounts
-            .FirstOrDefaultAsync(a => a.Id == id);
+        var account = await _accountRepository.FindById(id);
         
         if (account == null)
         {

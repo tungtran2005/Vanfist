@@ -17,32 +17,29 @@ public class AccountController : Controller
         _accountService = accountService;
     }
 
-    [Authorize]
+    [Authorize(Roles = Constants.Role.User + "," + Constants.Role.Admin)]
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var userId = HttpContext.Session.GetInt32(Session.AccountId);
-        var isLoggedIn = userId.HasValue;
-        ViewBag.IsLoggedIn = isLoggedIn;
+        try
+        {
+            var userIdClaim = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
 
-        if (isLoggedIn)
-        {
-            try
-            {
-                ViewBag.Account = await _accountService.FindById(userId.Value);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to load account for user id {userId}", userId);
-                ViewBag.Account = null;
-                ViewBag.IsLoggedIn = false;
-            }
+            int userId = int.Parse(userIdClaim.Value);
+
+            var account = await _accountService.FindById(userId);
+
+            ViewBag.IsLoggedIn = true;
+            ViewBag.Account = account;
         }
-        else
+        catch (Exception ex)
         {
+            _logger.LogError(ex, "Lỗi khi load profile");
+            ViewBag.IsLoggedIn = false;
             ViewBag.Account = null;
         }
 
         return View();
     }
+
 }

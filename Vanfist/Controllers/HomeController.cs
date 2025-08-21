@@ -23,7 +23,7 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var userId = HttpContext.Session.GetInt32(Session.AccountId);
+        var userId = null as int?;
         var isLoggedIn = userId.HasValue;
         ViewBag.IsLoggedIn = isLoggedIn;
 

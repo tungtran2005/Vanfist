@@ -1,7 +1,6 @@
-﻿using Vanfist.DTOs.Responses;
+﻿using Vanfist.DTOs.Requests;
+using Vanfist.DTOs.Responses;
 using Vanfist.Services.Base;
-using LoginRequest = Vanfist.DTOs.Requests.LoginRequest;
-using RegisterRequest = Vanfist.DTOs.Requests.RegisterRequest;
 
 namespace Vanfist.Services;
 

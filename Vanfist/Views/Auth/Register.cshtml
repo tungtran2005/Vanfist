@@ -9,7 +9,7 @@
         <div class="col-md-8 col-lg-6">
             <div class="card shadow">
                 <div class="card-header bg-success text-white text-center">
-                    <h3 class="mb-0">Create Account</h3>
+                    <h3 class="mb-0">Đăng ký tài khoản</h3>
                 </div>
                 <div class="card-body">
                     <form asp-action="Register" method="post">
@@ -17,14 +17,14 @@
                         
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label asp-for="FirstName" class="form-label">First Name</label>
-                                <input asp-for="FirstName" class="form-control" placeholder="Enter your first name" />
+                                <label asp-for="FirstName" class="form-label">Tên</label>
+                                <input asp-for="FirstName" class="form-control" placeholder="Tên" />
                                 <span asp-validation-for="FirstName" class="text-danger"></span>
                             </div>
                             
                             <div class="col-md-6 mb-3">
-                                <label asp-for="LastName" class="form-label">Last Name</label>
-                                <input asp-for="LastName" class="form-control" placeholder="Enter your last name" />
+                                <label asp-for="LastName" class="form-label">Họ</label>
+                                <input asp-for="LastName" class="form-control" placeholder="Họ" />
                                 <span asp-validation-for="LastName" class="text-danger"></span>
                             </div>
                         </div>
@@ -36,24 +36,24 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="Number" class="form-label">Phone Number</label>
-                            <input asp-for="Number" class="form-control" placeholder="Enter your phone number" />
+                            <label asp-for="Number" class="form-label">Số điện thoại</label>
+                            <input asp-for="Number" class="form-control" placeholder="Số điện thoại" />
                             <span asp-validation-for="Number" class="text-danger"></span>
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="Password" class="form-label">Password</label>
-                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                            <label asp-for="Password" class="form-label">Mật khẩu</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Mật khẩu" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-success">Register</button>
+                            <button type="submit" class="btn btn-success">Đăng ký</button>
                         </div>
                     </form>
                     
                     <div class="text-center mt-3">
-                        <p class="mb-0">Already have an account? <a asp-action="Login" class="text-decoration-none">Login here</a></p>
+                        <p class="mb-0">Đã có tài khoản? <a asp-action="Login" class="text-decoration-none">Đăng nhập</a></p>
                     </div>
                 </div>
             </div>

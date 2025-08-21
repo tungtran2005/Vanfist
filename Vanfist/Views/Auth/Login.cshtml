@@ -1,7 +1,7 @@
 @model Vanfist.DTOs.Requests.LoginRequest
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Đăng nhập";
 }
 
 <div class="container mt-5">
@@ -9,7 +9,7 @@
         <div class="col-md-6 col-lg-4">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white text-center">
-                    <h3 class="mb-0">Login</h3>
+                    <h3 class="mb-0">Đăng nhập</h3>
                 </div>
                 <div class="card-body">
                     @if (TempData["SuccessMessage"] != null)
@@ -25,23 +25,23 @@
                         
                         <div class="mb-3">
                             <label asp-for="Email" class="form-label">Email</label>
-                            <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                            <input asp-for="Email" class="form-control" placeholder="Email" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="Password" class="form-label">Password</label>
-                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                            <label asp-for="Password" class="form-label">Mật khẩu</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Mật khẩu" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
                         </div>
                     </form>
                     
                     <div class="text-center mt-3">
-                        <p class="mb-0">Don't have an account? <a asp-action="Register" class="text-decoration-none">Register here</a></p>
+                        <p class="mb-0">Chưa có tài khoản? <a asp-action="Register" class="text-decoration-none">Đăng ký tài khoản</a></p>
                     </div>
                 </div>
             </div>

@@ -2,60 +2,54 @@
 	ViewData["Title"] = "Profile";
 	var account = ViewBag.Account;
 	var isLoggedIn = (bool?)ViewBag.IsLoggedIn == true;
+	var initial = string.IsNullOrWhiteSpace((string)account.FirstName) ? "U" : ((string)account.FirstName).Substring(0,1).ToUpperInvariant();
 }
 
 <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
 
 <div class="container my-4">
-	@if (!isLoggedIn || account == null)
-	{
-		<div class="alert alert-warning">You are not logged in. Please <a asp-controller="Auth" asp-action="Login">log in</a>.</div>
-	}
-	else
-	{
-		var initial = string.IsNullOrWhiteSpace((string)account.FirstName) ? "U" : ((string)account.FirstName).Substring(0,1).ToUpperInvariant();
 		<div class="row g-4">
 			<div class="col-12 col-lg-3">
 				<div class="card shadow-sm mb-3">
 					<div class="card-body d-flex align-items-center">
 						<div class="avatar-circle me-3">@initial</div>
 						<div>
-							<div class="text-muted">Hello,</div>
+							<div class="text-muted">Xin chào,</div>
 							<div class="fw-semibold">@account.FirstName @account.LastName</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="card shadow-sm">
-					<div class="card-header bg-white fw-semibold">Car info</div>
+					<div class="card-header bg-white fw-semibold">Thông tin xe</div>
 					<ul class="list-group list-group-flush small">
-						<li class="list-group-item d-flex align-items-center">My Car</li>
+						<li class="list-group-item d-flex align-items-center">Xe của tôi</li>
 					</ul>
 				</div>
 
 				<div class="card shadow-sm mt-3">
-					<div class="card-header bg-white fw-semibold">Orders and Services</div>
+					<div class="card-header bg-white fw-semibold">Đặt hàng và dịch vụ</div>
 					<ul class="list-group list-group-flush small">
-						<li class="list-group-item">Transaction History</li>
-						<li class="list-group-item">Maintenance - Repairs</li>
-						<li class="list-group-item">Battery Leasing</li>
-						<li class="list-group-item">Charging History</li>
+						<li class="list-group-item">Lịch sử giao dịch</li>
+						<li class="list-group-item">Bảo dưỡng - Sửa chữa</li>
+						<li class="list-group-item">Thuê pin</li>
+						<li class="list-group-item">Lịch sử sạc pin</li>
 					</ul>
 				</div>
 				
 				<div class="card shadow-sm mt-3">
-					<div class="card-header bg-white fw-semibold">Account</div>
+					<div class="card-header bg-white fw-semibold">Tài khoản</div>
 					<ul class="list-group list-group-flush small">
 						<li class="list-group-item">
 							<form asp-controller="Account" asp-action="Index" method="get">
-								<button type="submit" class="btn btn-link p-0 text-decoration-none">Personal Information</button>
+								<button type="submit" class="btn btn-link p-0 text-decoration-none">Thông tin cá nhân</button>
 							</form>
 						</li>
-						<li class="list-group-item">Support Request</li>
-						<li class="list-group-item">Contact</li>
+						<li class="list-group-item">Yêu cầu hỗ trợ</li>
+						<li class="list-group-item">Liên hệ</li>
 						<li class="list-group-item">
 							<form asp-controller="Auth" asp-action="Logout" method="post" class="m-0 p-0">
-								<button type="submit" class="btn btn-link p-0 text-decoration-none">Logout</button>
+								<button type="submit" class="btn btn-link p-0 text-decoration-none">Đăng xuất</button>
 							</form>
 						</li>
 					</ul>
@@ -65,13 +59,13 @@
 			<div class="col-12 col-lg-9">
 				<div class="card shadow-sm">
 					<div class="card-header bg-white d-flex justify-content-between align-items-center">
-						<div class="fw-semibold">Profile</div>
-						<a href="#" class="small">Edit profile</a>
+						<div class="fw-semibold">Thông tin cá nhân</div>
+						<a href="#" class="small">Chỉnh sửa thông tin</a>
 					</div>
 					<div class="card-body">
 						<div class="row g-3">
 							<div class="col-12 col-md-6">
-								<div class="text-muted small">Full Name</div>
+								<div class="text-muted small">Họ và tên</div>
 								<div class="fw-semibold">@account.FirstName @account.LastName</div>
 							</div>
 							<div class="col-12 col-md-6">
@@ -79,7 +73,7 @@
 								<div class="fw-semibold">@account.Email</div>
 							</div>
 							<div class="col-12 col-md-6">
-								<div class="text-muted small">Phone Number</div>
+								<div class="text-muted small">Số điện thoại</div>
 								<div class="fw-semibold">@account.Number</div>
 							</div>
 						</div>
@@ -87,14 +81,13 @@
 						<hr class="my-4"/>
 
 						<div class="d-flex justify-content-between align-items-center">
-							<div class="text-muted small">Password</div>
-							<a href="#" class="small">Change password</a>
+							<div class="text-muted small">Mật khẩu</div>
+							<a href="#" class="small">Đổi mật khẩu</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	}
 </div>
 
 @section Scripts {
