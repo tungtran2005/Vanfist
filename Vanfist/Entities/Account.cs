@@ -24,6 +24,8 @@ public class Account
 
     public ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
 
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
+
     public override string ToString()
     {
         return $"\nAccount {{" +

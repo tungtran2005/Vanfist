@@ -25,4 +25,6 @@ public class Model
     public ICollection<Attachment> Attachments { get; set; } = new List<Attachment>();
 
     public ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+
+    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }

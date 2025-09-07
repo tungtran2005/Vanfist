@@ -15,6 +15,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Attachment> Attachments { get; set; }
     public DbSet<Invoice> Invoices { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,6 +59,29 @@ public class ApplicationDbContext : DbContext
             .HasOne(i => i.Model)
             .WithMany()
             .HasForeignKey(i => i.ModelId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
+
+        // Account (1) - (n) Order
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.Account)
+            .WithMany(a => a.Orders)
+            .HasForeignKey(o => o.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Order (1) - (1) OrderItem
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.Item)
+            .WithOne(oi => oi.Order)
+            .HasForeignKey<OrderItem>(oi => oi.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Model (1) - (n) OrderItem
+        modelBuilder.Entity<OrderItem>()
+            .HasOne(oi => oi.Model)
+            .WithMany(m => m.OrderItems)
+            .HasForeignKey(oi => oi.ModelId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
