@@ -1,28 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\btl\\vanfist\\vanfist\\configuration\\database\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\configuration\\database\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\btl\\vanfist\\vanfist\\entities\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\entities\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\btl\\vanfist\\vanfist\\entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\btl\\vanfist\\vanfist\\entities\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\entities\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\btl\\vanfist\\vanfist\\entities\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\entities\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,73 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 1417,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Configuration\\Database\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Configuration\\Database\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Configuration\\Database\\ApplicationDbContext.cs",
-              "RelativeToolTip": "Vanfist\\Configuration\\Database\\ApplicationDbContext.cs",
-              "ViewState": "AgIAADsAAAAAAAAAAAAAAFYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-07T14:32:50.646Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Model.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Entities\\Model.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Entities\\Model.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Entities\\Model.cs",
-              "RelativeToolTip": "Vanfist\\Entities\\Model.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAA0wBwAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-07T14:30:53.699Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Account.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Entities\\Account.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Entities\\Account.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Entities\\Account.cs",
-              "RelativeToolTip": "Vanfist\\Entities\\Account.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAowBsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-07T13:49:16.191Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Order.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Entities\\Order.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Entities\\Order.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Entities\\Order.cs",
-              "RelativeToolTip": "Vanfist\\Entities\\Order.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-07T13:43:44.427Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "OrderItem.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Entities\\OrderItem.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Entities\\OrderItem.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\BTL\\Vanfist\\Vanfist\\Entities\\OrderItem.cs",
-              "RelativeToolTip": "Vanfist\\Entities\\OrderItem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-07T13:44:59.292Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
