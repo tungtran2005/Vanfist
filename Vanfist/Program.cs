@@ -23,6 +23,7 @@ builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
 // Register services
 builder.Services.AddScoped<ICookieService, CookieService>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAddressService, AddressService>();

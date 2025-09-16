@@ -52,4 +52,21 @@ public class AccountController : Controller
 
         return RedirectToAction("Index");
     }
+
+    [Authorize(Roles = Constants.Role.UserAndAdmin)]
+    [HttpPost]
+    public async Task<IActionResult> ChangePassword(ChangePasswordRequest request)
+    {
+        try
+        {
+            _accountService.ChangePassword(request);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        return RedirectToAction("Index");
+    }
 }

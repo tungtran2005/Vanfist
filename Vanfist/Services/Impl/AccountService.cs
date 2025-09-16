@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using Vanfist.DTOs.Responses;
 using Vanfist.Repositories;
 using Vanfist.Services.Base;
@@ -95,6 +96,24 @@ public class AccountService : Service, IAccountService
 
         return AccountResponse.From(account);
     }
+
+    public async void ChangePassword(ChangePasswordRequest request)
+    {
+        var account = await GetAccountFromContextAsync();
+
+        var hasher = new PasswordHasher<Account>();
+
+        var result = hasher.VerifyHashedPassword(account, account.Password, request.OldPassword);
+        if (result == PasswordVerificationResult.Failed)
+        {
+            throw new InvalidOperationException("Mật khẩu cũ không đúng");
+        }
+
+        account.Password = hasher.HashPassword(account, request.NewPassword);
+
+        await _accountRepository.SaveChanges();
+    }
+
 
     private async Task<Account> GetAccountFromContextAsync()
     {

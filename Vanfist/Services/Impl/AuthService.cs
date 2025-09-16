@@ -3,15 +3,14 @@ using Vanfist.Repositories;
 using Vanfist.DTOs.Responses;
 using LoginRequest = Vanfist.DTOs.Requests.LoginRequest;
 using RegisterRequest = Vanfist.DTOs.Requests.RegisterRequest;
-using Vanfist.Configuration.Database;
 using Vanfist.Services.Base;
-using Vanfist.Utils;
 
 namespace Vanfist.Services.Impl;
 
 public class AuthService : Service, IAuthService
 {
     private readonly ICookieService _cookieService;
+    private readonly IPasswordService _passwordService;
     private readonly IAccountRepository _accountRepository;
     private readonly IRoleRepository _roleRepository;
     private readonly IAddressRepository _addressRepository;
@@ -20,11 +19,13 @@ public class AuthService : Service, IAuthService
         ICookieService cookieService,
         IAccountRepository accountRepository,
         IRoleRepository roleRepository,
-        IAddressRepository addressRepository)
+        IAddressRepository addressRepository,
+        IPasswordService passwordService)
     {
         _cookieService = cookieService;
         _accountRepository = accountRepository;
         _roleRepository = roleRepository;
+        _passwordService = passwordService;
         _addressRepository = addressRepository;
     }
     
@@ -39,11 +40,13 @@ public class AuthService : Service, IAuthService
         var account = new Account
         {
             Email = request.Email,
-            Password = PasswordUtil.Encode(request.Password),
             FirstName = request.FirstName,
             LastName = request.LastName,
             Number = request.Number
         };
+        
+        var hashedPassword = _passwordService.Encode(account, request.Password);
+        account.Password = hashedPassword;
         
         var userRole = await _roleRepository.FindByName(Constants.Role.User);
         if (userRole == null)
@@ -76,7 +79,7 @@ public class AuthService : Service, IAuthService
             throw new InvalidOperationException("Email này chưa được đăng ký");
         }
 
-        if (!PasswordUtil.Verify(request.Password, account.Password))
+        if (!_passwordService.Verify(account, account.Password, request.Password))
         {
             throw new InvalidOperationException("Mật khẩu không đúng");
         }
