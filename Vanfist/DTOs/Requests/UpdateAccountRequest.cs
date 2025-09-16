@@ -5,9 +5,18 @@ namespace Vanfist.DTOs.Requests;
 public class UpdateAccountRequest
 {
     
-    [StringLength(255, ErrorMessage = "First name must not exceed 255 characters.")]
+    [StringLength(255, ErrorMessage = "Tên có nhiều nhất 255 chữ cái.")]
     public string FirstName { get; set; } = string.Empty;
     
-    [StringLength(255, ErrorMessage = "Last name must not exceed 255 characters.")]
+    [StringLength(255, ErrorMessage = "Họ có nhiều nhất 255 chữ cái.")]
     public string LastName { get; set; } = string.Empty;
+    
+    [StringLength(20, ErrorMessage = "Số điện thoại phải đúng định dạng.")]
+    public string Number { get; set; } = string.Empty;
+    
+    [StringLength(255, ErrorMessage = "Địa chỉ chi tiết có nhiều nhất 255 chữ cái.")]
+    public string Detail { get; set; } = string.Empty;
+    
+    [StringLength(255, ErrorMessage = "Thành phố có nhiều nhất 255 chữ cái.")]
+    public string City { get; set; } = string.Empty;
 }

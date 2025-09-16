@@ -1,9 +1,9 @@
 ﻿@{
-	ViewData["Title"] = "Profile";
+	ViewData["Title"] = "Thông tin cá nhân";
 	var account = ViewBag.Account;
-	var isLoggedIn = (bool?)ViewBag.IsLoggedIn == true;
+	var defaultAddress = ViewBag.DefaultAddress;
+	
 	var initial = string.IsNullOrWhiteSpace((string)account.FirstName) ? "U" : ((string)account.FirstName).Substring(0,1).ToUpperInvariant();
-	var primaryAddress = account.Addresses?.FirstOrDefault();
 }
 
 <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
@@ -78,7 +78,7 @@
 							</div>
 							<div class="col-12 col-md-6">
 								<div class="text-muted small">Địa chỉ</div>
-								<div class="fw-semibold">@((primaryAddress == null || (string.IsNullOrWhiteSpace(primaryAddress.Detail) && string.IsNullOrWhiteSpace(primaryAddress.City))) ? "Chưa có" : $"{primaryAddress.Detail}, {primaryAddress.City}")</div>
+								<div class="fw-semibold">@((defaultAddress == null || (string.IsNullOrWhiteSpace(defaultAddress.Detail) && string.IsNullOrWhiteSpace(defaultAddress.City))) ? "Chưa có" : $"{defaultAddress.Detail}, {defaultAddress.City}")</div>
 							</div>
 						</div>
 
@@ -110,15 +110,15 @@
 							</div>
 							<div class="col-12 col-md-6">
 								<label class="form-label small text-muted" for="Number">Số điện thoại</label>
-								<input type="text" class="form-control" id="Number" name="Number" value="@account.Number" disabled="disabled"/>
+								<input type="text" class="form-control" id="Number" name="Number" value="@account.Number"/>
 							</div>
 							<div class="col-12 col-md-8">
 								<label class="form-label small text-muted" for="AddressDetail">Địa chỉ (chi tiết)</label>
-								<input type="text" class="form-control" id="AddressDetail" name="AddressDetail" value="@primaryAddress?.Detail" disabled="disabled" />
+								<input type="text" class="form-control" id="AddressDetail" name="AddressDetail" value="@defaultAddress?.Detail"/>
 							</div>
 							<div class="col-12 col-md-4">
 								<label class="form-label small text-muted" for="AddressCity">Tỉnh/Thành phố</label>
-								<input type="text" class="form-control" id="AddressCity" name="AddressCity" value="@primaryAddress?.City" disabled="disabled" />
+								<input type="text" class="form-control" id="AddressCity" name="AddressCity" value="@defaultAddress?.City"/>
 							</div>
 
 							<div class="col-12 d-flex gap-2 mt-2">

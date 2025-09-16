@@ -6,5 +6,6 @@ namespace Vanfist.Services;
 
 public interface IAccountService : IService
 {
+    Task<AccountResponse> getCurrentAccount();
     Task<AccountResponse> FindById(int id);
 }

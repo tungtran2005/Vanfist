@@ -5,22 +5,22 @@ namespace Vanfist.DTOs.Requests;
 
 public class RegisterRequest
 {
-    [Required(ErrorMessage = "Email is required.")]
-    [EmailAddress(ErrorMessage = "Invalid email format.")]
-    [StringLength(100, ErrorMessage = "Email must not exceed 100 characters.")]
+    [Required(ErrorMessage = "Email không được bỏ trống.")]
+    [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
+    [StringLength(100, ErrorMessage = "Email có nhiều nhất 100 ký tự.")]
     public string Email { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Password is required.")]
-    [MinLength(8, ErrorMessage = "Password must be at least 8 characters.")]
-    [MaxLength(50, ErrorMessage = "Password must not exceed 50 characters.")]
+    [Required(ErrorMessage = "Mật khẩu không được bỏ trống.")]
+    [MinLength(8, ErrorMessage = "Mật khẩu có ít nhất 8 ký tự.")]
+    [MaxLength(50, ErrorMessage = "Mật khẩu có nhiều nhất 50 ký tự.")]
     public string Password { get; set; } = string.Empty;
 
-    [StringLength(255, ErrorMessage = "First name must not exceed 255 characters.")]
+    [StringLength(255, ErrorMessage = "Tên có nhiều nhất 255 ký tự.")]
     public string FirstName { get; set; } = string.Empty;
 
-    [StringLength(255, ErrorMessage = "Last name must not exceed 255 characters.")]
+    [StringLength(255, ErrorMessage = "Họ có nhiều nhất 255 ký tự.")]
     public string LastName { get; set; } = string.Empty;
 
-    [StringLength(255, ErrorMessage = "Phone number must not exceed 255 characters.")]
+    [StringLength(20, ErrorMessage = "Số điện thoại không hợp lệ.")]
     public string Number { get; set; } = string.Empty;
 }
