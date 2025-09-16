@@ -11,15 +11,12 @@ namespace Vanfist.Controllers;
 public class AuthController : Controller
 {
     private readonly IAuthService _authService;
-    private readonly IAccountService _accountService;
     private readonly ILogger<AuthController> _logger;
 
-    public AuthController(IAuthService authService, 
-        IAccountService accountService,
+    public AuthController(IAuthService authService,
         ILogger<AuthController> logger)
     {
         _authService = authService;
-        _accountService = accountService;
         _logger = logger;
     }
 
@@ -42,7 +39,7 @@ public class AuthController : Controller
         try
         {
             var response = await _authService.Login(request);
-            
+
             return RedirectToAction("Index", "Home");
         }
         catch (InvalidOperationException ex)
@@ -78,8 +75,8 @@ public class AuthController : Controller
         try
         {
             var response = await _authService.Register(request);
-            
-            TempData["SuccessMessage"] = "Registration successful! Please log in.";
+
+            TempData["SuccessMessage"] = "Đăng ký thành công! Mời quý khách đăng nhập.";
             return RedirectToAction("Login");
         }
         catch (InvalidOperationException ex)
@@ -96,7 +93,7 @@ public class AuthController : Controller
         }
     }
 
-    [Authorize(Roles = Constants.Role.User + "," + Constants.Role.Admin)]
+    [Authorize(Roles = Constants.Role.UserAndAdmin)]
     [HttpPost]
     public async Task<IActionResult> Logout()
     {

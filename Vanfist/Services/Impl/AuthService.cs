@@ -1,16 +1,9 @@
-﻿using System.Security.Claims;
-using Vanfist.Entities;
+﻿using Vanfist.Entities;
 using Vanfist.Repositories;
 using Vanfist.DTOs.Responses;
 using LoginRequest = Vanfist.DTOs.Requests.LoginRequest;
 using RegisterRequest = Vanfist.DTOs.Requests.RegisterRequest;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System.Text;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Vanfist.Configuration.Database;
-using Vanfist.Constants;
 using Vanfist.Services.Base;
 using Vanfist.Utils;
 
@@ -18,39 +11,28 @@ namespace Vanfist.Services.Impl;
 
 public class AuthService : Service, IAuthService
 {
-    private readonly ILogger<AuthService> _logger;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ICookieService _cookieService;
     private readonly IAccountRepository _accountRepository;
     private readonly IRoleRepository _roleRepository;
 
     public AuthService(
-        ILogger<AuthService> logger,
-        IHttpContextAccessor httpContextAccessor,
+        ICookieService cookieService,
         IAccountRepository accountRepository,
-        IRoleRepository roleRepository,
-        ApplicationDbContext context) 
-        : base(context)
+        IRoleRepository roleRepository)
     {
-        _logger = logger;
-        _httpContextAccessor = httpContextAccessor;
+        _cookieService = cookieService;
         _accountRepository = accountRepository;
         _roleRepository = roleRepository;
     }
     
     public async Task<AccountResponse> Register(RegisterRequest request)
     {
-        _logger.LogInformation("(Register) request: {request}", request);
-
-        _logger.LogDebug("(Register) check if email already exists");
-        var existingAccount = await _context.Accounts
-            .FirstOrDefaultAsync(a => a.Email == request.Email);
-
+        var existingAccount = await _accountRepository.FindByEmail(request.Email);
         if (existingAccount != null)
         {
             throw new InvalidOperationException("Email already registered");
         }
 
-        _logger.LogDebug("(Register) create new account");
         var account = new Account
         {
             Email = request.Email,
@@ -63,74 +45,33 @@ public class AuthService : Service, IAuthService
         var userRole = await _roleRepository.FindByName(Constants.Role.User);
         if (userRole == null)
         {
-            throw new InvalidOperationException("User role not found");
+            throw new InvalidOperationException("Không tìm thấy vai trò người dùng");
         }
         account.Roles.Add(userRole);
         
         await _accountRepository.Save(account);
         await _accountRepository.SaveChanges();
 
-        _logger.LogInformation("(Register) create account successfully. Account: {account}", account);
-
-        return AccountResponse.From(account);
+        return AccountResponse.From(account, false);
     }
 
     public async Task<AccountResponse> Login(LoginRequest request)
     {
-        _logger.LogInformation("(Login) request: {request}", request.ToString());
-
-        _logger.LogDebug("(Login) find account by email");
         var account = await _accountRepository.FindByEmail(request.Email);
         if (account == null)
         {
             throw new InvalidOperationException("Email này chưa được đăng ký");
         }
 
-        _logger.LogDebug("(Login) verify password");
         if (!PasswordUtil.Verify(request.Password, account.Password))
         {
             throw new InvalidOperationException("Mật khẩu không đúng");
         }
 
-        _logger.LogDebug("(Login) create cookie");
-        CreateLoginCookie(account);
+        _cookieService.CreateLoginCookie(account);
         
-        var response = AccountResponse.From(account);
-        _logger.LogInformation("(Login) User logged in successfully. Response: {response}", response);
+        var response = AccountResponse.From(account, true);
 
         return response;
-    }
-    
-    private void CreateLoginCookie(Account account)
-    {
-        _logger.LogDebug("(Login) create login cookie for account: {account}", account);
-        
-        var context = _httpContextAccessor.HttpContext
-            ?? throw new InvalidOperationException("HttpContext is null");
-
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
-            new Claim(ClaimTypes.Email, account.Email)
-        };
-        
-        foreach (var role in account.Roles)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role.Name));
-        }
-
-        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-        var authProperties = new AuthenticationProperties
-        {
-            IsPersistent = true,
-            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
-        };
-
-        context.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(claimsIdentity),
-            authProperties
-        ).GetAwaiter().GetResult();
     }
 }

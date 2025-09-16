@@ -17,7 +17,7 @@ public class AccountController : Controller
         _accountService = accountService;
     }
 
-    [Authorize(Roles = Constants.Role.User + "," + Constants.Role.Admin)]
+    [Authorize(Roles = Constants.Role.UserAndAdmin)]
     [HttpGet]
     public async Task<IActionResult> Index()
     {
@@ -41,5 +41,29 @@ public class AccountController : Controller
 
         return View();
     }
+    
+    [Authorize(Roles = Constants.Role.UserAndAdmin)]
+    [HttpGet]
+    public async Task<IActionResult> UpdateInformation()
+    {
+        try
+        {
+            var userIdClaim = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
 
+            int userId = int.Parse(userIdClaim.Value);
+
+            var account = await _accountService.FindById(userId);
+
+            ViewBag.IsLoggedIn = true;
+            ViewBag.Account = account;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Lỗi khi load profile");
+            ViewBag.IsLoggedIn = false;
+            ViewBag.Account = null;
+        }
+
+        return View();
+    }
 }

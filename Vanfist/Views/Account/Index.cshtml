@@ -3,6 +3,7 @@
 	var account = ViewBag.Account;
 	var isLoggedIn = (bool?)ViewBag.IsLoggedIn == true;
 	var initial = string.IsNullOrWhiteSpace((string)account.FirstName) ? "U" : ((string)account.FirstName).Substring(0,1).ToUpperInvariant();
+	var primaryAddress = account.Addresses?.FirstOrDefault();
 }
 
 <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
@@ -23,30 +24,28 @@
 				<div class="card shadow-sm">
 					<div class="card-header bg-white fw-semibold">Thông tin xe</div>
 					<ul class="list-group list-group-flush small">
-						<li class="list-group-item d-flex align-items-center">Xe của tôi</li>
+						<li class="list-group-item d-flex align-items-center">
+							<a href="#" class="text-decoration-none section-link" data-section="vehicles">Xe của tôi</a>
+						</li>
 					</ul>
 				</div>
 
 				<div class="card shadow-sm mt-3">
 					<div class="card-header bg-white fw-semibold">Đặt hàng và dịch vụ</div>
 					<ul class="list-group list-group-flush small">
-						<li class="list-group-item">Lịch sử giao dịch</li>
-						<li class="list-group-item">Bảo dưỡng - Sửa chữa</li>
-						<li class="list-group-item">Thuê pin</li>
-						<li class="list-group-item">Lịch sử sạc pin</li>
+						<li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="transactions">Lịch sử giao dịch</a></li>
+						<li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="maintenance">Bảo dưỡng - Sửa chữa</a></li>
+						<li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="battery">Thuê pin</a></li>
+						<li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="charging">Lịch sử sạc pin</a></li>
 					</ul>
 				</div>
 				
 				<div class="card shadow-sm mt-3">
 					<div class="card-header bg-white fw-semibold">Tài khoản</div>
 					<ul class="list-group list-group-flush small">
-						<li class="list-group-item">
-							<form asp-controller="Account" asp-action="Index" method="get">
-								<button type="submit" class="btn btn-link p-0 text-decoration-none">Thông tin cá nhân</button>
-							</form>
-						</li>
-						<li class="list-group-item">Yêu cầu hỗ trợ</li>
-						<li class="list-group-item">Liên hệ</li>
+						<li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="personal">Thông tin cá nhân</a></li>
+						<li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="support">Yêu cầu hỗ trợ</a></li>
+						<li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="contact">Liên hệ</a></li>
 						<li class="list-group-item">
 							<form asp-controller="Auth" asp-action="Logout" method="post" class="m-0 p-0">
 								<button type="submit" class="btn btn-link p-0 text-decoration-none">Đăng xuất</button>
@@ -57,10 +56,11 @@
 			</div>
 
 			<div class="col-12 col-lg-9">
-				<div class="card shadow-sm">
+				<!-- Personal Info -->
+				<div id="section-personal" class="card shadow-sm content-section">
 					<div class="card-header bg-white d-flex justify-content-between align-items-center">
 						<div class="fw-semibold">Thông tin cá nhân</div>
-						<a href="#" class="small">Chỉnh sửa thông tin</a>
+						<a href="#" class="small section-link" data-section="update">Chỉnh sửa thông tin</a>
 					</div>
 					<div class="card-body">
 						<div class="row g-3">
@@ -76,14 +76,139 @@
 								<div class="text-muted small">Số điện thoại</div>
 								<div class="fw-semibold">@account.Number</div>
 							</div>
+							<div class="col-12 col-md-6">
+								<div class="text-muted small">Địa chỉ</div>
+								<div class="fw-semibold">@((primaryAddress == null || (string.IsNullOrWhiteSpace(primaryAddress.Detail) && string.IsNullOrWhiteSpace(primaryAddress.City))) ? "Chưa có" : $"{primaryAddress.Detail}, {primaryAddress.City}")</div>
+							</div>
 						</div>
 
 						<hr class="my-4"/>
 
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="text-muted small">Mật khẩu</div>
-							<a href="#" class="small">Đổi mật khẩu</a>
+							<a href="#" class="small section-link" data-section="change-password">Đổi mật khẩu</a>
 						</div>
+					</div>
+				</div>
+
+				<!-- Update Information -->
+				<div id="section-update" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Cập nhật thông tin</div>
+					<div class="card-body">
+						<form asp-controller="Account" asp-action="UpdateInformation" method="post" class="row g-3">
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="FirstName">Họ</label>
+								<input type="text" class="form-control" id="FirstName" name="FirstName" value="@account.FirstName" />
+							</div>
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="LastName">Tên</label>
+								<input type="text" class="form-control" id="LastName" name="LastName" value="@account.LastName" />
+							</div>
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="Email">Email</label>
+								<input type="email" class="form-control" id="Email" name="Email" value="@account.Email" disabled="disabled" />
+							</div>
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="Number">Số điện thoại</label>
+								<input type="text" class="form-control" id="Number" name="Number" value="@account.Number" disabled="disabled"/>
+							</div>
+							<div class="col-12 col-md-8">
+								<label class="form-label small text-muted" for="AddressDetail">Địa chỉ (chi tiết)</label>
+								<input type="text" class="form-control" id="AddressDetail" name="AddressDetail" value="@primaryAddress?.Detail" disabled="disabled" />
+							</div>
+							<div class="col-12 col-md-4">
+								<label class="form-label small text-muted" for="AddressCity">Tỉnh/Thành phố</label>
+								<input type="text" class="form-control" id="AddressCity" name="AddressCity" value="@primaryAddress?.City" disabled="disabled" />
+							</div>
+
+							<div class="col-12 d-flex gap-2 mt-2">
+								<button type="button" class="btn btn-outline-secondary section-link" data-section="personal">Trở về</button>
+								<button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Change Password -->
+				<div id="section-change-password" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Đổi mật khẩu</div>
+					<div class="card-body">
+						<form asp-controller="Account" asp-action="ChangePassword" method="post" class="row g-3">
+							@Html.AntiForgeryToken()
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="CurrentPassword">Mật khẩu hiện tại</label>
+								<input type="password" class="form-control" id="CurrentPassword" name="CurrentPassword" />
+							</div>
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="NewPassword">Mật khẩu mới</label>
+								<input type="password" class="form-control" id="NewPassword" name="NewPassword" />
+							</div>
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="ConfirmPassword">Xác nhận mật khẩu mới</label>
+								<input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" />
+							</div>
+
+							<div class="col-12 d-flex gap-2 mt-2">
+								<button type="button" class="btn btn-outline-secondary section-link" data-section="personal">Trở về</button>
+								<button type="submit" class="btn btn-primary">Xác nhận</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Vehicles -->
+				<div id="section-vehicles" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Xe của tôi</div>
+					<div class="card-body">
+						<div class="text-muted">Danh sách xe sẽ hiển thị tại đây.</div>
+					</div>
+				</div>
+
+				<!-- Transactions -->
+				<div id="section-transactions" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Lịch sử giao dịch</div>
+					<div class="card-body">
+						<div class="text-muted">Nội dung lịch sử giao dịch.</div>
+					</div>
+				</div>
+
+				<!-- Maintenance -->
+				<div id="section-maintenance" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Bảo dưỡng - Sửa chữa</div>
+					<div class="card-body">
+						<div class="text-muted">Nội dung bảo dưỡng - sửa chữa.</div>
+					</div>
+				</div>
+
+				<!-- Battery Rental -->
+				<div id="section-battery" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Thuê pin</div>
+					<div class="card-body">
+						<div class="text-muted">Nội dung thuê pin.</div>
+					</div>
+				</div>
+
+				<!-- Charging History -->
+				<div id="section-charging" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Lịch sử sạc pin</div>
+					<div class="card-body">
+						<div class="text-muted">Nội dung lịch sử sạc pin.</div>
+					</div>
+				</div>
+
+				<!-- Support -->
+				<div id="section-support" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Yêu cầu hỗ trợ</div>
+					<div class="card-body">
+						<div class="text-muted">Nội dung yêu cầu hỗ trợ.</div>
+					</div>
+				</div>
+
+				<!-- Contact -->
+				<div id="section-contact" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Liên hệ</div>
+					<div class="card-body">
+						<div class="text-muted">Thông tin liên hệ.</div>
 					</div>
 				</div>
 			</div>
@@ -92,4 +217,27 @@
 
 @section Scripts {
 	@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const links = document.querySelectorAll('.section-link');
+			const sections = document.querySelectorAll('.content-section');
+
+			function showSection(name) {
+				sections.forEach(s => s.style.display = 'none');
+				const el = document.getElementById(`section-${name}`);
+				if (el) el.style.display = '';
+			}
+
+			links.forEach(link => {
+				link.addEventListener('click', function (e) {
+					e.preventDefault();
+					const section = this.getAttribute('data-section');
+					showSection(section);
+				});
+			});
+
+			// Default section
+			showSection('personal');
+		});
+	</script>
 }
