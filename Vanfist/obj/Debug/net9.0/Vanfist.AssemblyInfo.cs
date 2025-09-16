@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vanfist")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+41e9f02ec539dc8fa72613114f6ff018e49b06ce")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e4edeae3462eb8c55c2219fef5d4090623a5f89")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vanfist")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vanfist")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

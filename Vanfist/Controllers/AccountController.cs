@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Vanfist.DTOs.Requests;
 using Vanfist.DTOs.Responses;
 using Vanfist.Repositories;
 using Vanfist.Services;
@@ -27,39 +28,28 @@ public class AccountController : Controller
         {
             var account = await _accountService.getCurrentAccount();
             ViewBag.Account = account;
-            
-            var defaultAddress = await _addressService.FindByDefault();
-            ViewBag.DefaultAddress = defaultAddress;
         }
         catch (Exception ex)
         {
-            ViewBag.Account = AccountResponse.From(null, false);
+            return RedirectToAction("Index", "Home");
         }
 
         return View();
     }
     
     [Authorize(Roles = Constants.Role.UserAndAdmin)]
-    [HttpGet]
-    public async Task<IActionResult> UpdateInformation()
+    [HttpPost]
+    public async Task<IActionResult> UpdateInformation(UpdateAccountRequest request)
     {
         try
         {
-            var userIdClaim = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-
-            int userId = int.Parse(userIdClaim.Value);
-
-            var account = await _accountService.FindById(userId);
-
-            ViewBag.IsLoggedIn = true;
-            ViewBag.Account = account;
+            var account = await _accountService.UpdateInformation(request);
         }
         catch (Exception ex)
         {
-            ViewBag.IsLoggedIn = false;
-            ViewBag.Account = null;
+            return RedirectToAction("Index");
         }
 
-        return View();
+        return RedirectToAction("Index");
     }
 }

@@ -1,7 +1,7 @@
 ﻿@{
 	ViewData["Title"] = "Thông tin cá nhân";
 	var account = ViewBag.Account;
-	var defaultAddress = ViewBag.DefaultAddress;
+	var defaultAddress = account.GetDefaultAddress();
 	
 	var initial = string.IsNullOrWhiteSpace((string)account.FirstName) ? "U" : ((string)account.FirstName).Substring(0,1).ToUpperInvariant();
 }

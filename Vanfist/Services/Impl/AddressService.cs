@@ -18,36 +18,4 @@ public class AddressService : Service, IAddressService
         _httpContextAccessor = httpContextAccessor;
         _accountRepository = accountRepository;
     }
-    
-    public async Task<Address> FindByDefault()
-    {
-        var userIdClaim = _httpContextAccessor.HttpContext?.User?
-            .FindFirst(ClaimTypes.NameIdentifier);
-        
-        if (userIdClaim == null)
-        {
-            return null;
-        }
-
-        if (!int.TryParse(userIdClaim.Value, out int userId))
-        {
-            return null;
-        }
-
-        var account = await _accountRepository.FindById(userId);
-        if (account == null)
-        {
-            return null;
-        }
-
-        foreach (var address in account.Addresses)
-        {
-            if (address.IsDefault)
-            {
-                return address;
-            }
-        }
-        
-        return null;
-    }
 }

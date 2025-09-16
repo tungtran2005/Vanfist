@@ -14,15 +14,18 @@ public class AuthService : Service, IAuthService
     private readonly ICookieService _cookieService;
     private readonly IAccountRepository _accountRepository;
     private readonly IRoleRepository _roleRepository;
+    private readonly IAddressRepository _addressRepository;
 
     public AuthService(
         ICookieService cookieService,
         IAccountRepository accountRepository,
-        IRoleRepository roleRepository)
+        IRoleRepository roleRepository,
+        IAddressRepository addressRepository)
     {
         _cookieService = cookieService;
         _accountRepository = accountRepository;
         _roleRepository = roleRepository;
+        _addressRepository = addressRepository;
     }
     
     public async Task<AccountResponse> Register(RegisterRequest request)
@@ -49,10 +52,20 @@ public class AuthService : Service, IAuthService
         }
         account.Roles.Add(userRole);
         
+        var address = new Address
+        {
+            Detail = null,
+            City = null,
+            IsDefault = true,
+            Account = account
+        };
+        
         await _accountRepository.Save(account);
         await _accountRepository.SaveChanges();
+        await _addressRepository.Save(address);
+        await _addressRepository.SaveChanges();
 
-        return AccountResponse.From(account, false);
+        return AccountResponse.From(account);
     }
 
     public async Task<AccountResponse> Login(LoginRequest request)
@@ -70,7 +83,7 @@ public class AuthService : Service, IAuthService
 
         _cookieService.CreateLoginCookie(account);
         
-        var response = AccountResponse.From(account, true);
+        var response = AccountResponse.From(account);
 
         return response;
     }

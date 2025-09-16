@@ -11,9 +11,6 @@ public class UpdateAccountRequest
     [StringLength(255, ErrorMessage = "Họ có nhiều nhất 255 chữ cái.")]
     public string LastName { get; set; } = string.Empty;
     
-    [StringLength(20, ErrorMessage = "Số điện thoại phải đúng định dạng.")]
-    public string Number { get; set; } = string.Empty;
-    
     [StringLength(255, ErrorMessage = "Địa chỉ chi tiết có nhiều nhất 255 chữ cái.")]
     public string Detail { get; set; } = string.Empty;
     

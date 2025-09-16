@@ -5,5 +5,5 @@ namespace Vanfist.Services;
 
 public interface IAddressService : IService
 {
-    Task<Address> FindByDefault();
+    
 }

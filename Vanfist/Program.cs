@@ -9,8 +9,6 @@ using Vanfist.Services.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.SetMinimumLevel(LogLevel.Debug);
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -21,6 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Register repositories
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
 // Register services
 builder.Services.AddScoped<ICookieService, CookieService>();

@@ -10,7 +10,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Role> Roles { get; set; }
-    public DbSet<Address> Addresses { get; set; }
+    public DbSet<Address?> Addresses { get; set; }
     public DbSet<Model> Models { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Attachment> Attachments { get; set; }
