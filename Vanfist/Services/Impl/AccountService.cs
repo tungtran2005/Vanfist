@@ -13,18 +13,21 @@ public class AccountService : Service, IAccountService
     private readonly IAccountRepository _accountRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IAddressRepository _addressRepository;
+    private readonly IPasswordService _passwordService;
 
     public AccountService(
         IAccountRepository accountRepository,
         IHttpContextAccessor httpContextAccessor,
-        IAddressRepository addressRepository)
+        IAddressRepository addressRepository,
+        IPasswordService passwordService)
     {
         _accountRepository = accountRepository;
         _httpContextAccessor = httpContextAccessor;
         _addressRepository = addressRepository;
+        _passwordService = passwordService;
     }
 
-    public async Task<AccountResponse> getCurrentAccount()
+    public async Task<AccountResponse> GetCurrentAccount()
     {
         var userIdClaim = _httpContextAccessor.HttpContext?.User?
             .FindFirst(ClaimTypes.NameIdentifier);
@@ -97,20 +100,19 @@ public class AccountService : Service, IAccountService
         return AccountResponse.From(account);
     }
 
-    public async void ChangePassword(ChangePasswordRequest request)
+    public async Task ChangePassword(ChangePasswordRequest request)
     {
         var account = await GetAccountFromContextAsync();
 
-        var hasher = new PasswordHasher<Account>();
-
-        var result = hasher.VerifyHashedPassword(account, account.Password, request.OldPassword);
-        if (result == PasswordVerificationResult.Failed)
+        var isVerified = _passwordService.Verify(account.Password, request.OldPassword);
+        if (!isVerified)
         {
             throw new InvalidOperationException("Mật khẩu cũ không đúng");
         }
 
-        account.Password = hasher.HashPassword(account, request.NewPassword);
+        account.Password = _passwordService.Encode(request.NewPassword);
 
+        await _accountRepository.Update(account);
         await _accountRepository.SaveChanges();
     }
 

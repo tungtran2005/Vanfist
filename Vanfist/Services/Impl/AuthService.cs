@@ -38,7 +38,7 @@ public class AuthService : Service, IAuthService
         var existingAccount = await _accountRepository.FindByEmail(request.Email);
         if (existingAccount != null)
         {
-            throw new InvalidOperationException("Email already registered");
+            throw new InvalidOperationException("Email này đã được đăng ký");
         }
 
         var account = new Account
@@ -49,7 +49,7 @@ public class AuthService : Service, IAuthService
             Number = request.Number
         };
         
-        var hashedPassword = _passwordService.Encode(account, request.Password);
+        var hashedPassword = _passwordService.Encode(request.Password);
         account.Password = hashedPassword;
         
         var userRole = await _roleRepository.FindByName(Constants.Role.User);
@@ -83,7 +83,7 @@ public class AuthService : Service, IAuthService
             throw new InvalidOperationException("Email này chưa được đăng ký");
         }
 
-        if (!_passwordService.Verify(account, account.Password, request.Password))
+        if (!_passwordService.Verify(account.Password, request.Password))
         {
             throw new InvalidOperationException("Mật khẩu không đúng");
         }

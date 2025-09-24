@@ -6,8 +6,8 @@ namespace Vanfist.Services;
 
 public interface IAccountService : IService
 {
-    Task<AccountResponse> getCurrentAccount();
+    Task<AccountResponse> GetCurrentAccount();
     Task<AccountResponse> FindById(int id);
     Task<AccountResponse> UpdateInformation(UpdateAccountRequest request);
-    void ChangePassword(ChangePasswordRequest request);
+    Task ChangePassword(ChangePasswordRequest request);
 }

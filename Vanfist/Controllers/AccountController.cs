@@ -24,7 +24,7 @@ public class AccountController : Controller
     {
         try
         {
-            var account = await _accountService.getCurrentAccount();
+            var account = await _accountService.GetCurrentAccount();
             ViewBag.Account = account;
             
             var defaultAddress = await _addressService.GetDefaultAddress();
@@ -62,7 +62,7 @@ public class AccountController : Controller
     {
         try
         {
-            _accountService.ChangePassword(request);
+             await _accountService.ChangePassword(request);
         }
         catch (Exception e)
         {

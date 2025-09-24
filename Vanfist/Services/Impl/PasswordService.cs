@@ -12,13 +12,13 @@ public class PasswordService : IPasswordService
         _passwordHasher = new PasswordHasher<Account>();
     }
     
-    public string Encode(Account account, string password)
+    public string Encode(string password)
     {
-        return _passwordHasher.HashPassword(account, password);
+        return password;
     }
 
-    public bool Verify(Account account, string hashedPassword, string password)
+    public bool Verify(string hashedPassword, string password)
     {
-        return _passwordHasher.VerifyHashedPassword(account, hashedPassword, password) == PasswordVerificationResult.Success;
+        return hashedPassword == password;
     }
 }
