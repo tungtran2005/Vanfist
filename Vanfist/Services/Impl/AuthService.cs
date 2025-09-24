@@ -1,4 +1,5 @@
-﻿using Vanfist.Entities;
+﻿using System.Security.Claims;
+using Vanfist.Entities;
 using Vanfist.Repositories;
 using Vanfist.DTOs.Responses;
 using LoginRequest = Vanfist.DTOs.Requests.LoginRequest;
@@ -9,6 +10,7 @@ namespace Vanfist.Services.Impl;
 
 public class AuthService : Service, IAuthService
 {
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ICookieService _cookieService;
     private readonly IPasswordService _passwordService;
     private readonly IAccountRepository _accountRepository;
@@ -16,12 +18,14 @@ public class AuthService : Service, IAuthService
     private readonly IAddressRepository _addressRepository;
 
     public AuthService(
+        IHttpContextAccessor httpContextAccessor,
         ICookieService cookieService,
         IAccountRepository accountRepository,
         IRoleRepository roleRepository,
         IAddressRepository addressRepository,
         IPasswordService passwordService)
     {
+        _httpContextAccessor = httpContextAccessor;
         _cookieService = cookieService;
         _accountRepository = accountRepository;
         _roleRepository = roleRepository;
@@ -89,5 +93,24 @@ public class AuthService : Service, IAuthService
         var response = AccountResponse.From(account);
 
         return response;
+    }
+
+    public void Logout()
+    {
+        var ctx = _httpContextAccessor.HttpContext;
+        if (ctx == null) return;
+
+        if (ctx.Request?.Cookies != null)
+        {
+            foreach (var key in ctx.Request.Cookies.Keys)
+            {
+                ctx.Response.Cookies.Delete(key);
+            }
+        }
+
+        ctx.Session?.Clear();
+
+        ctx.User = new ClaimsPrincipal(new ClaimsIdentity());
+
     }
 }

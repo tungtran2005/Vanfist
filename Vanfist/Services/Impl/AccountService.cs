@@ -65,15 +65,14 @@ public class AccountService : Service, IAccountService
     public async Task<AccountResponse> UpdateInformation(UpdateAccountRequest request)
     {
         var account = await GetAccountFromContextAsync();
-
         account.FirstName = request.FirstName;
         account.LastName = request.LastName;
+        account.Number = request.Number; // if present
 
         var defaultAddress = await _addressRepository.FindByDefaultAndAccountId(account.Id);
 
         if (defaultAddress == null)
         {
-            // Create a new default address if none exists
             defaultAddress = new Address
             {
                 AccountId = account.Id,
@@ -88,10 +87,11 @@ public class AccountService : Service, IAccountService
         {
             defaultAddress.Detail = request.Detail;
             defaultAddress.City = request.City;
-
-            await _addressRepository.SaveChanges();
+            await _addressRepository.Update(defaultAddress);
+            await _addressRepository.SaveChanges(); // fix any typos to use the correct field name: _addressRepository
         }
 
+        await _accountRepository.Update(account);
         await _accountRepository.SaveChanges();
 
         return AccountResponse.From(account);

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vanfist.DTOs.Requests;
-using Vanfist.DTOs.Responses;
 using Vanfist.Services;
 
 namespace Vanfist.Controllers;
@@ -11,13 +10,10 @@ namespace Vanfist.Controllers;
 public class AuthController : Controller
 {
     private readonly IAuthService _authService;
-    private readonly ILogger<AuthController> _logger;
 
-    public AuthController(IAuthService authService,
-        ILogger<AuthController> logger)
+    public AuthController(IAuthService authService)
     {
         _authService = authService;
-        _logger = logger;
     }
 
     [AllowAnonymous]
@@ -44,13 +40,13 @@ public class AuthController : Controller
         }
         catch (InvalidOperationException ex)
         {
-            _logger.LogError(ex, "Error during login for request: {request}", request);
+            Console.WriteLine(ex);
             ModelState.AddModelError("", ex.Message);
             return View(request);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error during login for request: {request}", request);
+            Console.WriteLine(ex);
             ModelState.AddModelError("", "An error occurred during login. Please try again.");
             return View(request);
         }
@@ -81,13 +77,13 @@ public class AuthController : Controller
         }
         catch (InvalidOperationException ex)
         {
-            _logger.LogError(ex, "Error during registration for request: {request}", request);
+            Console.WriteLine(ex);
             ModelState.AddModelError("", ex.Message);
             return View(request);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error during registration for request: {request}", request);
+            Console.WriteLine(ex);
             ModelState.AddModelError("", "An error occurred during registration. Please try again.");
             return View(request);
         }
@@ -97,7 +93,15 @@ public class AuthController : Controller
     [HttpPost]
     public async Task<IActionResult> Logout()
     {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("Login", "Auth");
+        try
+        {
+            _authService.Logout();
+            return RedirectToAction("Login", "Auth");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return RedirectToAction("Index", "Account");
+        }
     }
 }

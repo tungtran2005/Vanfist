@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vanfist.DTOs.Requests;
-using Vanfist.DTOs.Responses;
-using Vanfist.Repositories;
 using Vanfist.Services;
 
 namespace Vanfist.Controllers;
@@ -10,7 +8,7 @@ namespace Vanfist.Controllers;
 public class AccountController : Controller
 {
     private readonly IAccountService _accountService;
-    private readonly  IAddressService _addressService;
+    private readonly IAddressService _addressService;
 
     public AccountController(
         IAccountService accountService,
@@ -28,9 +26,13 @@ public class AccountController : Controller
         {
             var account = await _accountService.getCurrentAccount();
             ViewBag.Account = account;
+            
+            var defaultAddress = await _addressService.GetDefaultAddress();
+            ViewBag.DefaultAddress = defaultAddress;
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex);
             return RedirectToAction("Index", "Home");
         }
 
@@ -47,6 +49,7 @@ public class AccountController : Controller
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex);
             return RedirectToAction("Index");
         }
 

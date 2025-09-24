@@ -8,4 +8,5 @@ public interface IAuthService : IService
 {
     Task<AccountResponse> Register(RegisterRequest request);
     Task<AccountResponse> Login(LoginRequest request);
+    void Logout();
 }
