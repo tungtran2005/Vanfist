@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    var admin = ViewBag.Admin;
+    var initial = string.IsNullOrWhiteSpace((string)admin.FirstName) ? "A" : ((string)admin.FirstName).Substring(0, 1).ToUpperInvariant();
+}
+
+<link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+
+<div class="container-fluid my-4">
+    <div class="row g-4">
+        <!-- Sidebar -->
+        <div class="col-12 col-lg-3">
+            <div class="card shadow-sm mb-3">
+                <div class="card-body d-flex align-items-center">
+                    <div class="avatar-circle me-3">@initial</div>
+                    <div>
+                        <div class="text-muted">Xin chào,</div>
+                        <div class="fw-semibold">@admin.FirstName @admin.LastName</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-white fw-semibold">Quản lý hệ thống</div>
+                <ul class="list-group list-group-flush small">
+                    <li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="users">Người dùng</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="orders">Đơn hàng</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="products">Sản phẩm</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="reports">Báo cáo</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none section-link" data-section="settings">Cấu hình</a></li>
+                    <li class="list-group-item">
+                        <form asp-controller="Auth" asp-action="Logout" method="post" class="m-0 p-0">
+                            <button type="submit" class="btn btn-link p-0 text-decoration-none">Đăng xuất</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="col-12 col-lg-9">
+            <!-- Users -->
+            <div id="section-users" class="card shadow-sm content-section">
+                <div class="card-header bg-white fw-semibold">Quản lý người dùng</div>
+                <div class="card-body">
+                    <div class="text-muted">Danh sách người dùng sẽ hiển thị ở đây (bảng Users).</div>
+                </div>
+            </div>
+
+            <!-- Orders -->
+            <div id="section-orders" class="card shadow-sm content-section" style="display:none;">
+                <div class="card-header bg-white fw-semibold">Quản lý đơn hàng</div>
+                <div class="card-body">
+                    <div class="text-muted">Danh sách đơn hàng sẽ hiển thị ở đây (Invoices/Orders table).</div>
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div id="section-products" class="card shadow-sm content-section" style="display:none;">
+                <div class="card-header bg-white fw-semibold">Quản lý sản phẩm</div>
+                <div class="card-body">
+                    <div class="text-muted">Danh sách sản phẩm sẽ hiển thị ở đây.</div>
+                </div>
+            </div>
+
+            <!-- Reports -->
+            <div id="section-reports" class="card shadow-sm content-section" style="display:none;">
+                <div class="card-header bg-white fw-semibold">Báo cáo</div>
+                <div class="card-body">
+                    <div class="text-muted">Biểu đồ, báo cáo thống kê doanh thu.</div>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div id="section-settings" class="card shadow-sm content-section" style="display:none;">
+                <div class="card-header bg-white fw-semibold">Cấu hình hệ thống</div>
+                <div class="card-body">
+                    <div class="text-muted">Trang cấu hình hệ thống.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const links = document.querySelectorAll('.section-link');
+            const sections = document.querySelectorAll('.content-section');
+
+            function showSection(name) {
+                sections.forEach(s => s.style.display = 'none');
+                const el = document.getElementById(`section-${name}`);
+                if (el) el.style.display = '';
+            }
+
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                });
+            });
+
+            // Default section
+            showSection('users');
+        });
+    </script>
+}

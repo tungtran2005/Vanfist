@@ -30,7 +30,10 @@ builder.Services.AddScoped<IAddressService, AddressService>();
 
 // Register seeders
 builder.Services.AddScoped<RoleSeeder>();
+builder.Services.AddScoped<AccountSeeder>();
 builder.Services.AddScoped<DatabaseSeeder>();
+
+
 
 builder.Services.AddHttpContextAccessor();
 
