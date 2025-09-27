@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vanfist")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+500e204e35f7225552cf2af94581c7a437b76b19")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc6839be0beb50c81a576e1f4271010b0adb0913")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vanfist")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vanfist")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

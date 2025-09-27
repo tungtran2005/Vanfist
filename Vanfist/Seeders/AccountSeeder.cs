@@ -31,7 +31,6 @@ namespace Vanfist.Seeders
             var adminEmail = "admin@vanfist.com";
             var adminPassword = "Admin@123";
 
-            // Kiểm tra tài khoản admin đã tồn tại chưa
             var existingAdmin = await _accountRepository.FindByEmail(adminEmail);
             if (existingAdmin != null)
             {
@@ -39,7 +38,6 @@ namespace Vanfist.Seeders
                 return;
             }
 
-            // Lấy role Admin
             var adminRole = await _roleRepository.FindByName("Admin");
             if (adminRole == null)
             {
@@ -47,11 +45,10 @@ namespace Vanfist.Seeders
                 return;
             }
 
-            // Tạo account mới
             var adminAccount = new Account
             {
                 Email = adminEmail,
-                Password = _passwordService.Encode(adminPassword), // Hash password
+                Password = _passwordService.Encode(adminPassword),
                 FirstName = "System",
                 LastName = "Admin",
                 Roles = new List<Role> { adminRole }

@@ -5,7 +5,7 @@ using Vanfist.Repositories;
 
 namespace Vanfist.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Constants.Role.Admin)]
     public class AdminController : Controller
     {
         private readonly IAccountRepository _accountRepository;
@@ -17,14 +17,11 @@ namespace Vanfist.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var admin = new Account
+            var admin = await _accountRepository.FindByEmail("admin@vanfist.com");
+            if (admin == null)
             {
-                Email = "admin@vanfist.com",
-                FirstName = "Admin",
-                LastName = "Vanfist"
-                
-            };
-
+                return RedirectToAction("Login", "Auth");
+            }
             ViewBag.Admin = admin;
             return View();
         }

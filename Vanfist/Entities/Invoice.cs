@@ -14,7 +14,7 @@ public class Invoice
 
     [StringLength(255)] public string? Description { get; set; }
 
-    [Required] public int? ModelId { get; set; }
+    [Required] public int ModelId { get; set; }
     public Model Model { get; set; }
 
     [Required] public float TotalPrice { get; set; }
