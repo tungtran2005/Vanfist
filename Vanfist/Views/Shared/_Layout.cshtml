@@ -36,9 +36,18 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Index">
-                            <img src="~/image/user.png" alt="Profile" class="navbar-toggler-icon">
-                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">
+                                <img src="~/image/user.png" alt="Profile" class="navbar-toggler-icon">
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Index">
+                                <img src="~/image/user.png" alt="Profile" class="navbar-toggler-icon">
+                            </a>
+                        }
                     </li>
                     <li class="nav-item">
                         <form asp-controller="Home" asp-action="Index">
@@ -46,11 +55,6 @@
                                 Đăng kí lái thử
                             </button>
                         </form>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">
-                            <img src="~/image/earth-globe.png" alt="Language" class="navbar-toggler-icon">
-                        </a>
                     </li>
                 </ul>
             </div>
