@@ -22,7 +22,8 @@
             <div class="navbar-collapse collapse justify-content-center w-100">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Giới thiệu</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Giới
+                            thiệu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ô tô</a>
@@ -31,7 +32,8 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dịch vụ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Chính sách</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Chính
+                            sách</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -61,6 +63,22 @@
         </div>
     </nav>
 </header>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert"
+         style="position: fixed; top: 65px; right: 20px; z-index: 9999;">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert"
+         style="position: fixed; top: 65px; right: 20px; z-index: 9999;">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <div class="container">
     <main role="main" class="pb-3">
         @RenderBody()
@@ -76,5 +94,25 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
+<script>
+    window.addEventListener("DOMContentLoaded", function () {
+        var successAlert = document.getElementById("success-alert");
+        if (successAlert) {
+            setTimeout(function () {
+                successAlert.classList.remove("show");
+                successAlert.classList.add("fade");
+                setTimeout(() => successAlert.remove(), 500);
+            }, 3000);
+        }
+        var errorAlert = document.getElementById("error-alert");
+        if (errorAlert) {
+            setTimeout(function () {
+                errorAlert.classList.remove("show");
+                errorAlert.classList.add("fade");
+                setTimeout(() => errorAlert.remove(), 500);
+            }, 3000);
+        }
+    });
+</script>
 </body>
 </html>

@@ -108,9 +108,9 @@ public class AuthService : Service, IAuthService
             }
         }
 
-        ctx.Session?.Clear();
+        var sessionFeature = ctx.Features.Get<Microsoft.AspNetCore.Http.Features.ISessionFeature>();
+        sessionFeature?.Session?.Clear();
 
         ctx.User = new ClaimsPrincipal(new ClaimsIdentity());
-
     }
 }

@@ -9,10 +9,14 @@ namespace Vanfist.Controllers;
 
 public class AuthController : Controller
 {
+    private readonly ILogger<AuthController> _logger;
     private readonly IAuthService _authService;
 
-    public AuthController(IAuthService authService)
+    public AuthController(
+        ILogger<AuthController> logger,
+        IAuthService authService)
     {
+        _logger = logger;
         _authService = authService;
     }
 
@@ -29,19 +33,22 @@ public class AuthController : Controller
     {
         if (!ModelState.IsValid)
         {
+            
             return View(request);
         }
 
         try
         {
             var response = await _authService.Login(request);
+            TempData["SuccessMessage"] = "Đăng nhập thành công.";
 
             return RedirectToAction("Index", "Home");
         }
         catch (InvalidOperationException ex)
         {
-            Console.WriteLine(ex);
+            _logger.LogError(ex, "Error logging in");
             ModelState.AddModelError("", ex.Message);
+            TempData["ErrorMessage"] = "Đăng nhập thất bại.";
             return View(request);
         }
     }
@@ -71,8 +78,9 @@ public class AuthController : Controller
         }
         catch (InvalidOperationException ex)
         {
-            Console.WriteLine(ex);
+            _logger.LogError(ex, "Error registering");
             ModelState.AddModelError("", ex.Message);
+            TempData["ErrorMessage"] = "Đăng ký thất bại.";
             return View(request);
         }
     }
@@ -82,6 +90,7 @@ public class AuthController : Controller
     public async Task<IActionResult> Logout()
     {
         _authService.Logout();
+        TempData["SuccessMessage"] = "Đăng xuất thành công.";
         return RedirectToAction("Login", "Auth");
     }
 }

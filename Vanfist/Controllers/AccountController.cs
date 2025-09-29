@@ -32,22 +32,13 @@ public class AccountController : Controller
 
             var defaultAddress = await _addressService.GetDefaultAddress();
             ViewBag.DefaultAddress = defaultAddress;
-
-            // Populate the view model so the form is prefilled
-            var model = new UpdateAccountRequest
-            {
-                FirstName = account.FirstName,
-                LastName = account.LastName,
-                Number = account.Number,
-                Detail = defaultAddress?.Detail,
-                City = defaultAddress?.City
-            };
-
-            return View(model);
+            
+            return View();
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error fetching account information");
+            TempData["ErrorMessage"] = "Đã xảy ra lỗi khi tải thông tin tài khoản.";
             return RedirectToAction("Index", "Home");
         }
     }
@@ -57,27 +48,6 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> UpdateInformation(UpdateAccountRequest request)
     {
-        if (!ModelState.IsValid)
-        {
-            ModelState.AddModelError(string.Empty, "Cập nhật thông tin thất bại.");
-
-            // Reload ViewBag data needed by Index and return the same request model so validation messages show
-            try
-            {
-                var account = await _accountService.GetCurrentAccount();
-                ViewBag.Account = account;
-
-                var defaultAddress = await _addressService.GetDefaultAddress();
-                ViewBag.DefaultAddress = defaultAddress;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error reloading data after validation failure");
-            }
-
-            return View("Index", request);
-        }
-
         try
         {
             await _accountService.UpdateInformation(request);
@@ -100,6 +70,7 @@ public class AccountController : Controller
         try
         {
              await _accountService.ChangePassword(request);
+            TempData["SuccessMessage"] = "Đổi mật khẩu thành công.";
         }
         catch (InvalidOperationException ex)
         {
