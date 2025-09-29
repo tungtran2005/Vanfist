@@ -57,7 +57,7 @@ public class AccountService : Service, IAccountService
 
         if (account == null)
         {
-            throw new InvalidOperationException($"Account with ID {id} not found");
+            throw new InvalidOperationException($"Không tìm thấy tài khoản với ID {id}");
         }
 
         var response = AccountResponse.From(account);
@@ -68,19 +68,24 @@ public class AccountService : Service, IAccountService
     public async Task<AccountResponse> UpdateInformation(UpdateAccountRequest request)
     {
         var account = await GetAccountFromContextAsync();
-        account.FirstName = request.FirstName;
-        account.LastName = request.LastName;
-        account.Number = request.Number; // if present
+
+        // Chuẩn hóa dữ liệu đầu vào
+        account.FirstName = request.FirstName?.Trim();
+        account.LastName = request.LastName?.Trim();
+        account.Number = string.IsNullOrWhiteSpace(request.Number) ? null : request.Number.Trim();
 
         var defaultAddress = await _addressRepository.FindByDefaultAndAccountId(account.Id);
+
+        var detail = request.Detail?.Trim();
+        var city = request.City?.Trim();
 
         if (defaultAddress == null)
         {
             defaultAddress = new Address
             {
                 AccountId = account.Id,
-                Detail = request.Detail,
-                City = request.City,
+                Detail = detail,
+                City = city,
                 IsDefault = true
             };
             await _addressRepository.Save(defaultAddress);
@@ -88,10 +93,10 @@ public class AccountService : Service, IAccountService
         }
         else
         {
-            defaultAddress.Detail = request.Detail;
-            defaultAddress.City = request.City;
+            defaultAddress.Detail = detail;
+            defaultAddress.City = city;
             await _addressRepository.Update(defaultAddress);
-            await _addressRepository.SaveChanges(); // fix any typos to use the correct field name: _addressRepository
+            await _addressRepository.SaveChanges();
         }
 
         await _accountRepository.Update(account);
@@ -124,7 +129,7 @@ public class AccountService : Service, IAccountService
 
         if (userIdClaim == null)
         {
-            throw new InvalidOperationException("User is not authenticated");
+            throw new InvalidOperationException("Người dùng chưa được xác thực");
         }
 
         if (!int.TryParse(userIdClaim.Value, out int userId))
@@ -135,7 +140,7 @@ public class AccountService : Service, IAccountService
         var account = await _accountRepository.FindById(userId);
         if (account == null)
         {
-            throw new InvalidOperationException($"Account with ID {userId} not found");
+            throw new InvalidOperationException($"Không tìm thấy tài khoản với ID {userId}");
         }
 
         return account;

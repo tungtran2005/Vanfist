@@ -44,12 +44,6 @@ public class AuthController : Controller
             ModelState.AddModelError("", ex.Message);
             return View(request);
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-            ModelState.AddModelError("", "An error occurred during login. Please try again.");
-            return View(request);
-        }
     }
 
     [AllowAnonymous]
@@ -81,27 +75,13 @@ public class AuthController : Controller
             ModelState.AddModelError("", ex.Message);
             return View(request);
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-            ModelState.AddModelError("", "An error occurred during registration. Please try again.");
-            return View(request);
-        }
     }
 
     [Authorize(Roles = Constants.Role.UserAndAdmin)]
     [HttpPost]
     public async Task<IActionResult> Logout()
     {
-        try
-        {
-            _authService.Logout();
-            return RedirectToAction("Login", "Auth");
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return RedirectToAction("Index", "Account");
-        }
+        _authService.Logout();
+        return RedirectToAction("Login", "Auth");
     }
 }

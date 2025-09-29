@@ -1,9 +1,13 @@
-﻿@{
+﻿@model Vanfist.DTOs.Requests.UpdateAccountRequest
+
+@{
 	ViewData["Title"] = "Thông tin cá nhân";
 	var account = ViewBag.Account;
 	var defaultAddress = ViewBag.DefaultAddress;
 
-	var initial = string.IsNullOrWhiteSpace((string)account.FirstName) ? "U" : ((string)account.FirstName).Substring(0, 1).ToUpperInvariant();
+	var initial = string.IsNullOrWhiteSpace((string?)account?.FirstName) 
+		? "U" 
+		: ((string)account.FirstName).Substring(0, 1).ToUpperInvariant();
 }
 
 <link rel="stylesheet" href="~/css/account.css" asp-append-version="true"/>
@@ -83,8 +87,14 @@
 						</div>
 						<div class="col-12 col-md-6">
 							<div class="text-muted small">Địa chỉ</div>
-							<div
-								class="fw-semibold">@((defaultAddress == null || (string.IsNullOrWhiteSpace(defaultAddress.Detail) && string.IsNullOrWhiteSpace(defaultAddress.City))) ? "Chưa có" : $"{defaultAddress.Detail}, {defaultAddress.City}")</div>
+							<div class="fw-semibold">
+								@(
+								(defaultAddress == null 
+								 || (string.IsNullOrWhiteSpace(defaultAddress.Detail) && string.IsNullOrWhiteSpace(defaultAddress.City))) 
+									? "Chưa có" 
+									: $"{defaultAddress.Detail}, {defaultAddress.City}"
+								)
+							</div>
 						</div>
 					</div>
 
@@ -102,35 +112,40 @@
 				<div class="card-header bg-white fw-semibold">Cập nhật thông tin</div>
 				<div class="card-body">
 					<form asp-controller="Account" asp-action="UpdateInformation" method="post" class="row g-3">
-						@Html.AntiForgeryToken()
 						<div class="col-12 col-md-6">
-							<label class="form-label small text-muted" for="FirstName">Họ</label>
-							<input type="text" class="form-control" id="FirstName" name="FirstName"
-							       value="@account.FirstName"/>
+							<label asp-for="LastName" class="form-label small text-muted">Họ</label>
+							<input asp-for="LastName" class="form-control"/>
+							<span asp-validation-for="LastName" class="text-danger"></span>
 						</div>
+
 						<div class="col-12 col-md-6">
-							<label class="form-label small text-muted" for="LastName">Tên</label>
-							<input type="text" class="form-control" id="LastName" name="LastName"
-							       value="@account.LastName"/>
+							<label asp-for="FirstName" class="form-label small text-muted">Tên</label>
+							<input asp-for="FirstName" class="form-control"/>
+							<span asp-validation-for="FirstName" class="text-danger"></span>
 						</div>
+
 						<div class="col-12 col-md-6">
 							<label class="form-label small text-muted" for="Email">Email</label>
-							<input type="email" class="form-control" id="Email" name="Email" value="@account.Email"
+							<input type="email" class="form-control" id="Email" name="Email" value="@account?.Email"
 							       disabled="disabled"/>
 						</div>
+
 						<div class="col-12 col-md-6">
-							<label class="form-label small text-muted" for="Number">Số điện thoại</label>
-							<input type="text" class="form-control" id="Number" name="Number" value="@account.Number"/>
+							<label asp-for="Number" class="form-label small text-muted">Số điện thoại</label>
+							<input asp-for="Number" class="form-control"/>
+							<span asp-validation-for="Number" class="text-danger"></span>
 						</div>
+
 						<div class="col-12 col-md-8">
-							<label class="form-label small text-muted" for="Detail">Địa chỉ (chi tiết)</label>
-							<input type="text" class="form-control" id="Detail" name="Detail"
-							       value="@defaultAddress?.Detail"/>
+							<label asp-for="Detail" class="form-label small text-muted">Địa chỉ (chi tiết)</label>
+							<input asp-for="Detail" class="form-control"/>
+							<span asp-validation-for="Detail" class="text-danger"></span>
 						</div>
+
 						<div class="col-12 col-md-4">
-							<label class="form-label small text-muted" for="City">Tỉnh/Thành phố</label>
-							<input type="text" class="form-control" id="City" name="City"
-							       value="@defaultAddress?.City"/>
+							<label asp-for="City" class="form-label small text-muted">Tỉnh/Thành phố</label>
+							<input asp-for="City" class="form-control"/>
+							<span asp-validation-for="City" class="text-danger"></span>
 						</div>
 
 						<div class="col-12 d-flex gap-2 mt-2">
@@ -141,82 +156,93 @@
 						</div>
 					</form>
 				</div>
-			</div>
-			
-			<!-- Change Password -->
-			<div id="section-change-password" class="card shadow-sm content-section" style="display:none;">
-				<div class="card-header bg-white fw-semibold">Đổi mật khẩu</div>
-				<div class="card-body">
-					<form asp-controller="Account" asp-action="ChangePassword" method="post" class="row g-3" id="changePasswordForm">
-						@Html.AntiForgeryToken()
-						<div class="col-12 col-md-6">
-							<label class="form-label small text-muted" for="OldPassword">Mật khẩu hiện tại</label>
-							<input type="password" class="form-control" id="OldPassword" name="OldPassword" required />
+
+				<!-- Change Password -->
+				<div id="section-change-password" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Đổi mật khẩu</div>
+					<div class="card-body">
+						<form asp-controller="Account" asp-action="ChangePassword" method="post" class="row g-3"
+						      id="changePasswordForm">
+							@Html.AntiForgeryToken()
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="OldPassword">Mật khẩu hiện tại</label>
+								<input type="password" class="form-control" id="OldPassword" name="OldPassword"
+								       required/>
+							</div>
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="NewPassword">Mật khẩu mới</label>
+								<input type="password" class="form-control" id="NewPassword" name="NewPassword"
+								       required/>
+							</div>
+							<div class="col-12 col-md-6">
+								<label class="form-label small text-muted" for="ConfirmPassword">Xác nhận mật khẩu
+									mới</label>
+								<input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword"
+								       required/>
+								<div id="ConfirmPasswordHelp" class="form-text text-danger d-none">Mật khẩu xác nhận
+									không khớp.
+								</div>
+							</div>
+
+							<div class="col-12 d-flex gap-2 mt-2">
+								<button type="button" class="btn btn-outline-secondary section-link"
+								        data-section="personal">Trở về
+								</button>
+								<button type="submit" class="btn btn-primary" id="btnChangePasswordSubmit">Xác nhận
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Vehicles -->
+				<div id="section-vehicles" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Xe của tôi</div>
+					<div class="card-body">
+						<div class="text-muted">Quý khách chưa sở hữu xe nào.</div>
+					</div>
+				</div>
+
+				<!-- Transactions -->
+				<div id="section-transactions" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Lịch sử giao dịch</div>
+					<div class="card-body">
+						<div class="text-muted">Nội dung lịch sử giao dịch.</div>
+					</div>
+				</div>
+
+				<!-- Maintenance -->
+				<div id="section-maintenance" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Bảo dưỡng - Sửa chữa</div>
+					<div class="card-body">
+						<div class="text-muted">Quý khách có thể đặt lịch bảo dưỡng thông qua dịch vụ yêu cầu hỗ trợ.
 						</div>
-						<div class="col-12 col-md-6">
-							<label class="form-label small text-muted" for="NewPassword">Mật khẩu mới</label>
-							<input type="password" class="form-control" id="NewPassword" name="NewPassword" required />
-						</div>
-						<div class="col-12 col-md-6">
-							<label class="form-label small text-muted" for="ConfirmPassword">Xác nhận mật khẩu mới</label>
-							<input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" required />
-							<div id="ConfirmPasswordHelp" class="form-text text-danger d-none">Mật khẩu xác nhận không khớp.</div>
-						</div>
-
-						<div class="col-12 d-flex gap-2 mt-2">
-							<button type="button" class="btn btn-outline-secondary section-link" data-section="personal">Trở về</button>
-							<button type="submit" class="btn btn-primary" id="btnChangePasswordSubmit">Xác nhận</button>
-						</div>
-					</form>
+					</div>
 				</div>
-			</div>
-			
-			<!-- Vehicles -->
-			<div id="section-vehicles" class="card shadow-sm content-section" style="display:none;">
-				<div class="card-header bg-white fw-semibold">Xe của tôi</div>
-				<div class="card-body">
-					<div class="text-muted">Quý khách chưa sở hữu xe nào.</div>
-				</div>
-			</div>
 
-			<!-- Transactions -->
-			<div id="section-transactions" class="card shadow-sm content-section" style="display:none;">
-				<div class="card-header bg-white fw-semibold">Lịch sử giao dịch</div>
-				<div class="card-body">
-					<div class="text-muted">Nội dung lịch sử giao dịch.</div>
+				<!-- Battery Rental -->
+				<div id="section-battery" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Thuê pin</div>
+					<div class="card-body">
+						<div class="text-muted">Quý khách chưa thuê pin.</div>
+					</div>
 				</div>
-			</div>
 
-			<!-- Maintenance -->
-			<div id="section-maintenance" class="card shadow-sm content-section" style="display:none;">
-				<div class="card-header bg-white fw-semibold">Bảo dưỡng - Sửa chữa</div>
-				<div class="card-body">
-					<div class="text-muted">Quý khách có thể đặt lịch bảo dưỡng thông qua dịch vụ yêu cầu hỗ trợ.</div>
+				<!-- Charging History -->
+				<div id="section-charging" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Lịch sử sạc pin</div>
+					<div class="card-body">
+						<div class="text-muted">Quý khách chưa sạc pin.</div>
+					</div>
 				</div>
-			</div>
 
-			<!-- Battery Rental -->
-			<div id="section-battery" class="card shadow-sm content-section" style="display:none;">
-				<div class="card-header bg-white fw-semibold">Thuê pin</div>
-				<div class="card-body">
-					<div class="text-muted">Quý khách chưa thuê pin.</div>
-				</div>
-			</div>
-
-			<!-- Charging History -->
-			<div id="section-charging" class="card shadow-sm content-section" style="display:none;">
-				<div class="card-header bg-white fw-semibold">Lịch sử sạc pin</div>
-				<div class="card-body">
-					<div class="text-muted">Quý khách chưa sạc pin.</div>
-				</div>
-			</div>
-
-			<!-- Support -->
-			<div id="section-support" class="card shadow-sm content-section" style="display:none;">
-				<div class="card-header bg-white fw-semibold">Yêu cầu hỗ trợ</div>
-				<div class="card-body">
-					<div class="text-muted">Số điện thoại hỗ trợ: 123x456x78.</div>
-					<div class="text-muted">Email: gmail@vanfist.com.</div>
+				<!-- Support -->
+				<div id="section-support" class="card shadow-sm content-section" style="display:none;">
+					<div class="card-header bg-white fw-semibold">Yêu cầu hỗ trợ</div>
+					<div class="card-body">
+						<div class="text-muted">Số điện thoại hỗ trợ: 123x456x78.</div>
+						<div class="text-muted">Email: gmail@vanfist.com.</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -224,65 +250,65 @@
 </div>
 
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const links = document.querySelectorAll('.section-link');
-            const sections = document.querySelectorAll('.content-section');
+	@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const links = document.querySelectorAll('.section-link');
+			const sections = document.querySelectorAll('.content-section');
 
-            function showSection(name) {
-                sections.forEach(s => s.style.display = 'none');
-                const el = document.getElementById(`section-${name}`);
-                if (el) el.style.display = '';
-            }
+			function showSection(name) {
+				sections.forEach(s => s.style.display = 'none');
+				const el = document.getElementById(`section-${name}`);
+				if (el) el.style.display = '';
+			}
 
-            links.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const section = this.getAttribute('data-section');
-                    showSection(section);
-                });
-            });
+			links.forEach(link => {
+				link.addEventListener('click', function (e) {
+					e.preventDefault();
+					const section = this.getAttribute('data-section');
+					showSection(section);
+				});
+			});
 
-            // Default section
-            showSection('personal');
+			// Default section
+			showSection('personal');
 
-            // Validate new password confirmation before submit
-            const form = document.getElementById('changePasswordForm');
-            if (form) {
-                const newPwd = form.querySelector('#NewPassword');
-                const confirmPwd = form.querySelector('#ConfirmPassword');
-                const submitBtn = form.querySelector('#btnChangePasswordSubmit');
-                const help = document.getElementById('ConfirmPasswordHelp');
+			// Validate new password confirmation before submit
+			const form = document.getElementById('changePasswordForm');
+			if (form) {
+				const newPwd = form.querySelector('#NewPassword');
+				const confirmPwd = form.querySelector('#ConfirmPassword');
+				const submitBtn = form.querySelector('#btnChangePasswordSubmit');
+				const help = document.getElementById('ConfirmPasswordHelp');
 
-                function validatePasswordsMatch() {
-                    const match = confirmPwd.value.length > 0 && newPwd.value === confirmPwd.value;
-                    if (!match) {
-                        help.classList.remove('d-none');
-                        confirmPwd.setCustomValidity('Mật khẩu xác nhận không khớp.');
-                        submitBtn.disabled = true;
-                    } else {
-                        help.classList.add('d-none');
-                        confirmPwd.setCustomValidity('');
-                        submitBtn.disabled = false;
-                    }
-                }
+				function validatePasswordsMatch() {
+					const match = confirmPwd.value.length > 0 && newPwd.value === confirmPwd.value;
+					if (!match) {
+						help.classList.remove('d-none');
+						confirmPwd.setCustomValidity('Mật khẩu xác nhận không khớp.');
+						submitBtn.disabled = true;
+					} else {
+						help.classList.add('d-none');
+						confirmPwd.setCustomValidity('');
+						submitBtn.disabled = false;
+					}
+				}
 
-                newPwd.addEventListener('input', validatePasswordsMatch);
-                confirmPwd.addEventListener('input', validatePasswordsMatch);
+				newPwd.addEventListener('input', validatePasswordsMatch);
+				confirmPwd.addEventListener('input', validatePasswordsMatch);
 
-                form.addEventListener('submit', function (e) {
-                    validatePasswordsMatch();
-                    if (!form.checkValidity()) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        form.reportValidity();
-                    }
-                });
+				form.addEventListener('submit', function (e) {
+					validatePasswordsMatch();
+					if (!form.checkValidity()) {
+						e.preventDefault();
+						e.stopPropagation();
+						form.reportValidity();
+					}
+				});
 
-                // Khởi tạo trạng thái nút submit
-                validatePasswordsMatch();
-            }
-        });
-    </script>
+				// Khởi tạo trạng thái nút submit
+				validatePasswordsMatch();
+			}
+		});
+	</script>
 }
