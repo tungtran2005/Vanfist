@@ -1601,6 +1601,15 @@
             "rid": "win"
           }
         }
+      },
+      "X.PagedList/10.5.9": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/X.PagedList.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/X.PagedList.dll": {}
+        }
       }
     }
   },
@@ -4704,6 +4713,23 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "X.PagedList/10.5.9": {
+      "sha512": "iwrGkIQn/puv4kNe23GVSPtpvKf5bl1aSbhIoWAhrl5LnvEmTwkGftlxSEFlgInVmMx1cb8Q7ivJPqxJtw7TAg==",
+      "type": "package",
+      "path": "x.pagedlist/10.5.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net6.0/X.PagedList.dll",
+        "lib/net8.0/X.PagedList.dll",
+        "lib/netstandard2.0/X.PagedList.dll",
+        "x-pagedlist.png",
+        "x.pagedlist.10.5.9.nupkg.sha512",
+        "x.pagedlist.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -4711,27 +4737,28 @@
       "Microsoft.EntityFrameworkCore >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.0",
-      "Microsoft.EntityFrameworkCore.Tools >= 9.0.0"
+      "Microsoft.EntityFrameworkCore.Tools >= 9.0.0",
+      "X.PagedList >= 10.5.9"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\luudi\\.nuget\\packages\\": {},
+    "C:\\Users\\TamNguyen\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Custom_C#\\Vanfist\\Vanfist\\Vanfist.csproj",
+      "projectUniqueName": "C:\\Users\\TamNguyen\\Source\\Repos\\Vanfist\\Vanfist\\Vanfist.csproj",
       "projectName": "Vanfist",
-      "projectPath": "D:\\Custom_C#\\Vanfist\\Vanfist\\Vanfist.csproj",
-      "packagesPath": "C:\\Users\\luudi\\.nuget\\packages\\",
-      "outputPath": "D:\\Custom_C#\\Vanfist\\Vanfist\\obj\\",
+      "projectPath": "C:\\Users\\TamNguyen\\Source\\Repos\\Vanfist\\Vanfist\\Vanfist.csproj",
+      "packagesPath": "C:\\Users\\TamNguyen\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\TamNguyen\\Source\\Repos\\Vanfist\\Vanfist\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\luudi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\TamNguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4779,6 +4806,10 @@
           "Microsoft.EntityFrameworkCore.Tools": {
             "target": "Package",
             "version": "[9.0.0, )"
+          },
+          "X.PagedList": {
+            "target": "Package",
+            "version": "[10.5.9, )"
           }
         },
         "imports": [

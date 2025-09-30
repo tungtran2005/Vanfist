@@ -17,7 +17,7 @@ public class Model
     [Required] public float MaximumPower { get; set; } // Công suất tối đa - VD : 150 kW/174 hp
     [Required] public float MaximumTorque { get; set; } // Mô men xoắn tối đa - VD : 310 Nm
     [Required] public float RimSize { get; set; } // Kích thước La-zăng - VD : 18 inch
-    [Required] public float Color { get; set; }
+    [Required] public string Color { get; set; }
 
     public int CategoryId { get; set; }
     public Category Category { get; set; }

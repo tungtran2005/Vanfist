@@ -4,24 +4,30 @@ using Microsoft.AspNetCore.Mvc;
 using Vanfist.Constants;
 using Vanfist.Models;
 using Vanfist.Services;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace Vanfist.Controllers;
 
 public class HomeController : Controller
 {
     private readonly IAccountService _accountService;
+    private readonly IModelService _modelService;
 
     public HomeController(
-        IAccountService accountService)
+        IAccountService accountService, IModelService modelService)
     {
         _accountService = accountService;
+        _modelService = modelService;
     }
 
     [AllowAnonymous]
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int page = 1, int pageSize = 8)
     {
-        return View();
+        var models = await _modelService.FindAllModel(); // l?y toàn b? s?n ph?m
+        var pagedModels = models.ToPagedList(page, pageSize);
+        return View(pagedModels);
     }
 
     [AllowAnonymous]

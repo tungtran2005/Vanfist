@@ -1,13 +1,155 @@
-﻿@{
-    ViewData["Title"] = "Vanfist";
-}
+﻿@model IEnumerable<Vanfist.DTOs.Responses.ModelResponse>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Vanfist</h1>
+<div class="content-wrapper d-flex flex-column" style="min-height:80vh;">
+    <!-- list products -->
+    <div class="row flex-grow-1 mb-4" data-aos="fade-up">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+                    <div class="card h-100 product-card shadow-lg border-0 rounded-4 overflow-hidden position-relative">
 
-    <div class="alert alert-info" role="alert">
-        <h4 class="alert-heading">Welcome to Vanfist!</h4>
+                        <!-- image product -->
+                        <div class="product-image-wrapper overflow-hidden">
+                            <img src="@(Url.Content(item.AttachmentUrls?.FirstOrDefault() ?? "~/images/no-image.png"))"
+                                 alt="@item.Name"
+                                 class="card-img-top product-image" />
+
+
+                        </div>
+
+
+                        <!-- info product -->
+                        <div class="card-body text-center d-flex flex-column">
+                            <h5 class="card-title fw-bold text-dark">@item.Name</h5>
+                            <p class="card-text mb-4 text-danger fw-semibold">
+                                @string.Format("{0:N0} VND", item.Price)
+                            </p>
+
+                            <a href="@Url.Action("Details", "Home", new { id = item.Id })"
+                               class="btn buy-btn mt-auto">
+                                <i class="bi bi-cart-check"></i> Mua ngay
+                            </a>
+
+                            <!-- Link phủ toàn bộ thẻ card -->
+                            <a href="@Url.Action("Details", "Home", new { id = item.Id })"
+                               class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <p class="text-muted">Không có sản phẩm nào.</p>
+            </div>
+        }
     </div>
 
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <!-- page nav -->
+    <nav aria-label="Page navigation" class="mt-auto">
+        <ul class="pagination justify-content-center">
+            @{
+                int currentPage = ViewBag.CurrentPage ?? 1;
+                int totalPages = ViewBag.TotalPages ?? 1;
+                int maxVisiblePages = 5;
+
+                int startPage = Math.Max(1, currentPage - 2);
+                int endPage = Math.Min(totalPages, startPage + maxVisiblePages - 1);
+
+                if (endPage - startPage < maxVisiblePages - 1)
+                {
+                    startPage = Math.Max(1, endPage - maxVisiblePages + 1);
+                }
+            }
+
+            <!-- Previous -->
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1 })">&laquo;</a>
+            </li>
+
+            <!-- display pages -->
+            @for (int i = startPage; i <= endPage; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+
+            <!-- Next -->
+            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1 })">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
 </div>
+
+<!-- CSS -->
+<style>
+    .product-card {
+        background: #fff;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+    .product-image {
+        height: 220px;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-image {
+        transform: scale(1.1);
+    }
+
+    .buy-btn {
+        background: linear-gradient(135deg, #ff416c, #ff4b2b);
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 30px;
+        padding: 10px 20px;
+        transition: 0.3s;
+    }
+
+        .buy-btn:hover {
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(255,65,108,0.4);
+        }
+
+    .pagination .page-link {
+        border-radius: 50% !important;
+        margin: 0 4px;
+        transition: all 0.3s;
+    }
+
+        .pagination .page-link:hover {
+            background: #007bff;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+    .pagination .active .page-link {
+        background: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+</style>
+
+<!-- AOS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 1000, once: true });
+</script>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
