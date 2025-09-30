@@ -1,0 +1,37 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Vanfist.Entities;
+using Vanfist.Repositories;
+using Vanfist.Services;
+
+namespace Vanfist.Controllers
+{
+    [Authorize(Roles = Constants.Role.Admin)]
+    public class AdminController : Controller
+    {
+        private readonly IAccountRepository _accountRepository;
+        private readonly IInvoiceService _invoiceService;
+
+        public AdminController(IAccountRepository accountRepository, IInvoiceService invoiceService)
+        {
+            _accountRepository = accountRepository;
+            _invoiceService = invoiceService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var admin = await _accountRepository.FindByEmail("admin@vanfist.com");
+            if (admin == null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+            ViewBag.Admin = admin;
+
+            // Load all invoices for orders section (admin only)
+            var invoices = await _invoiceService.GetAllInvoice();
+            ViewBag.Invoices = invoices;
+
+            return View();
+        }
+    }
+}

@@ -6,8 +6,9 @@ namespace Vanfist.Services
 {
     public interface IInvoiceService : IService
     {
-        Task<InvoiceResponse> CreateInvoice(InvoiceRequest request);
+        Task<InvoiceResponse> CreateInvoice(CreateInvoiceRequest request);
         Task<IEnumerable<InvoiceResponse>> GetAllInvoice();
+        Task<IEnumerable<InvoiceResponse>> GetAllInvoiceByAccountId(int accountId);
         Task<InvoiceResponse?> GetInvoice(int invoiceId);
         Task<bool> UpdateInvoice(UpdateInvoiceRequest request);
         Task<bool> DeleteInvoice(int invoiceId);

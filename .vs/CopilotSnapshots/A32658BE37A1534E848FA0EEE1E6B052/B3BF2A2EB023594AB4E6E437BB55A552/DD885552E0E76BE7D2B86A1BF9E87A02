@@ -1,0 +1,189 @@
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Vanfist.Constants;
+using Vanfist.DTOs.Requests;
+using Vanfist.DTOs.Responses;
+using Vanfist.Services;
+
+namespace Vanfist.Controllers
+{
+    [Authorize]
+    [Route("[controller]")]
+    public class InvoiceApiController : Controller
+    {
+        private readonly IInvoiceService _invoiceService;
+
+        public InvoiceApiController(IInvoiceService invoiceService)
+        {
+            _invoiceService = invoiceService;
+        }
+
+        // GET: /InvoiceApi
+        public async Task<IActionResult> Index()
+        {
+            if (User.IsInRole(Role.Admin))
+            {
+                var invoices = await _invoiceService.GetAllInvoice();
+                return View(invoices);
+            }
+
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+                return Unauthorized();
+
+            var invoicesByUser = await _invoiceService.GetAllInvoiceByAccountId(userId);
+            return View(invoicesByUser);
+        }
+
+        // GET: /InvoiceApi/Details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            var invoice = await _invoiceService.GetInvoice(id);
+            if (invoice == null)
+                return NotFound();
+
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+                    return Unauthorized();
+
+                if (invoice.AccountId != userId)
+                    return Forbid();
+            }
+
+            return View(invoice);
+        }
+
+        // GET: /InvoiceApi/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: /InvoiceApi/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CreateInvoiceRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View(request);
+
+            // If not admin, force the AccountId to the current authenticated user
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+                    return Unauthorized();
+
+                request.AccountId = userId;
+            }
+
+            var created = await _invoiceService.CreateInvoice(request);
+            return RedirectToAction(nameof(Details), new { id = created.Id });
+        }
+
+        // GET: /InvoiceApi/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var invoice = await _invoiceService.GetInvoice(id);
+            if (invoice == null)
+                return NotFound();
+
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+                    return Unauthorized();
+
+                if (invoice.AccountId != userId)
+                    return Forbid();
+            }
+
+            var updateRequest = new UpdateInvoiceRequest
+            {
+                InvoiceId = invoice.Id,
+                Status = invoice.Status,
+                Type = invoice.Type
+            };
+
+            return View(updateRequest);
+        }
+
+        // POST: /InvoiceApi/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UpdateInvoiceRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View(request);
+
+            var invoice = await _invoiceService.GetInvoice(request.InvoiceId);
+            if (invoice == null)
+                return NotFound();
+
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+                    return Unauthorized();
+
+                if (invoice.AccountId != userId)
+                    return Forbid();
+            }
+
+            var success = await _invoiceService.UpdateInvoice(request);
+            if (!success)
+                return BadRequest();
+
+            return RedirectToAction(nameof(Details), new { id = request.InvoiceId });
+        }
+
+        // GET: /InvoiceApi/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            var invoice = await _invoiceService.GetInvoice(id);
+            if (invoice == null)
+                return NotFound();
+
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+                    return Unauthorized();
+
+                if (invoice.AccountId != userId)
+                    return Forbid();
+            }
+
+            return View(invoice);
+        }
+
+        // POST: /InvoiceApi/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var invoice = await _invoiceService.GetInvoice(id);
+            if (invoice == null)
+                return NotFound();
+
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+                    return Unauthorized();
+
+                if (invoice.AccountId != userId)
+                    return Forbid();
+            }
+
+            var success = await _invoiceService.DeleteInvoice(id);
+            if (!success)
+                return BadRequest();
+
+            return RedirectToAction(nameof(Index));
+        }
+    }
+}

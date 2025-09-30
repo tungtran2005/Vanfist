@@ -14,7 +14,7 @@ namespace Vanfist.Services.Impl
             _invoiceRepository = invoiceRepository;
         }
 
-        public async Task<InvoiceResponse> CreateInvoice(InvoiceRequest request)
+        public async Task<InvoiceResponse> CreateInvoice(CreateInvoiceRequest request)
         {
             var invoice = new Invoice
             {
@@ -36,6 +36,11 @@ namespace Vanfist.Services.Impl
             return invoices.Select(InvoiceResponse.From).ToList();
         }
 
+        public async Task<IEnumerable<InvoiceResponse>> GetAllInvoiceByAccountId(int accountId)
+        {
+            var invoices = await _invoiceRepository.FindByAccountId(accountId);
+            return invoices.Select(InvoiceResponse.From).ToList();
+        }
         public async Task<InvoiceResponse?> GetInvoice(int invoiceId)
         {
             var invoice = await _invoiceRepository.FindById(invoiceId);
@@ -48,7 +53,7 @@ namespace Vanfist.Services.Impl
 
         public async Task<bool> UpdateInvoice(UpdateInvoiceRequest request)
         {
-            var invoice = await _invoiceRepository.FindById(request.invoiceId);
+            var invoice = await _invoiceRepository.FindById(request.InvoiceId);
             if (invoice == null)
             {
                 return false;

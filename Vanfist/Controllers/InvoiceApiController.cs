@@ -1,0 +1,83 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Vanfist.Constants;
+using Vanfist.DTOs.Requests;
+using Vanfist.DTOs.Responses;
+using Vanfist.Services;
+
+namespace Vanfist.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class InvoiceApiController : ControllerBase
+    {
+        private readonly IInvoiceService _invoiceService;
+
+        public InvoiceApiController(IInvoiceService invoiceService)
+        {
+            _invoiceService = invoiceService;
+        }
+
+        // GET: api/InvoiceApi
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<InvoiceResponse>>> GetAll()
+        {
+            var invoices = await _invoiceService.GetAllInvoice();
+            return Ok(invoices);
+        }
+
+        // GET: api/InvoiceApi/{id}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<InvoiceResponse>> GetById(int id)
+        {
+            var invoice = await _invoiceService.GetInvoice(id);
+            if (invoice == null)
+                return NotFound();
+            return Ok(invoice);
+        }
+
+        // GET: api/InvoiceApi/account/{accountId}
+        [HttpGet("account/{accountId}")]
+        public async Task<ActionResult<IEnumerable<InvoiceResponse>>> GetByAccountId(int accountId)
+        {
+            var invoices = await _invoiceService.GetAllInvoiceByAccountId(accountId);
+            return Ok(invoices);
+        }
+
+        // POST: api/InvoiceApi
+        [HttpPost]
+        public async Task<ActionResult<InvoiceResponse>> Create([FromBody] CreateInvoiceRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var invoice = await _invoiceService.CreateInvoice(request);
+            return CreatedAtAction(nameof(GetById), new { id = invoice.Id }, invoice);
+        }
+
+        // PUT: api/InvoiceApi
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateInvoiceRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var success = await _invoiceService.UpdateInvoice(request);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        // DELETE: api/InvoiceApi/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var success = await _invoiceService.DeleteInvoice(id);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
+    }
+}
