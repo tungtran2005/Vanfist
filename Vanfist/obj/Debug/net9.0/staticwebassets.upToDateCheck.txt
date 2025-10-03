@@ -72,8 +72,6 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\uploads\63700b55-f0fb-4be7-a71b-133cc0b26ba0.jpg
-wwwroot\uploads\e6125dfd-2752-43c1-ab8c-0d156dcd221e.jpg
 C:\Users\TamNguyen\Source\Repos\Vanfist\Vanfist\wwwroot\css\site.css
 C:\Users\TamNguyen\Source\Repos\Vanfist\Vanfist\wwwroot\js\site.js
 C:\Users\TamNguyen\Source\Repos\Vanfist\Vanfist\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css

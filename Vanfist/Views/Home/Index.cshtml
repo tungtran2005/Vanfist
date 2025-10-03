@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Vanfist.DTOs.Responses.ModelResponse>
+﻿@model X.PagedList.IPagedList<Vanfist.DTOs.Responses.ModelResponse>
 
 <div class="content-wrapper d-flex flex-column" style="min-height:80vh;">
     <!-- list products -->
@@ -12,11 +12,11 @@
 
                         <!-- image product -->
                         <div class="product-image-wrapper overflow-hidden">
-                            <img src="@(Url.Content(item.AttachmentUrls?.FirstOrDefault() ?? "~/images/no-image.png"))"
-                                 alt="@item.Name"
-                                 class="card-img-top product-image" />
-
-
+                            <a href="@Url.Action("Details", "Home", new { id = item.Id })">
+                                <img src="~/images/no-image.jpg"
+                                     alt="@item.Name"
+                                     class="card-img-top product-image" />
+                            </a>
                         </div>
 
 
@@ -52,8 +52,8 @@
     <nav aria-label="Page navigation" class="mt-auto">
         <ul class="pagination justify-content-center">
             @{
-                int currentPage = ViewBag.CurrentPage ?? 1;
-                int totalPages = ViewBag.TotalPages ?? 1;
+                int currentPage = Model.PageNumber;
+                int totalPages = Model.PageCount;
                 int maxVisiblePages = 5;
 
                 int startPage = Math.Max(1, currentPage - 2);
@@ -67,20 +67,20 @@
 
             <!-- Previous -->
             <li class="page-item @(currentPage == 1 ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1 })">&laquo;</a>
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1, pageSize = Model.PageSize })">&laquo;</a>
             </li>
 
             <!-- display pages -->
             @for (int i = startPage; i <= endPage; i++)
             {
                 <li class="page-item @(i == currentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = Model.PageSize })">@i</a>
                 </li>
             }
 
             <!-- Next -->
             <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1 })">&raquo;</a>
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1, pageSize = Model.PageSize })">&raquo;</a>
             </li>
         </ul>
     </nav>

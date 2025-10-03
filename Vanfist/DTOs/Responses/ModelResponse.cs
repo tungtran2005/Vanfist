@@ -40,9 +40,9 @@ public class ModelResponse
             Color = model.Color,
             CategoryId = model.CategoryId,
             CategoryName = model.Category?.Name ?? string.Empty,
-            AttachmentUrls = model.Attachments?
-            .Select(a => "/uploads/" + a.FileName) // => /uploads/c85daeb1.jpg
-            .ToList() ?? new List<string>()
+            //AttachmentUrls = model.Attachments?
+            //.Select(a => "/uploads/" + a.FileName) // => /uploads/c85daeb1.jpg
+            //.ToList() ?? new List<string>()
         };
     }
 }

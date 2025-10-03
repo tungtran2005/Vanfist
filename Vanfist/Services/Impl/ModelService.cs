@@ -4,6 +4,8 @@ using Vanfist.DTOs.Responses;
 using Vanfist.Entities;
 using Vanfist.Repositories;
 using Vanfist.Services.Base;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace Vanfist.Services;
 
@@ -24,13 +26,29 @@ public class ModelService : Service, IModelService
         return models.Select(ModelResponse.FromEntity);
     }
 
+    public async Task<IPagedList<ModelResponse>> FilterModel(FilterModelRequest request)
+    {
+        var models = await _modelRepository.FindByCategoriesId(request.CategoryIds);
+
+        var result = models.Select(m => new ModelResponse
+        {
+            Id = m.Id,
+            Name = m.Name,
+            Price = m.Price,
+            CategoryId = m.CategoryId,
+            CategoryName = m.Category.Name
+        });
+
+        return result.ToPagedList(request.Page, request.PageSize);
+    }
+
     public async Task<ModelResponse?> FindByIdModel(int id)
     {
         var model = await _modelRepository.FindById(id);
         return model == null ? null : ModelResponse.FromEntity(model);
     }
 
-    public async Task<ModelResponse> AddModel(AddModelRequest request, IFormFile? imageFile)
+    public async Task<ModelResponse> AddModel(AddModelRequest request)
     {
         var model = new Model
         {
@@ -45,31 +63,51 @@ public class ModelService : Service, IModelService
             MaximumTorque = request.MaximumTorque,
             RimSize = request.RimSize,
             Color = request.Color,
-            CategoryId = request.CategoryId
+            CategoryId = request.CategoryId,
+            //Attachments = new List<Attachment>()
         };
 
         await _modelRepository.Save(model);
         await _modelRepository.SaveChanges();
 
-        // Upload ảnh nếu có
-        if (imageFile != null && imageFile.Length > 0)
-        {
-            var attachment = await SaveAttachment(imageFile, model.Id);
-            await _attachmentRepository.Save(attachment);
-            await _attachmentRepository.SaveChanges();
-        }
 
         return ModelResponse.FromEntity(model);
     }
 
-    public async Task<ModelResponse> UpdateModel(UpdateModelRequest request, IFormFile? imageFile)
+    public async Task<UpdateModelRequest?> GetUpdateModelRequest(int id)
+    {
+        var model = await _modelRepository.FindById(id);
+        if (model == null) return null;
+
+        return new UpdateModelRequest
+        {
+            Id = model.Id,
+            Name = model.Name,
+            Price = model.Price,
+            Length = model.Length,
+            Width = model.Width,
+            Height = model.Height,
+            Wheelbase = model.Wheelbase,
+            NEDC = model.NEDC,
+            MaximumPower = model.MaximumPower,
+            MaximumTorque = model.MaximumTorque,
+            RimSize = model.RimSize,
+            Color = model.Color,
+            CategoryId = model.CategoryId,
+            // Attachments và DeletedAttachmentIds có thể để null/tạm bỏ
+        };
+    }
+
+
+    public async Task<ModelResponse> UpdateModel(UpdateModelRequest request)
     {
         var model = await _modelRepository.FindById(request.Id);
         if (model == null)
         {
-            throw new KeyNotFoundException("Model not found");
+            return null; // Trả về null thay vì throw
         }
 
+        // Update thông tin cơ bản
         model.Name = request.Name;
         model.Price = request.Price;
         model.Length = request.Length;
@@ -86,16 +124,11 @@ public class ModelService : Service, IModelService
         await _modelRepository.Update(model);
         await _modelRepository.SaveChanges();
 
-        // Upload ảnh mới nếu có
-        if (imageFile != null && imageFile.Length > 0)
-        {
-            var attachment = await SaveAttachment(imageFile, model.Id);
-            await _attachmentRepository.Save(attachment);
-            await _attachmentRepository.SaveChanges();
-        }
+        // TODO: xử lý thêm/xóa ảnh sẽ được tách sang FileService
 
         return ModelResponse.FromEntity(model);
     }
+
 
     public async Task DeleteModel(DeleteModelRequest request)
     {
@@ -108,6 +141,8 @@ public class ModelService : Service, IModelService
         await _modelRepository.Delete(model);
         await _modelRepository.SaveChanges();
     }
+
+
 
     /// <summary>
     /// Lưu file ảnh vào wwwroot/uploads và tạo đối tượng Attachment

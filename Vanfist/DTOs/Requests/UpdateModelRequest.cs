@@ -26,5 +26,9 @@ public class UpdateModelRequest
     [Required]
     public int CategoryId { get; set; }
 
+    // Ảnh mới upload
     public List<IFormFile>? Attachments { get; set; }
+
+    // Ảnh cũ cần xóa (danh sách Id)
+    public List<int>? DeletedAttachmentIds { get; set; }
 }

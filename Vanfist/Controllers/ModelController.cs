@@ -5,7 +5,7 @@ using Vanfist.Services;
 
 namespace Vanfist.Controllers;
 
-[Authorize(Roles = "Admin")] // chỉ Admin mới CRUD
+[Authorize(Roles = Constants.Role.Admin)] // chỉ Admin mới CRUD
 public class ModelController : Controller
 {
     private readonly IModelService _modelService;
@@ -27,7 +27,7 @@ public class ModelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(AddModelRequest request, IFormFile? imageFile)
+    public async Task<IActionResult> Create(AddModelRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -36,48 +36,78 @@ public class ModelController : Controller
             return View(request);
         }
 
-        await _modelService.AddModel(request, imageFile);
+        await _modelService.AddModel(request);
         TempData["SuccessMessage"] = "Thêm sản phẩm thành công!";
         return RedirectToAction("Index", "Home");
     }
 
     [HttpGet]
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Update(int id)
     {
-        var model = await _modelService.FindByIdModel(id);
-        if (model == null)
-        {
-            return NotFound();
-        }
+        var model = await _modelService.GetUpdateModelRequest(id);
+        if (model == null) return NotFound();
 
-        var categories = await _categoryService.FindAllCategories();
-        ViewBag.Categories = categories;
-
+        ViewBag.Categories = await _categoryService.FindAllCategories();
         return View(model);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(UpdateModelRequest request, IFormFile? imageFile)
+    public async Task<IActionResult> Update(UpdateModelRequest request)
     {
         if (!ModelState.IsValid)
         {
-            var categories = await _categoryService.FindAllCategories();
-            ViewBag.Categories = categories;
+            ViewBag.Categories = await _categoryService.FindAllCategories();
             return View(request);
         }
 
-        await _modelService.UpdateModel(request, imageFile);
-        TempData["SuccessMessage"] = "Cập nhật sản phẩm thành công!";
-        return RedirectToAction("Index", "Home");
+        try
+        {
+            var updatedModel = await _modelService.UpdateModel(request);
+
+            if (updatedModel == null) // service trả về null nếu không tìm thấy
+            {
+                ModelState.AddModelError("", "Không tìm thấy sản phẩm để cập nhật!");
+                ViewBag.Categories = await _categoryService.FindAllCategories();
+                return View(request);
+            }
+
+            TempData["SuccessMessage"] = "Cập nhật sản phẩm thành công!";
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception ex)
+        {
+            // log lỗi nếu cần
+            ModelState.AddModelError("", $"Có lỗi xảy ra: {ex.Message}");
+            ViewBag.Categories = await _categoryService.FindAllCategories();
+            return View(request);
+        }
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var model = await _modelService.FindByIdModel(id);
+        if (model == null) return NotFound();
+
+        return View(model); // model kiểu ModelResponse
+    }
+
+
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(DeleteModelRequest request)
     {
-        await _modelService.DeleteModel(request);
-        TempData["SuccessMessage"] = "Xóa sản phẩm thành công!";
-        return RedirectToAction("Index", "Home");
+        try
+        {
+            await _modelService.DeleteModel(request);
+            TempData["SuccessMessage"] = "Xóa sản phẩm thành công!";
+            return RedirectToAction("Index", "Home");
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
     }
+
+
 }

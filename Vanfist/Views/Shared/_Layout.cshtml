@@ -1,118 +1,149 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Vanfist</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/Vanfist.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Vanfist.styles.css" asp-append-version="true" />
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">>_ Vanfist</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse justify-content-center w-100">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Giới
-                            thiệu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ô tô</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dịch vụ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Chính
-                            sách</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">
-                                <img src="~/image/user.png" alt="Profile" class="navbar-toggler-icon">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">>_ Vanfist</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse justify-content-center w-100">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Giới thiệu</a>
+                        </li>
+
+                        <!-- Dropdown filter Ô tô -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="carDropdown"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ô tô
                             </a>
-                        }
-                        else
-                        {
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Index">
-                                <img src="~/image/user.png" alt="Profile" class="navbar-toggler-icon">
-                            </a>
-                        }
-                    </li>
-                    <li class="nav-item">
-                        <form asp-controller="Home" asp-action="Index">
-                            <button class="btn btn-outline-primary">
-                                Đăng kí lái thử
-                            </button>
-                        </form>
-                    </li>
-                </ul>
+                            <ul class="dropdown-menu p-3" aria-labelledby="carDropdown" style="min-width:250px;">
+                                <form asp-controller="Home" asp-action="Filter" method="get">
+                                    @inject Vanfist.Services.ICategoryService CategoryService
+                                    @{
+                                        var categories = await CategoryService.FindAllCategories();
+                                    }
+
+                                    @foreach (var cat in categories)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
+                                                   name="CategoryIds" value="@cat.Id" id="cat_@cat.Id" />
+                                            <label class="form-check-label" for="cat_@cat.Id">@cat.Name</label>
+                                        </div>
+                                    }
+
+                                    <div class="mt-2">
+                                        <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
+                                        <button type="reset" class="btn btn-secondary btn-sm"
+                                                onclick="document.querySelectorAll('[name=CategoryIds]').forEach(c=>c.checked=false)">
+                                            Bỏ chọn tất cả
+                                        </button>
+                                    </div>
+                                </form>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dịch vụ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Chính sách</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">
+                                    <img src="~/image/user.png" alt="Profile" class="navbar-toggler-icon">
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Index">
+                                    <img src="~/image/user.png" alt="Profile" class="navbar-toggler-icon">
+                                </a>
+                            }
+                        </li>
+                        <li class="nav-item">
+                            <form asp-controller="Home" asp-action="Index">
+                                <button class="btn btn-outline-primary">
+                                    Đăng kí lái thử
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+    </header>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert"
+             style="position: fixed; top: 65px; right: 20px; z-index: 9999;">
+            @TempData["SuccessMessage"]
         </div>
-    </nav>
-</header>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert"
+             style="position: fixed; top: 65px; right: 20px; z-index: 9999;">
+            @TempData["ErrorMessage"]
+        </div>
+    }
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert"
-         style="position: fixed; top: 65px; right: 20px; z-index: 9999;">
-        @TempData["SuccessMessage"]
-    </div>
-}
-@if (TempData["ErrorMessage"] != null)
-{
-    <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert"
-         style="position: fixed; top: 65px; right: 20px; z-index: 9999;">
-        @TempData["ErrorMessage"]
-    </div>
-}
-
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
-
-<footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2025 - Vanfist - <a asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
-</footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
-<script>
-    window.addEventListener("DOMContentLoaded", function () {
-        var successAlert = document.getElementById("success-alert");
-        if (successAlert) {
-            setTimeout(function () {
-                successAlert.classList.remove("show");
-                successAlert.classList.add("fade");
-                setTimeout(() => successAlert.remove(), 500);
-            }, 3000);
-        }
-        var errorAlert = document.getElementById("error-alert");
-        if (errorAlert) {
-            setTimeout(function () {
-                errorAlert.classList.remove("show");
-                errorAlert.classList.add("fade");
-                setTimeout(() => errorAlert.remove(), 500);
-            }, 3000);
-        }
-    });
-</script>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - Vanfist - <a asp-area="" asp-controller="Home" asp-action="Privacy">Chính sách</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        window.addEventListener("DOMContentLoaded", function () {
+            var successAlert = document.getElementById("success-alert");
+            if (successAlert) {
+                setTimeout(function () {
+                    successAlert.classList.remove("show");
+                    successAlert.classList.add("fade");
+                    setTimeout(() => successAlert.remove(), 500);
+                }, 3000);
+            }
+            var errorAlert = document.getElementById("error-alert");
+            if (errorAlert) {
+                setTimeout(function () {
+                    errorAlert.classList.remove("show");
+                    errorAlert.classList.add("fade");
+                    setTimeout(() => errorAlert.remove(), 500);
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>

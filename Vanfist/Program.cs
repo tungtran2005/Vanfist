@@ -39,6 +39,8 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<RoleSeeder>();
 builder.Services.AddScoped<AccountSeeder>();
 builder.Services.AddScoped<DatabaseSeeder>();
+builder.Services.AddScoped<CategorySeeder>();
+builder.Services.AddScoped<ModelSeeder>();
 
 
 

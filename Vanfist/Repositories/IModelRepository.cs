@@ -5,5 +5,6 @@ namespace Vanfist.Repositories;
 public interface IModelRepository : IRepository<Model>
 {
     // Có thể thêm method riêng nếu sau này cần filter nâng cao
+    Task<IEnumerable<Model>> FindByCategoriesId(List<int> categoryIds);
 
 }

@@ -1,0 +1,19 @@
+﻿@model Vanfist.DTOs.Responses.ModelResponse
+
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<h2>Bạn có chắc chắn muốn xóa sản phẩm này?</h2>
+
+<div class="card shadow-sm p-3 mb-3">
+    <h4 class="text-danger">@Model.Name</h4>
+    <p><strong>Giá:</strong> @string.Format("{0:N0} VND", Model.Price)</p>
+    <p><strong>Danh mục:</strong> @Model.CategoryName</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Hủy</a>
+</form>

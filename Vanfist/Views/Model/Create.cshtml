@@ -8,68 +8,68 @@
 
 <form asp-action="Create" enctype="multipart/form-data" method="post">
     <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
+        <label asp-for="Name">Tên sản phẩm</label>
+        <input asp-for="Name" class="form-control" placeholder="Nhập tên sản phẩm" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+        <label asp-for="Price">Giá</label>
+        <input asp-for="Price" class="form-control" type="number" step="0.01" placeholder="Nhập giá" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Length"></label>
-        <input asp-for="Length" class="form-control" type="number" step="0.01" />
+        <label asp-for="Length">Chiều dài (mm)</label>
+        <input asp-for="Length" class="form-control" type="number" step="0.01" placeholder="Nhập chiều dài" />
         <span asp-validation-for="Length" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Width"></label>
-        <input asp-for="Width" class="form-control" type="number" step="0.01" />
+        <label asp-for="Width">Chiều rộng (mm)</label>
+        <input asp-for="Width" class="form-control" type="number" step="0.01" placeholder="Nhập chiều rộng" />
         <span asp-validation-for="Width" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Height"></label>
-        <input asp-for="Height" class="form-control" type="number" step="0.01" />
+        <label asp-for="Height">Chiều cao (mm)</label>
+        <input asp-for="Height" class="form-control" type="number" step="0.01" placeholder="Nhập chiều cao" />
         <span asp-validation-for="Height" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Wheelbase"></label>
-        <input asp-for="Wheelbase" class="form-control" type="number" step="0.01" />
+        <label asp-for="Wheelbase">Chiều dài cơ sở (mm)</label>
+        <input asp-for="Wheelbase" class="form-control" type="number" step="0.01" placeholder="Nhập chiều dài cơ sở" />
         <span asp-validation-for="Wheelbase" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NEDC"></label>
-        <input asp-for="NEDC" class="form-control" type="number" step="0.01" />
+        <label asp-for="NEDC">Quãng đường NEDC (km)</label>
+        <input asp-for="NEDC" class="form-control" type="number" step="0.01" placeholder="Nhập NEDC" />
         <span asp-validation-for="NEDC" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="MaximumPower"></label>
-        <input asp-for="MaximumPower" class="form-control" type="number" step="0.01" />
+        <label asp-for="MaximumPower">Công suất tối đa (HP)</label>
+        <input asp-for="MaximumPower" class="form-control" type="number" step="0.01" placeholder="Nhập công suất" />
         <span asp-validation-for="MaximumPower" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="MaximumTorque"></label>
-        <input asp-for="MaximumTorque" class="form-control" type="number" step="0.01" />
+        <label asp-for="MaximumTorque">Momen xoắn tối đa (Nm)</label>
+        <input asp-for="MaximumTorque" class="form-control" type="number" step="0.01" placeholder="Nhập momen xoắn" />
         <span asp-validation-for="MaximumTorque" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="RimSize"></label>
-        <input asp-for="RimSize" class="form-control" type="number" step="0.01" />
+        <label asp-for="RimSize">Kích thước vành (inch)</label>
+        <input asp-for="RimSize" class="form-control" type="number" step="0.01" placeholder="Nhập kích thước vành" />
         <span asp-validation-for="RimSize" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Color"></label>
-        <input asp-for="Color" class="form-control" />
+        <label asp-for="Color">Màu sắc</label>
+        <input asp-for="Color" class="form-control" placeholder="Nhập màu sắc" />
         <span asp-validation-for="Color" class="text-danger"></span>
     </div>
 
@@ -87,10 +87,10 @@
     <div class="form-group">
         <label>Ảnh sản phẩm</label>
         <input type="file" name="imageFile" class="form-control" />
-        <span class="text-danger">@Html.ValidationMessage("ImageError")</span>
+        <span class="text-muted">*Chưa có chức năng lưu ảnh</span>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+    <button type="submit" class="btn btn-primary mt-3">Lưu sản phẩm</button>
 </form>
 
 @section Scripts {
