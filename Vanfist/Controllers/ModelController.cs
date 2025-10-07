@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Vanfist.DTOs.Requests;
 using Vanfist.Services;
+using Vanfist.Services.Impl;
 
 namespace Vanfist.Controllers;
 
@@ -10,11 +11,14 @@ public class ModelController : Controller
 {
     private readonly IModelService _modelService;
     private readonly ICategoryService _categoryService;
+    private readonly IAttachmentService _attachmentService;
 
-    public ModelController(IModelService modelService, ICategoryService categoryService)
+    public ModelController(IModelService modelService, ICategoryService categoryService, IAttachmentService attachmentService)
     {
         _modelService = modelService;
         _categoryService = categoryService;
+        _attachmentService = attachmentService;
+        _attachmentService = attachmentService;
     }
 
     [HttpGet]
@@ -48,6 +52,7 @@ public class ModelController : Controller
         if (model == null) return NotFound();
 
         ViewBag.Categories = await _categoryService.FindAllCategories();
+        ViewBag.Attachments = await _attachmentService.ListByModel(id);
         return View(model);
     }
 

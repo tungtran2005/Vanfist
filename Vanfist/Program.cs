@@ -33,6 +33,7 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IModelService, ModelService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
 
 // Register seeders
@@ -45,6 +46,8 @@ builder.Services.AddScoped<ModelSeeder>();
 
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITestDriveRepository, TestDriveRepository>();
+builder.Services.AddScoped<ITestDriveService, TestDriveService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

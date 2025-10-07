@@ -1,0 +1,19 @@
+﻿@model Vanfist.Entities.TestDriveRequest
+@{
+    ViewData["Title"] = "Đăng ký thành công";
+}
+<h2>@ViewData["Title"]</h2>
+
+<p>Cảm ơn <strong>@Model.FullName</strong> đã đăng ký lái thử.</p>
+@if (Model.Model != null)
+{
+    <p>Mẫu xe: <strong>@Model.Model.Name</strong></p>
+}
+@if (Model.PreferredTime.HasValue)
+{
+    <p>Thời gian mong muốn: @Model.PreferredTime.Value.ToString("dd/MM/yyyy HH:mm")</p>
+}
+<p>Trạng thái: <span class="badge bg-info">@Model.Status</span></p>
+<p>Chúng tôi sẽ liên hệ sớm qua @Model.Email / @Model.Phone.</p>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">Về trang chủ</a>

@@ -13,7 +13,7 @@ public class ModelRepository : Repository<Model>, IModelRepository
     {
         return await _context.Models
             .Include(m => m.Category)    // thêm dòng này
-            //.Include(m => m.Attachments) // load ảnh
+            .Include(m => m.Attachments) // load ảnh
             .ToListAsync();
     }
 
@@ -21,13 +21,16 @@ public class ModelRepository : Repository<Model>, IModelRepository
     {
         return await _context.Models
             .Include(m => m.Category)    // load Category
-            //.Include(m => m.Attachments) // load ảnh
+            .Include(m => m.Attachments) // load ảnh
             .FirstOrDefaultAsync(m => m.Id == id);
     }
 
     public async Task<IEnumerable<Model>> FindByCategoriesId(List<int> categoryIds)
     {
-        var query = _context.Models.Include(m => m.Category).AsQueryable();
+        var query = _context.Models
+            .Include(m => m.Category)
+            .Include(m => m.Attachments)   // <-- thêm dòng này
+            .AsQueryable();
 
         if (categoryIds != null && categoryIds.Any())
         {

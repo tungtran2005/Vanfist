@@ -14,6 +14,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Model> Models { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Attachment> Attachments { get; set; }
+    public DbSet<TestDriveRequest> TestDriveRequests { get; set; }
     public DbSet<Invoice> Invoices { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -58,5 +59,11 @@ public class ApplicationDbContext : DbContext
             .WithMany()
             .HasForeignKey(i => i.ModelId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<TestDriveRequest>()
+            .HasOne(t => t.Model)
+            .WithMany()
+            .HasForeignKey(t => t.ModelId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

@@ -4742,23 +4742,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\TamNguyen\\.nuget\\packages\\": {},
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\TamNguyen\\Source\\Repos\\Vanfist\\Vanfist\\Vanfist.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Source\\Repos\\Vanfist\\Vanfist\\Vanfist.csproj",
       "projectName": "Vanfist",
-      "projectPath": "C:\\Users\\TamNguyen\\Source\\Repos\\Vanfist\\Vanfist\\Vanfist.csproj",
-      "packagesPath": "C:\\Users\\TamNguyen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\TamNguyen\\Source\\Repos\\Vanfist\\Vanfist\\obj\\",
+      "projectPath": "C:\\Users\\Admin\\Source\\Repos\\Vanfist\\Vanfist\\Vanfist.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Admin\\Source\\Repos\\Vanfist\\Vanfist\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\TamNguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

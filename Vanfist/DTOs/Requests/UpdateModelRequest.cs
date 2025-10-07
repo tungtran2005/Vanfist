@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Vanfist.Entities;
 
 namespace Vanfist.DTOs.Requests;
 
@@ -31,4 +32,6 @@ public class UpdateModelRequest
 
     // Ảnh cũ cần xóa (danh sách Id)
     public List<int>? DeletedAttachmentIds { get; set; }
+
+    public List<Attachment>? ExistingAttachments { get; set; }
 }

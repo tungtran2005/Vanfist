@@ -30,14 +30,8 @@ public class ModelService : Service, IModelService
     {
         var models = await _modelRepository.FindByCategoriesId(request.CategoryIds);
 
-        var result = models.Select(m => new ModelResponse
-        {
-            Id = m.Id,
-            Name = m.Name,
-            Price = m.Price,
-            CategoryId = m.CategoryId,
-            CategoryName = m.Category.Name
-        });
+        // Dùng FromEntity để có đầy đủ thông tin + ảnh
+        var result = models.Select(ModelResponse.FromEntity);
 
         return result.ToPagedList(request.Page, request.PageSize);
     }
@@ -45,7 +39,24 @@ public class ModelService : Service, IModelService
     public async Task<ModelResponse?> FindByIdModel(int id)
     {
         var model = await _modelRepository.FindById(id);
-        return model == null ? null : ModelResponse.FromEntity(model);
+        if (model == null) return null;
+
+        return new ModelResponse
+        {
+            Id = model.Id,
+            Name = model.Name,
+            Price = model.Price,
+            Color = model.Color,
+            CategoryId = model.CategoryId,
+            CategoryName = model.Category?.Name ?? "",
+            Attachments = model.Attachments?.Select(a => new AttachmentItem
+            {
+                Id = a.Id,
+                FileName = a.FileName,
+                Url = $"/uploads/{model.Id}/{a.FileName}",
+                ContentType = a.Type
+            }).ToList() ?? new List<AttachmentItem>()
+        };
     }
 
     public async Task<ModelResponse> AddModel(AddModelRequest request)

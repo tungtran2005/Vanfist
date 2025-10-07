@@ -13,7 +13,15 @@
                         <!-- image product -->
                         <div class="product-image-wrapper overflow-hidden">
                             <a href="@Url.Action("Details", "Home", new { id = item.Id })">
-                                <img src="~/images/no-image.jpg"
+                                @{
+                                    var thumb = item.Attachments != null && item.Attachments.Any()
+                                    ? item.Attachments.First()
+                                    : null;
+                                    var imgSrc = thumb != null
+                                    ? thumb.Url              // VD: /uploads/{modelId}/{fileName}
+                                    : Url.Content("~/images/no-image.jpg");
+                                }
+                                <img src="@imgSrc"
                                      alt="@item.Name"
                                      class="card-img-top product-image" />
                             </a>

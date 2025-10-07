@@ -21,6 +21,7 @@ public class ModelResponse
     public string CategoryName { get; set; }
 
     public List<string> AttachmentUrls { get; set; } = new List<string>();
+    public List<AttachmentItem> Attachments { get; set; } = new();
 
     public static ModelResponse FromEntity(Model model)
     {
@@ -40,9 +41,17 @@ public class ModelResponse
             Color = model.Color,
             CategoryId = model.CategoryId,
             CategoryName = model.Category?.Name ?? string.Empty,
-            //AttachmentUrls = model.Attachments?
-            //.Select(a => "/uploads/" + a.FileName) // => /uploads/c85daeb1.jpg
-            //.ToList() ?? new List<string>()
+
+            // Quan trọng: map danh sách ảnh
+            Attachments = (model.Attachments ?? new List<Attachment>())
+                .Select(a => new AttachmentItem
+                {
+                    Id = a.Id,
+                    FileName = a.FileName,
+                    Url = $"/uploads/{model.Id}/{a.FileName}",   // đúng đường dẫn lưu file
+                    ContentType = a.Type
+                })
+                .ToList()
         };
     }
 }
