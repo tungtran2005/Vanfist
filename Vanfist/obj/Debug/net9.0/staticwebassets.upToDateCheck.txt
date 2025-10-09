@@ -73,6 +73,7 @@ wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\js\account.js
+wwwroot\js\admin.js
 C:\Users\Admin\OneDrive\Máy tính\KY1_N3\WEB\Vanfist\Vanfist\Vanfist\wwwroot\css\account.css
 C:\Users\Admin\OneDrive\Máy tính\KY1_N3\WEB\Vanfist\Vanfist\Vanfist\wwwroot\css\site.css
 C:\Users\Admin\OneDrive\Máy tính\KY1_N3\WEB\Vanfist\Vanfist\Vanfist\wwwroot\favicon.ico
@@ -137,3 +138,4 @@ C:\Users\Admin\OneDrive\Máy tính\KY1_N3\WEB\Vanfist\Vanfist\Vanfist\wwwroot\li
 C:\Users\Admin\OneDrive\Máy tính\KY1_N3\WEB\Vanfist\Vanfist\Vanfist\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\Admin\OneDrive\Máy tính\KY1_N3\WEB\Vanfist\Vanfist\Vanfist\wwwroot\lib\jquery\LICENSE.txt
 C:\Users\Admin\OneDrive\Máy tính\KY1_N3\WEB\Vanfist\Vanfist\Vanfist\wwwroot\js\account.js
+C:\Users\Admin\OneDrive\Máy tính\KY1_N3\WEB\Vanfist\Vanfist\Vanfist\wwwroot\js\admin.js

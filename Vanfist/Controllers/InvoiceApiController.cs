@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Vanfist.Constants;
 using Vanfist.DTOs.Requests;
 using Vanfist.DTOs.Responses;
@@ -12,14 +13,32 @@ namespace Vanfist.Controllers
     public class InvoiceApiController : ControllerBase
     {
         private readonly IInvoiceService _invoiceService;
+        private readonly IAccountService _accountService;
 
-        public InvoiceApiController(IInvoiceService invoiceService)
+        public InvoiceApiController(IInvoiceService invoiceService, IAccountService accountService)
         {
             _invoiceService = invoiceService;
+            _accountService = accountService;
         }
 
+        // GET: api/invoiceapi/paged
+        [HttpGet("paged")]
+        public async Task<ActionResult<PagedResult<InvoiceResponse>>> GetPaged([FromQuery] InvoiceFilterRequest request)
+        {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value ?? Role.User;
+
+            var account = await _accountService.GetCurrentAccount();
+            if (account == null)
+            {
+                return Unauthorized(new { message = "b?n ch?a ??ng nh?p" });
+            }
+            request.AccountId = account.Id;
+            var result = await _invoiceService.GetPagedInvoice(request, role);
+            return Ok(result);
+        }
         // GET: api/InvoiceApi
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<InvoiceResponse>>> GetAll()
         {
             var invoices = await _invoiceService.GetAllInvoice();
@@ -38,9 +57,15 @@ namespace Vanfist.Controllers
 
         // GET: api/InvoiceApi/account/{accountId}
         [HttpGet("account/{accountId}")]
-        public async Task<ActionResult<IEnumerable<InvoiceResponse>>> GetByAccountId(int accountId)
+        [Authorize(Roles = Role.User)]
+        public async Task<ActionResult<IEnumerable<InvoiceResponse>>> GetByAccount()
         {
-            var invoices = await _invoiceService.GetAllInvoiceByAccountId(accountId);
+            var account = await _accountService.GetCurrentAccount();
+            if (account == null)
+            {
+                return Unauthorized(new { message = "b?n ch?a ??ng nh?p" });
+            }
+            var invoices = await _invoiceService.GetAllInvoiceByAccountId(account.Id);
             return Ok(invoices);
         }
 

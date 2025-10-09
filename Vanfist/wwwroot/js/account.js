@@ -2,31 +2,26 @@
     const links = document.querySelectorAll('.section-link');
     const sections = document.querySelectorAll('.content-section');
 
-    // Hiển thị section theo tên
     function showSection(name) {
         sections.forEach(s => s.style.display = 'none');
         const el = document.getElementById(`section-${name}`);
         if (el) el.style.display = '';
     }
 
-    // Lắng nghe click menu
     links.forEach(link => {
         link.addEventListener('click', async function (e) {
             e.preventDefault();
             const section = this.getAttribute('data-section');
             showSection(section);
 
-            // Nếu mở Transactions thì load dữ liệu
             if (section === "transactions") {
                 await loadTransactions();
             }
         });
     });
 
-    // Default mở phần thông tin cá nhân
     showSection('personal');
 
-    // --- Validate đổi mật khẩu ---
     const form = document.getElementById('changePasswordForm');
     if (form) {
         const newPwd = form.querySelector('#NewPassword');
@@ -59,59 +54,80 @@
             }
         });
 
-        // Khởi tạo trạng thái nút submit
         validatePasswordsMatch();
     }
 });
 
-// --- Hàm load invoice (transactions) ---
-async function loadTransactions() {
-    const accountIdEl = document.getElementById('accountId');
-    if (!accountIdEl) return;
-
-    const accountId = accountIdEl.value;
+async function loadTransactions(page = 1, pageSize = 5) {
     const container = document.querySelector('#section-transactions .card-body');
     container.innerHTML = `<div class="text-muted">Đang tải dữ liệu...</div>`;
 
     try {
-        const response = await fetch(`/api/InvoiceApi/account/${accountId}`);
+        const response = await fetch(`/api/InvoiceApi/paged?page=${page}&pageSize=${pageSize}`);
         if (!response.ok) throw new Error("Không thể load dữ liệu");
-        const invoices = await response.json();
 
-        if (!invoices || invoices.length === 0) {
+        const result = await response.json();
+        const invoices = result.items || [];
+
+        if (invoices.length === 0) {
             container.innerHTML = `<div class="text-muted">Bạn chưa có đơn hàng nào.</div>`;
-        } else {
-            container.innerHTML = `
-                <table class="table table-bordered table-sm">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>AccountId</th>
-                            <th>ModelId</th>
-                            <th>TotalPrice</th>
-                            <th>Status</th>
-                            <th>Type</th>
-                            <th>CreatedAt</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${invoices.map(i => `
-                            <tr>
-                                <td>${i.id}</td>
-                                <td>${i.accountId}</td>
-                                <td>${i.modelId}</td>
-                                <td>${i.totalPrice.toLocaleString()} VND</td>
-                                <td>${i.status}</td>
-                                <td>${i.type}</td>
-                                <td>${new Date(i.createdAt).toLocaleString()}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
+            return;
         }
+
+        let tableHtml = `
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ModelId</th>
+                        <th>TotalPrice</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>CreatedAt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${invoices.map(i => `
+                        <tr>
+                            <td>${i.id}</td>
+                            <td>${i.modelId}</td>
+                            <td>${i.totalPrice.toLocaleString()} VND</td>
+                            <td>${i.status}</td>
+                            <td>${i.type}</td>
+                            <td>${new Date(i.createdAt).toLocaleString()}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+
+        const totalPages = Math.ceil(result.totalCount / result.pageSize);
+        let paginationHtml = `<nav><ul class="pagination justify-content-center mt-3">`;
+        for (let p = 1; p <= totalPages; p++) {
+            paginationHtml += `
+                <li class="page-item ${p === page ? 'active' : ''}">
+                    <a class="page-link" href="#" data-page="${p}">${p}</a>
+                </li>`;
+        }
+        paginationHtml += `</ul></nav>`;
+
+        container.innerHTML = tableHtml + paginationHtml;
+
+        container.querySelectorAll('.page-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const newPage = parseInt(link.getAttribute('data-page'));
+                loadTransactions(newPage, pageSize);
+            });
+        });
+
     } catch (err) {
         console.error(err);
         container.innerHTML = `<div class="text-danger">Lỗi khi tải dữ liệu đơn hàng.</div>`;
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const section = document.querySelector('#section-transactions');
+    if (section) loadTransactions();
+});

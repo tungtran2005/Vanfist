@@ -14,5 +14,13 @@ namespace Vanfist.Repositories.Impl
         {
             return await _dbSet.Where(i => i.AccountId == accountId).ToListAsync();
         }
+
+        public IQueryable<Invoice> Query()
+        {
+            return _context.Invoices
+            .Include(i => i.Account)
+            .Include(i => i.Model)
+            .AsQueryable();
+        }
     }
 }
