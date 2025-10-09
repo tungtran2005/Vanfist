@@ -46,8 +46,6 @@ builder.Services.AddScoped<ModelSeeder>();
 
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ITestDriveRepository, TestDriveRepository>();
-builder.Services.AddScoped<ITestDriveService, TestDriveService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
