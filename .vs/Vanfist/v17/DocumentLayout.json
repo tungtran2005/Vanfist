@@ -1,50 +1,59 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\",
+  "WorkspaceRootPath": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\wwwroot\\uploads\\16\\addmodelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\wwwroot\\uploads\\16\\addmodelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\controllers\\modelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\controllers\\modelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\services\\impl\\modelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\views\\model\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\views\\model\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\services\\impl\\modelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\services\\impl\\modelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\repositories\\impl\\modelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\repositories\\impl\\modelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\dtos\\requests\\updatemodelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\dtos\\requests\\updatemodelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\repositories\\imodelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\repositories\\imodelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\services\\imodelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\services\\imodelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\dtos\\requests\\filtermodelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\dtos\\requests\\filtermodelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\dtos\\requests\\addmodelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\dtos\\requests\\addmodelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\seeders\\categoryseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\seeders\\categoryseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/VanfistDb/True/SqlTable/dbo.Attachments.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\services\\impl\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\services\\impl\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/VanfistDb/True/SqlTable/dbo.Models.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\seeders\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\seeders\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\TamNguyen\\AppData\\Local\\Temp\\0vvlk5ub..sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\seeders\\modelseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\seeders\\modelseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist\\vanfist\\services\\imodelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\services\\imodelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\seeders\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\seeders\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\tamnguyen\\source\\repos\\vanfist - copy\\vanfist\\seeders\\attachmentseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\seeders\\attachmentseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,12 +63,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 1417,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 6,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -70,154 +75,182 @@
             },
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "IModelRepository.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Repositories\\IModelRepository.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Repositories\\IModelRepository.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Repositories\\IModelRepository.cs",
-              "RelativeToolTip": "Vanfist\\Repositories\\IModelRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T03:23:11.62Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ModelRepository.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Repositories\\Impl\\ModelRepository.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Repositories\\Impl\\ModelRepository.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Repositories\\Impl\\ModelRepository.cs",
-              "RelativeToolTip": "Vanfist\\Repositories\\Impl\\ModelRepository.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAYwBsAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T03:20:33.233Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ModelService.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Services\\Impl\\ModelService.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Services\\Impl\\ModelService.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Services\\Impl\\ModelService.cs",
-              "RelativeToolTip": "Vanfist\\Services\\Impl\\ModelService.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAgwB4AAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T03:07:21.356Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "Vanfist\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAowEIAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-02T08:39:50.052Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Vanfist\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Vanfist\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAJUAAAAAAAAAAAAAAJUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-03T03:01:35.74Z",
+              "Title": "AddModelRequest.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\wwwroot\\uploads\\16\\AddModelRequest.cs",
+              "RelativeDocumentMoniker": "Vanfist\\wwwroot\\uploads\\16\\AddModelRequest.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\wwwroot\\uploads\\16\\AddModelRequest.cs",
+              "RelativeToolTip": "Vanfist\\wwwroot\\uploads\\16\\AddModelRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T17:07:22.611Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "FilterModelRequest.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\DTOs\\Requests\\FilterModelRequest.cs",
-              "RelativeDocumentMoniker": "Vanfist\\DTOs\\Requests\\FilterModelRequest.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\DTOs\\Requests\\FilterModelRequest.cs",
-              "RelativeToolTip": "Vanfist\\DTOs\\Requests\\FilterModelRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Title": "IModelService.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Services\\IModelService.cs",
+              "RelativeDocumentMoniker": "Vanfist\\Services\\IModelService.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Services\\IModelService.cs",
+              "RelativeToolTip": "Vanfist\\Services\\IModelService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAjwBoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T03:31:00.516Z",
+              "WhenOpened": "2025-10-10T17:05:35.118Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ModelController.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Controllers\\ModelController.cs",
+              "RelativeDocumentMoniker": "Vanfist\\Controllers\\ModelController.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Controllers\\ModelController.cs",
+              "RelativeToolTip": "Vanfist\\Controllers\\ModelController.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAlwFMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T16:47:04.053Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Update.cshtml",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Views\\Model\\Update.cshtml",
+              "RelativeDocumentMoniker": "Vanfist\\Views\\Model\\Update.cshtml",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Views\\Model\\Update.cshtml",
+              "RelativeToolTip": "Vanfist\\Views\\Model\\Update.cshtml",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAtwJEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-10T16:46:06.774Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "CategorySeeder.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Seeders\\CategorySeeder.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Seeders\\CategorySeeder.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Seeders\\CategorySeeder.cs",
-              "RelativeToolTip": "Vanfist\\Seeders\\CategorySeeder.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Title": "AddModelRequest.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\DTOs\\Requests\\AddModelRequest.cs",
+              "RelativeDocumentMoniker": "Vanfist\\DTOs\\Requests\\AddModelRequest.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\DTOs\\Requests\\AddModelRequest.cs",
+              "RelativeToolTip": "Vanfist\\DTOs\\Requests\\AddModelRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T03:41:46.049Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-10T16:24:56.728Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Program.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Program.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Program.cs",
-              "RelativeToolTip": "Vanfist\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "UpdateModelRequest.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\DTOs\\Requests\\UpdateModelRequest.cs",
+              "RelativeDocumentMoniker": "Vanfist\\DTOs\\Requests\\UpdateModelRequest.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\DTOs\\Requests\\UpdateModelRequest.cs",
+              "RelativeToolTip": "Vanfist\\DTOs\\Requests\\UpdateModelRequest.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAlwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T03:43:30.284Z"
+              "WhenOpened": "2025-10-10T16:24:49.782Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ModelService.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Services\\Impl\\ModelService.cs",
+              "RelativeDocumentMoniker": "Vanfist\\Services\\Impl\\ModelService.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Services\\Impl\\ModelService.cs",
+              "RelativeToolTip": "Vanfist\\Services\\Impl\\ModelService.cs",
+              "ViewState": "AgIAAOIAAAAAAAAAAIA9wOAAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T16:23:16.333Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "DatabaseSeeder.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Seeders\\DatabaseSeeder.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Seeders\\DatabaseSeeder.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Seeders\\DatabaseSeeder.cs",
-              "RelativeToolTip": "Vanfist\\Seeders\\DatabaseSeeder.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T03:43:45.749Z"
+              "Title": "dbo.Models.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/VanfistDb/True/SqlTable/dbo.Models.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/VanfistDb/True/SqlTable/dbo.Models.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-10-10T16:02:41.025Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "CategoryService.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Services\\Impl\\CategoryService.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Services\\Impl\\CategoryService.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Services\\Impl\\CategoryService.cs",
-              "RelativeToolTip": "Vanfist\\Services\\Impl\\CategoryService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T03:43:53.287Z"
+              "Title": "dbo.Attachments.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/VanfistDb/True/SqlTable/dbo.Attachments.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/VanfistDb/True/SqlTable/dbo.Attachments.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-10-10T15:32:11.525Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "0vvlk5ub..sql",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\AppData\\Local\\Temp\\0vvlk5ub..sql",
+              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\0vvlk5ub..sql",
+              "ToolTip": "C:\\Users\\TamNguyen\\AppData\\Local\\Temp\\0vvlk5ub..sql",
+              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\0vvlk5ub..sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-10-10T15:25:28.849Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "IModelService.cs",
-              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Services\\IModelService.cs",
-              "RelativeDocumentMoniker": "Vanfist\\Services\\IModelService.cs",
-              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist\\Vanfist\\Services\\IModelService.cs",
-              "RelativeToolTip": "Vanfist\\Services\\IModelService.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAAAA8AAAAvAAAAAAAAAA==",
+              "Title": "ModelSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Seeders\\ModelSeeder.cs",
+              "RelativeDocumentMoniker": "Vanfist\\Seeders\\ModelSeeder.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Seeders\\ModelSeeder.cs",
+              "RelativeToolTip": "Vanfist\\Seeders\\ModelSeeder.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-03T03:15:07.326Z"
+              "WhenOpened": "2025-10-10T15:26:30.712Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Program.cs",
+              "RelativeDocumentMoniker": "Vanfist\\Program.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Program.cs",
+              "RelativeToolTip": "Vanfist\\Program.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T15:22:14.23Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DatabaseSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Seeders\\DatabaseSeeder.cs",
+              "RelativeDocumentMoniker": "Vanfist\\Seeders\\DatabaseSeeder.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Seeders\\DatabaseSeeder.cs",
+              "RelativeToolTip": "Vanfist\\Seeders\\DatabaseSeeder.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAAACYAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T15:20:32.583Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AttachmentSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Seeders\\AttachmentSeeder.cs",
+              "RelativeDocumentMoniker": "Vanfist\\Seeders\\AttachmentSeeder.cs",
+              "ToolTip": "C:\\Users\\TamNguyen\\source\\repos\\Vanfist - Copy\\Vanfist\\Seeders\\AttachmentSeeder.cs",
+              "RelativeToolTip": "Vanfist\\Seeders\\AttachmentSeeder.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAYwHwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T15:20:21.899Z"
             }
           ]
         },

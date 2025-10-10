@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
-namespace Vanfist.DTOs.Requests;
+namespace Vanfist.DTOs.Request;
 
 public class AddModelRequest
 {

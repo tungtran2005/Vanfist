@@ -63,6 +63,7 @@ public class ModelController : Controller
         if (!ModelState.IsValid)
         {
             ViewBag.Categories = await _categoryService.FindAllCategories();
+            ViewBag.Attachments = await _attachmentService.ListByModel(request.Id);
             return View(request);
         }
 
@@ -74,6 +75,7 @@ public class ModelController : Controller
             {
                 ModelState.AddModelError("", "Không tìm thấy sản phẩm để cập nhật!");
                 ViewBag.Categories = await _categoryService.FindAllCategories();
+                ViewBag.Attachments = await _attachmentService.ListByModel(request.Id);
                 return View(request);
             }
 
@@ -85,6 +87,7 @@ public class ModelController : Controller
             // log lỗi nếu cần
             ModelState.AddModelError("", $"Có lỗi xảy ra: {ex.Message}");
             ViewBag.Categories = await _categoryService.FindAllCategories();
+            ViewBag.Attachments = await _attachmentService.ListByModel(request.Id);
             return View(request);
         }
     }

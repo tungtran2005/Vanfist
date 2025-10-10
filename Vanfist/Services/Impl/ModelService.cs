@@ -30,7 +30,6 @@ public class ModelService : Service, IModelService
     {
         var models = await _modelRepository.FindByCategoriesId(request.CategoryIds);
 
-        // Dùng FromEntity để có đầy đủ thông tin + ảnh
         var result = models.Select(ModelResponse.FromEntity);
 
         return result.ToPagedList(request.Page, request.PageSize);
@@ -46,6 +45,17 @@ public class ModelService : Service, IModelService
             Id = model.Id,
             Name = model.Name,
             Price = model.Price,
+
+            // Bổ sung đầy đủ thông số kỹ thuật
+            Length = model.Length,
+            Width = model.Width,
+            Height = model.Height,
+            Wheelbase = model.Wheelbase,
+            NEDC = model.NEDC,
+            MaximumPower = model.MaximumPower,
+            MaximumTorque = model.MaximumTorque,
+            RimSize = model.RimSize,
+
             Color = model.Color,
             CategoryId = model.CategoryId,
             CategoryName = model.Category?.Name ?? "",
@@ -74,13 +84,23 @@ public class ModelService : Service, IModelService
             MaximumTorque = request.MaximumTorque,
             RimSize = request.RimSize,
             Color = request.Color,
-            CategoryId = request.CategoryId,
-            //Attachments = new List<Attachment>()
+            CategoryId = request.CategoryId
         };
 
         await _modelRepository.Save(model);
-        await _modelRepository.SaveChanges();
+        await _modelRepository.SaveChanges(); // cần Id để tạo thư mục uploads/{modelId}
 
+        // Upload nhiều ảnh nếu có
+        if (request.Attachments != null && request.Attachments.Count > 0)
+        {
+            foreach (var file in request.Attachments.Where(f => f != null && f.Length > 0))
+            {
+                var attachment = await SaveAttachment(file, model.Id);
+                await _attachmentRepository.Save(attachment);
+            }
+
+            await _attachmentRepository.SaveChanges();
+        }
 
         return ModelResponse.FromEntity(model);
     }
@@ -105,20 +125,20 @@ public class ModelService : Service, IModelService
             RimSize = model.RimSize,
             Color = model.Color,
             CategoryId = model.CategoryId,
-            // Attachments và DeletedAttachmentIds có thể để null/tạm bỏ
+            ExistingAttachmentIds = model.Attachments?.Select(a => a.Id).ToList(),
+            ExistingAttachments = model.Attachments?.ToList()
         };
     }
-
 
     public async Task<ModelResponse> UpdateModel(UpdateModelRequest request)
     {
         var model = await _modelRepository.FindById(request.Id);
         if (model == null)
         {
-            return null; // Trả về null thay vì throw
+            return null;
         }
 
-        // Update thông tin cơ bản
+        // Cập nhật thông tin cơ bản
         model.Name = request.Name;
         model.Price = request.Price;
         model.Length = request.Length;
@@ -135,11 +155,36 @@ public class ModelService : Service, IModelService
         await _modelRepository.Update(model);
         await _modelRepository.SaveChanges();
 
-        // TODO: xử lý thêm/xóa ảnh sẽ được tách sang FileService
+        // Xóa nhiều ảnh nếu có chỉ định
+        if (request.DeletedAttachmentIds != null && request.DeletedAttachmentIds.Count > 0)
+        {
+            foreach (var attId in request.DeletedAttachmentIds.Distinct())
+            {
+                var att = await _attachmentRepository.FindById(attId);
+                if (att != null && att.ModelId == model.Id)
+                {
+                    DeleteAttachmentFile(model.Id, att.FileName);
+                    await _attachmentRepository.Delete(att);
+                }
+            }
+
+            await _attachmentRepository.SaveChanges();
+        }
+
+        // Upload thêm ảnh mới (nếu có)
+        if (request.Attachments != null && request.Attachments.Count > 0)
+        {
+            foreach (var file in request.Attachments.Where(f => f != null && f.Length > 0))
+            {
+                var attachment = await SaveAttachment(file, model.Id);
+                await _attachmentRepository.Save(attachment);
+            }
+
+            await _attachmentRepository.SaveChanges();
+        }
 
         return ModelResponse.FromEntity(model);
     }
-
 
     public async Task DeleteModel(DeleteModelRequest request)
     {
@@ -149,21 +194,46 @@ public class ModelService : Service, IModelService
             throw new KeyNotFoundException("Model not found");
         }
 
+        // Xóa file vật lý của tất cả attachments trước (nếu repo không cascade)
+        if (model.Attachments != null && model.Attachments.Count > 0)
+        {
+            foreach (var a in model.Attachments)
+            {
+                DeleteAttachmentFile(model.Id, a.FileName);
+            }
+        }
+
         await _modelRepository.Delete(model);
         await _modelRepository.SaveChanges();
+
+        // Tùy cấu hình cascade, nếu cần có thể gọi _attachmentRepository.SaveChanges() ở đây
     }
 
+    private static string GetModelUploadFolder(int modelId)
+        => Path.Combine("wwwroot", "uploads", modelId.ToString());
 
+    private static void DeleteAttachmentFile(int modelId, string fileName)
+    {
+        var path = Path.Combine(GetModelUploadFolder(modelId), fileName);
+        if (System.IO.File.Exists(path))
+        {
+            System.IO.File.Delete(path);
+        }
+    }
 
     /// <summary>
-    /// Lưu file ảnh vào wwwroot/uploads và tạo đối tượng Attachment
+    /// Lưu file ảnh vào wwwroot/uploads/{modelId}/ và trả về entity Attachment
     /// </summary>
     private async Task<Attachment> SaveAttachment(IFormFile file, int modelId)
     {
-        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-        var savePath = Path.Combine("wwwroot/uploads", fileName);
+        var folder = GetModelUploadFolder(modelId);
+        Directory.CreateDirectory(folder);
 
-        Directory.CreateDirectory(Path.GetDirectoryName(savePath)!);
+        var ext = Path.GetExtension(file.FileName);
+        var safeExt = string.IsNullOrWhiteSpace(ext) ? "" : ext;
+        var fileName = $"{Guid.NewGuid()}{safeExt}";
+        var savePath = Path.Combine(folder, fileName);
+
         using (var stream = new FileStream(savePath, FileMode.Create))
         {
             await file.CopyToAsync(stream);

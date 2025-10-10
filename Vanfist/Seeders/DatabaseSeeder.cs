@@ -10,19 +10,22 @@ public class DatabaseSeeder
     private readonly AccountSeeder _accountSeeder;
     private readonly CategorySeeder _categorySeeder;
     private readonly ModelSeeder _modelSeeder;
+    private readonly AttachmentSeeder _attachmentSeeder;
 
     public DatabaseSeeder(
         ILogger<DatabaseSeeder> logger,
         RoleSeeder roleSeeder,
         AccountSeeder accountSeeder,
         CategorySeeder categorySeeder,
-        ModelSeeder modelSeeder)
+        ModelSeeder modelSeeder,
+        AttachmentSeeder attachmentSeeder)
     {
         _logger = logger;
         _roleSeeder = roleSeeder;
         _accountSeeder = accountSeeder;
         _categorySeeder = categorySeeder;
         _modelSeeder = modelSeeder;
+        _attachmentSeeder = attachmentSeeder;
     }
 
     public async Task SeedAsync()
@@ -33,6 +36,7 @@ public class DatabaseSeeder
         await _accountSeeder.Seed();
         await _categorySeeder.Seed();
         await _modelSeeder.Seed();
+        await _attachmentSeeder.Seed();
 
         _logger.LogInformation("DatabaseSeeder: Seeding completed");
     }
