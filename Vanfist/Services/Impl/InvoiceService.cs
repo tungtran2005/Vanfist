@@ -5,15 +5,21 @@ using Vanfist.DTOs.Responses;
 using Vanfist.Entities;
 using Vanfist.Repositories;
 using Vanfist.Services.Base;
+using Invoice = Vanfist.Entities.Invoice;
 
 namespace Vanfist.Services.Impl
 {
     public class InvoiceService : Service, IInvoiceService
     {
         private readonly IInvoiceRepository _invoiceRepository;
-        public InvoiceService(IInvoiceRepository invoiceRepository)
+        private readonly IAccountService _accountService;
+
+        public InvoiceService(
+            IInvoiceRepository invoiceRepository,
+            IAccountService accountService)
         {
             _invoiceRepository = invoiceRepository;
+            _accountService = accountService;
         }
 
 
@@ -33,6 +39,7 @@ namespace Vanfist.Services.Impl
             await _invoiceRepository.SaveChanges();
             return InvoiceResponse.From(invoice);
         }
+
         public async Task<IEnumerable<InvoiceResponse>> GetAllInvoice()
         {
             var invoices = await _invoiceRepository.FindAll();
@@ -44,6 +51,7 @@ namespace Vanfist.Services.Impl
             var invoices = await _invoiceRepository.FindByAccountId(accountId);
             return invoices.Select(InvoiceResponse.From).ToList();
         }
+
         public async Task<InvoiceResponse?> GetInvoice(int invoiceId)
         {
             var invoice = await _invoiceRepository.FindById(invoiceId);
@@ -51,6 +59,7 @@ namespace Vanfist.Services.Impl
             {
                 return null;
             }
+
             return InvoiceResponse.From(invoice);
         }
 
@@ -61,19 +70,22 @@ namespace Vanfist.Services.Impl
             {
                 return false;
             }
+
             invoice.Status = request.Status;
             invoice.Type = request.Type;
             await _invoiceRepository.Update(invoice);
             await _invoiceRepository.SaveChanges();
             return true;
         }
+
         public async Task<bool> DeleteInvoice(int invoiceId)
         {
             var invoice = await _invoiceRepository.FindById(invoiceId);
             if (invoice == null)
             {
-               return false;
+                return false;
             }
+
             await _invoiceRepository.Delete(invoice);
             await _invoiceRepository.SaveChanges();
             return true;
@@ -113,5 +125,50 @@ namespace Vanfist.Services.Impl
             };
         }
 
+        public void SubmitConsultation(ConsultationRequest request)
+        {
+            var account = _accountService.GetCurrentAccount();
+
+            if (account != null)
+            {
+                var accountId = _accountService.GetCurrentAccount().Id;
+
+                var invoice1 = new Invoice()
+                {
+                    AccountId = accountId,
+                    RequestDate = DateTime.Now,
+                    Description = request.Description,
+                    ModelId = request.ModelId,
+                    TotalPrice = 0,
+                    Type = Vanfist.Constants.Invoice.Type.Service,
+                    Status = Vanfist.Constants.Invoice.Status.Pending,
+                    City = request.City,
+                    Details = request.Details
+                };
+
+                _invoiceRepository.Save(invoice1);
+                _invoiceRepository.SaveChanges();
+                return;
+            }
+
+            var invoice2 = new Invoice()
+            {
+                Lastname = request.LastName,
+                FirstName = request.FirstName,
+                Number = request.Number,
+                Email = request.Email,
+                RequestDate = DateTime.Now,
+                Description = request.Description,
+                ModelId = request.ModelId,
+                TotalPrice = 0,
+                Type = Vanfist.Constants.Invoice.Type.Service,
+                Status = Vanfist.Constants.Invoice.Status.Pending,
+                City = request.City,
+                Details = request.Details
+            };
+
+            _invoiceRepository.Save(invoice2);
+            _invoiceRepository.SaveChanges();
+        }
     }
 }

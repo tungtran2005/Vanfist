@@ -13,5 +13,6 @@ namespace Vanfist.Services
         Task<bool> UpdateInvoice(UpdateInvoiceRequest request);
         Task<bool> DeleteInvoice(int invoiceId);
         Task<PagedResult<InvoiceResponse>> GetPagedInvoice(InvoiceFilterRequest request, string role);
+        void SubmitConsultation(ConsultationRequest request);
     }
 }

@@ -14,12 +14,16 @@ public class HomeController : Controller
 {
     private readonly IAccountService _accountService;
     private readonly IModelService _modelService;
+    private readonly IInvoiceService _invoiceService;
 
     public HomeController(
-        IAccountService accountService, IModelService modelService)
+        IAccountService accountService, 
+        IModelService modelService,
+        IInvoiceService invoiceService)
     {
         _accountService = accountService;
         _modelService = modelService;
+        _invoiceService = invoiceService;
     }
 
     [AllowAnonymous]
@@ -65,6 +69,24 @@ public class HomeController : Controller
     public async Task<IActionResult> Filter(FilterModelRequest request)
     {
         var models = await _modelService.FilterModel(request);
-        return View("Index", models); // d�ng l?i view Index
+        return View("Index", models); // d�ng l?i view Index
+    }
+
+    [AllowAnonymous]
+    [HttpPost]
+    public IActionResult SubmitConsultation(ConsultationRequest request)
+    {
+        try
+        {
+            _invoiceService.SubmitConsultation(request);
+            TempData["SuccessMessage"] = "Đăng ký thành công";
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            TempData["ErrorMessage"] = "Đăng ký không thành công";
+            Console.WriteLine(e);
+            return RedirectToAction("Index");
+        }
     }
 }

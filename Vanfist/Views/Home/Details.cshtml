@@ -77,11 +77,71 @@
                     <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary btn-lg shadow-sm hover-rise">
                         <i class="bi bi-arrow-left"></i> Quay lại
                     </a>
-                    <a href="#" class="btn btn-primary btn-lg shadow-sm hover-rise">
-                        <i class="bi bi-cart-check"></i> Mua ngay
+                    <a href="#consultation-form" class="btn btn-primary btn-lg shadow-sm hover-rise">
+                        <i class="bi bi-person-lines-fill"></i> Đăng ký tư vấn
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5" id="consultation-form">
+    <div class="card shadow-lg border-0 rounded-4 overflow-hidden animate__animated animate__fadeInUp">
+        <div class="card-body p-5">
+            <h2 class="card-title text-center fw-bold mb-5">Đăng Ký Tư Vấn</h2>
+            <form asp-controller="Home" asp-action="SubmitConsultation" method="post">
+                <div class="row g-4">
+                    <input type="hidden" name="ModelId" value="@Model.Id" />
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="LastName" name="LastName">
+                            <label for="LastName">Họ</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="FirstName" name="FirstName">
+                            <label for="FirstName">Tên</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="Number" name="Number">
+                            <label for="Email">Số điện thoại</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="Email" name="Email">
+                            <label for="Email">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="City" name="City">
+                            <label for="City">Thành phố</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" id="Address" name="Address" style="height: 100px"></textarea>
+                            <label for="Address">Địa chỉ chi tiết</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" id="Description" name="Description" style="height: 100px"></textarea>
+                            <label for="Description">Mô tả</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn btn-primary btn-lg shadow-sm hover-rise">
+                        <i class="bi bi-check-circle"></i> Gửi Đăng Ký
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

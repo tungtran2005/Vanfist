@@ -1,6 +1,7 @@
 ﻿@model X.PagedList.IPagedList<Vanfist.DTOs.Responses.ModelResponse>
 
 @{
+    ViewData["Title"] = "Trang chủ";
     // Giữ nguyên action hiện tại (Index hoặc Filter) và các CategoryIds đang filter
     var actionName = ViewContext.RouteData.Values["action"]?.ToString() ?? "Index";
     var selectedCats = Context.Request.Query["CategoryIds"].ToArray(); // có thể rỗng
@@ -21,15 +22,15 @@
                             <a href="@Url.Action("Details", "Home", new { id = item.Id })">
                                 @{
                                     var thumb = item.Attachments != null && item.Attachments.Any()
-                                    ? item.Attachments.First()
-                                    : null;
+                                        ? item.Attachments.First()
+                                        : null;
                                     var imgSrc = thumb != null
-                                    ? thumb.Url              // VD: /uploads/{modelId}/{fileName}
-                                    : Url.Content("~/images/no-image.jpg");
+                                        ? thumb.Url // VD: /uploads/{modelId}/{fileName}
+                                        : Url.Content("~/images/no-image.jpg");
                                 }
                                 <img src="@imgSrc"
                                      alt="@item.Name"
-                                     class="card-img-top product-image" />
+                                     class="card-img-top product-image"/>
                             </a>
                         </div>
 
@@ -43,7 +44,7 @@
 
                             <a href="@Url.Action("Details", "Home", new { id = item.Id })"
                                class="btn buy-btn mt-auto">
-                                <i class="bi bi-cart-check"></i> Mua ngay
+                                Chi tiết
                             </a>
 
                             <!-- Link phủ toàn bộ thẻ card -->
@@ -116,10 +117,10 @@
         transition: transform 0.3s, box-shadow 0.3s;
     }
 
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
 
     .product-image {
         height: 220px;
@@ -142,11 +143,11 @@
         transition: 0.3s;
     }
 
-        .buy-btn:hover {
-            background: linear-gradient(135deg, #ff4b2b, #ff416c);
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(255,65,108,0.4);
-        }
+    .buy-btn:hover {
+        background: linear-gradient(135deg, #ff4b2b, #ff416c);
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(255, 65, 108, 0.4);
+    }
 
     .pagination .page-link {
         border-radius: 50% !important;
@@ -154,11 +155,11 @@
         transition: all 0.3s;
     }
 
-        .pagination .page-link:hover {
-            background: #007bff;
-            color: #fff;
-            transform: scale(1.1);
-        }
+    .pagination .page-link:hover {
+        background: #007bff;
+        color: #fff;
+        transform: scale(1.1);
+    }
 
     .pagination .active .page-link {
         background: #007bff;
@@ -168,11 +169,11 @@
 </style>
 
 <!-- AOS -->
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({duration: 1000, once: true});
 </script>
 
 <!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"/>
