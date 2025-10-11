@@ -45,6 +45,7 @@ builder.Services.AddScoped<AccountSeeder>();
 builder.Services.AddScoped<DatabaseSeeder>();
 builder.Services.AddScoped<CategorySeeder>();
 builder.Services.AddScoped<ModelSeeder>();
+builder.Services.AddScoped<AttachmentSeeder>();
 
 
 

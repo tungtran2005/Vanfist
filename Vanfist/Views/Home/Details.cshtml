@@ -5,15 +5,36 @@
         <div class="row g-0">
             <!-- image product -->
             <div class="col-md-6 bg-light d-flex align-items-center justify-content-center p-4" data-aos="zoom-in">
-                <div id="productCarousel" class="carousel slide w-100" data-bs-ride="carousel">
+                <div id="productCarousel"
+                     class="carousel slide w-100"
+                     data-bs-ride="false"
+                     data-bs-interval="false"
+                     data-bs-touch="false"
+                     data-bs-keyboard="false">
                     <div class="carousel-inner text-center">
-                        <!-- Chỉ hiển thị ảnh mặc định -->
-                        <div class="carousel-item active">
-                            <img src="~/images/no-image.png"
-                                 class="d-block mx-auto img-fluid rounded-3 shadow-sm"
-                                 style="max-height:400px;"
-                                 alt="No Image" />
-                        </div>
+                        @if (Model.Attachments != null && Model.Attachments.Any())
+                        {
+                            var imgs = Model.Attachments.ToList();
+                            for (int i = 0; i < imgs.Count; i++)
+                            {
+                                var img = imgs[i];
+                                <div class="carousel-item @(i == 0 ? "active" : "")">
+                                    <img src="@img.Url"
+                                         class="d-block mx-auto img-fluid rounded-3 shadow-sm"
+                                         style="max-height:400px;"
+                                         alt="@img.FileName" />
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="carousel-item active">
+                                <img src="~/images/no-image.png"
+                                     class="d-block mx-auto img-fluid rounded-3 shadow-sm"
+                                     style="max-height:400px;"
+                                     alt="No Image" />
+                            </div>
+                        }
                     </div>
 
                     <!-- button control -->
