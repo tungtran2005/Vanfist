@@ -1,5 +1,11 @@
 ﻿@model X.PagedList.IPagedList<Vanfist.DTOs.Responses.ModelResponse>
 
+@{
+    // Giữ nguyên action hiện tại (Index hoặc Filter) và các CategoryIds đang filter
+    var actionName = ViewContext.RouteData.Values["action"]?.ToString() ?? "Index";
+    var selectedCats = Context.Request.Query["CategoryIds"].ToArray(); // có thể rỗng
+}
+
 <div class="content-wrapper d-flex flex-column" style="min-height:80vh;">
     <!-- list products -->
     <div class="row flex-grow-1 mb-4" data-aos="fade-up">
@@ -75,20 +81,29 @@
 
             <!-- Previous -->
             <li class="page-item @(currentPage == 1 ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1, pageSize = Model.PageSize })">&laquo;</a>
+                <a class="page-link"
+                   href="@Url.Action(actionName, new { page = currentPage - 1, pageSize = Model.PageSize, CategoryIds = selectedCats })">
+                    &laquo;
+                </a>
             </li>
 
             <!-- display pages -->
             @for (int i = startPage; i <= endPage; i++)
             {
                 <li class="page-item @(i == currentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = Model.PageSize })">@i</a>
+                    <a class="page-link"
+                       href="@Url.Action(actionName, new { page = i, pageSize = Model.PageSize, CategoryIds = selectedCats })">
+                        @i
+                    </a>
                 </li>
             }
 
             <!-- Next -->
             <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1, pageSize = Model.PageSize })">&raquo;</a>
+                <a class="page-link"
+                   href="@Url.Action(actionName, new { page = currentPage + 1, pageSize = Model.PageSize, CategoryIds = selectedCats })">
+                    &raquo;
+                </a>
             </li>
         </ul>
     </nav>

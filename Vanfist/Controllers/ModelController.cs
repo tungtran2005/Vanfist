@@ -18,7 +18,6 @@ public class ModelController : Controller
         _modelService = modelService;
         _categoryService = categoryService;
         _attachmentService = attachmentService;
-        _attachmentService = attachmentService;
     }
 
     [HttpGet]

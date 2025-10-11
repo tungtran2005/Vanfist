@@ -54,7 +54,7 @@ public class AttachmentSeeder
                 continue;
             }
 
-            // B? qua n?u model ?ã có ?nh (tránh nhân ?ôi)
+
             var existing = await _attachmentService.ListByModel(m.Id);
             if (existing != null && existing.Any())
             {

@@ -12,12 +12,13 @@ namespace Vanfist.Services;
 public class ModelService : Service, IModelService
 {
     private readonly IModelRepository _modelRepository;
-    private readonly IAttachmentRepository _attachmentRepository;
+    private readonly IAttachmentService _attachmentService; 
 
-    public ModelService(IModelRepository modelRepository, IAttachmentRepository attachmentRepository)
+    public ModelService(IModelRepository modelRepository,
+                        IAttachmentService attachmentService) 
     {
         _modelRepository = modelRepository;
-        _attachmentRepository = attachmentRepository;
+        _attachmentService = attachmentService; 
     }
 
     public async Task<IEnumerable<ModelResponse>> FindAllModel()
@@ -29,9 +30,7 @@ public class ModelService : Service, IModelService
     public async Task<IPagedList<ModelResponse>> FilterModel(FilterModelRequest request)
     {
         var models = await _modelRepository.FindByCategoriesId(request.CategoryIds);
-
         var result = models.Select(ModelResponse.FromEntity);
-
         return result.ToPagedList(request.Page, request.PageSize);
     }
 
@@ -39,34 +38,7 @@ public class ModelService : Service, IModelService
     {
         var model = await _modelRepository.FindById(id);
         if (model == null) return null;
-
-        return new ModelResponse
-        {
-            Id = model.Id,
-            Name = model.Name,
-            Price = model.Price,
-
-            // Bổ sung đầy đủ thông số kỹ thuật
-            Length = model.Length,
-            Width = model.Width,
-            Height = model.Height,
-            Wheelbase = model.Wheelbase,
-            NEDC = model.NEDC,
-            MaximumPower = model.MaximumPower,
-            MaximumTorque = model.MaximumTorque,
-            RimSize = model.RimSize,
-
-            Color = model.Color,
-            CategoryId = model.CategoryId,
-            CategoryName = model.Category?.Name ?? "",
-            Attachments = model.Attachments?.Select(a => new AttachmentItem
-            {
-                Id = a.Id,
-                FileName = a.FileName,
-                Url = $"/uploads/{model.Id}/{a.FileName}",
-                ContentType = a.Type
-            }).ToList() ?? new List<AttachmentItem>()
-        };
+        return ModelResponse.FromEntity(model); // dùng 1 chỗ mapping duy nhất
     }
 
     public async Task<ModelResponse> AddModel(AddModelRequest request)
@@ -88,18 +60,15 @@ public class ModelService : Service, IModelService
         };
 
         await _modelRepository.Save(model);
-        await _modelRepository.SaveChanges(); // cần Id để tạo thư mục uploads/{modelId}
+        await _modelRepository.SaveChanges(); // cần Id
 
-        // Upload nhiều ảnh nếu có
+        // Upload nhiều ảnh (ủy quyền cho AttachmentService)
         if (request.Attachments != null && request.Attachments.Count > 0)
         {
             foreach (var file in request.Attachments.Where(f => f != null && f.Length > 0))
             {
-                var attachment = await SaveAttachment(file, model.Id);
-                await _attachmentRepository.Save(attachment);
+                await _attachmentService.UploadAsync(file, model.Id);
             }
-
-            await _attachmentRepository.SaveChanges();
         }
 
         return ModelResponse.FromEntity(model);
@@ -133,10 +102,7 @@ public class ModelService : Service, IModelService
     public async Task<ModelResponse> UpdateModel(UpdateModelRequest request)
     {
         var model = await _modelRepository.FindById(request.Id);
-        if (model == null)
-        {
-            return null;
-        }
+        if (model == null) return null;
 
         // Cập nhật thông tin cơ bản
         model.Name = request.Name;
@@ -155,32 +121,22 @@ public class ModelService : Service, IModelService
         await _modelRepository.Update(model);
         await _modelRepository.SaveChanges();
 
-        // Xóa nhiều ảnh nếu có chỉ định
+        // Xóa ảnh (nếu có)
         if (request.DeletedAttachmentIds != null && request.DeletedAttachmentIds.Count > 0)
         {
             foreach (var attId in request.DeletedAttachmentIds.Distinct())
             {
-                var att = await _attachmentRepository.FindById(attId);
-                if (att != null && att.ModelId == model.Id)
-                {
-                    DeleteAttachmentFile(model.Id, att.FileName);
-                    await _attachmentRepository.Delete(att);
-                }
+                await _attachmentService.DeleteAsync(attId);
             }
-
-            await _attachmentRepository.SaveChanges();
         }
 
-        // Upload thêm ảnh mới (nếu có)
+        // Upload ảnh mới (nếu có)
         if (request.Attachments != null && request.Attachments.Count > 0)
         {
             foreach (var file in request.Attachments.Where(f => f != null && f.Length > 0))
             {
-                var attachment = await SaveAttachment(file, model.Id);
-                await _attachmentRepository.Save(attachment);
+                await _attachmentService.UploadAsync(file, model.Id);
             }
-
-            await _attachmentRepository.SaveChanges();
         }
 
         return ModelResponse.FromEntity(model);
@@ -189,61 +145,20 @@ public class ModelService : Service, IModelService
     public async Task DeleteModel(DeleteModelRequest request)
     {
         var model = await _modelRepository.FindById(request.Id);
-        if (model == null)
-        {
-            throw new KeyNotFoundException("Model not found");
-        }
+        if (model == null) throw new KeyNotFoundException("Model not found");
 
-        // Xóa file vật lý của tất cả attachments trước (nếu repo không cascade)
-        if (model.Attachments != null && model.Attachments.Count > 0)
+        // Snapshot Id ảnh trước khi xóa để tránh sửa collection khi đang enumerate
+        var attIds = (model.Attachments != null && model.Attachments.Count > 0)
+            ? model.Attachments.Select(a => a.Id).ToList()
+            : new List<int>();
+
+        // Xóa từng ảnh theo danh sách snapshot
+        foreach (var id in attIds)
         {
-            foreach (var a in model.Attachments)
-            {
-                DeleteAttachmentFile(model.Id, a.FileName);
-            }
+            await _attachmentService.DeleteAsync(id);
         }
 
         await _modelRepository.Delete(model);
         await _modelRepository.SaveChanges();
-
-        // Tùy cấu hình cascade, nếu cần có thể gọi _attachmentRepository.SaveChanges() ở đây
-    }
-
-    private static string GetModelUploadFolder(int modelId)
-        => Path.Combine("wwwroot", "uploads", modelId.ToString());
-
-    private static void DeleteAttachmentFile(int modelId, string fileName)
-    {
-        var path = Path.Combine(GetModelUploadFolder(modelId), fileName);
-        if (System.IO.File.Exists(path))
-        {
-            System.IO.File.Delete(path);
-        }
-    }
-
-    /// <summary>
-    /// Lưu file ảnh vào wwwroot/uploads/{modelId}/ và trả về entity Attachment
-    /// </summary>
-    private async Task<Attachment> SaveAttachment(IFormFile file, int modelId)
-    {
-        var folder = GetModelUploadFolder(modelId);
-        Directory.CreateDirectory(folder);
-
-        var ext = Path.GetExtension(file.FileName);
-        var safeExt = string.IsNullOrWhiteSpace(ext) ? "" : ext;
-        var fileName = $"{Guid.NewGuid()}{safeExt}";
-        var savePath = Path.Combine(folder, fileName);
-
-        using (var stream = new FileStream(savePath, FileMode.Create))
-        {
-            await file.CopyToAsync(stream);
-        }
-
-        return new Attachment
-        {
-            FileName = fileName,
-            Type = file.ContentType,
-            ModelId = modelId
-        };
     }
 }

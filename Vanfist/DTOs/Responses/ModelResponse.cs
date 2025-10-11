@@ -20,7 +20,6 @@ public class ModelResponse
     public int CategoryId { get; set; }
     public string CategoryName { get; set; }
 
-    public List<string> AttachmentUrls { get; set; } = new List<string>();
     public List<AttachmentItem> Attachments { get; set; } = new();
 
     public static ModelResponse FromEntity(Model model)

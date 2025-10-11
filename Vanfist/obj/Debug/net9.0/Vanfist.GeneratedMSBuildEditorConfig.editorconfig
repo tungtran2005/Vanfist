@@ -17,73 +17,73 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Vanfist
 build_property.RootNamespace = Vanfist
-build_property.ProjectDir = C:\Users\TamNguyen\source\repos\Vanfist - Copy\Vanfist\
+build_property.ProjectDir = C:\Users\TamNguyen\source\repos\Vanfist\Vanfist\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\TamNguyen\source\repos\Vanfist - Copy\Vanfist
+build_property.MSBuildProjectDirectory = C:\Users\TamNguyen\source\repos\Vanfist\Vanfist
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Account/Index.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Account/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Admin/Index.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Auth/Login.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Auth/Register.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Auth/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Home/Details.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Home/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Home/Index.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Home/Privacy.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Model/Create.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Model/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kZWxcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Model/Delete.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Model/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kZWxcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Model/Update.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Model/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kZWxcVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Shared/Error.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/_ViewImports.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/_ViewStart.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/TamNguyen/source/repos/Vanfist - Copy/Vanfist/Views/Shared/_Layout.cshtml]
+[C:/Users/TamNguyen/source/repos/Vanfist/Vanfist/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-9ggg6az32y
