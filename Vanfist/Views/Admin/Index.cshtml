@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Admin Dashboard";
     var admin = ViewBag.Admin;
     var initial = string.IsNullOrWhiteSpace((string)admin.FirstName) ? "A" : ((string)admin.FirstName).Substring(0, 1).ToUpperInvariant();
@@ -51,9 +52,24 @@
             <div id="section-orders" class="card shadow-sm content-section" style="display:none;">
                 <div class="card-header bg-white fw-semibold">Quản lý đơn hàng</div>
                 <div class="card-body">
-                    <div class="text-muted">Danh sách đơn hàng sẽ hiển thị ở đây.</div>
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>AccountId</th>
+                                <th>ModelId</th>
+                                <th>TotalPrice</th>
+                                <th>Status</th>
+                                <th>Type</th>
+                                <th>CreatedAt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoice-table-body">
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
 
             <!-- Products -->
             <div id="section-products" class="card shadow-sm content-section" style="display:none;">
@@ -83,27 +99,5 @@
 </div>
 
 @section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const links = document.querySelectorAll('.section-link');
-            const sections = document.querySelectorAll('.content-section');
-
-            function showSection(name) {
-                sections.forEach(s => s.style.display = 'none');
-                const el = document.getElementById(`section-${name}`);
-                if (el) el.style.display = '';
-            }
-
-            links.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const section = this.getAttribute('data-section');
-                    showSection(section);
-                });
-            });
-
-            // Default section
-            showSection('users');
-        });
-    </script>
+    <script src="~/js/admin.js"></script>
 }

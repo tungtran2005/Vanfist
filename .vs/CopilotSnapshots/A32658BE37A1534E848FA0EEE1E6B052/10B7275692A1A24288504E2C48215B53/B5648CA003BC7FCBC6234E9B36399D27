@@ -1,0 +1,110 @@
+﻿using Vanfist.DTOs.Requests;
+using Vanfist.DTOs.Responses;
+using Vanfist.Entities;
+using Vanfist.Repositories;
+using Vanfist.Services.Base;
+
+namespace Vanfist.Services.Impl
+{
+    public class InvoiceService : Service, IInvoiceService
+    {
+        private readonly IInvoiceRepository _invoiceRepository;
+        public InvoiceService(IInvoiceRepository invoiceRepository)
+        {
+            _invoiceRepository = invoiceRepository;
+        }
+
+        public async Task<InvoiceResponse> CreateInvoice(CreateInvoiceRequest request)
+        {
+            var invoice = new Invoice
+            {
+                AccountId = request.AccountId,
+                ModelId = request.ModelId,
+                RequestDate = request.RequestDate,
+                Description = request.Description,
+                TotalPrice = request.TotalPrice,
+                Status = request.Status,
+                Type = request.Type,
+            };
+            await _invoiceRepository.Save(invoice);
+            await _invoiceRepository.SaveChanges();
+            return InvoiceResponse.From(invoice);
+        }
+        public async Task<IEnumerable<InvoiceResponse>> GetAllInvoice()
+        {
+            var invoices = await _invoiceRepository.FindAll();
+            return invoices.Select(InvoiceResponse.From).ToList();
+        }
+
+        public async Task<IEnumerable<InvoiceResponse>> GetAllInvoiceByAccountId(int accountId)
+        {
+            var invoices = await _invoiceRepository.FindByAccountId(accountId);
+            return invoices.Select(InvoiceResponse.From).ToList();
+        }
+
+        // Trả về danh sách Invoice kèm Model (bao gồm các trường của Model)
+        public async Task<IEnumerable<object>> GetAllInvoiceWithModelFields()
+        {
+            var invoices = await _invoiceRepository.FindAllWithModel();
+            return invoices.Select(i => new {
+                InvoiceId = i.Id,
+                i.AccountId,
+                i.ModelId,
+                i.TotalPrice,
+                i.Status,
+                i.Type,
+                i.CreatedAt,
+                i.RequestDate,
+                i.Description,
+                // Các trường của Model
+                ModelName = i.Model?.Name,
+                ModelPrice = i.Model?.Price,
+                ModelLength = i.Model?.Length,
+                ModelWidth = i.Model?.Width,
+                ModelHeight = i.Model?.Height,
+                ModelWheelbase = i.Model?.Wheelbase,
+                ModelNEDC = i.Model?.NEDC,
+                ModelMaximumPower = i.Model?.MaximumPower,
+                ModelMaximumTorque = i.Model?.MaximumTorque,
+                ModelRimSize = i.Model?.RimSize,
+                ModelColor = i.Model?.Color,
+                ModelCategoryId = i.Model?.CategoryId
+            }).ToList();
+        }
+
+        public async Task<InvoiceResponse?> GetInvoice(int invoiceId)
+        {
+            var invoice = await _invoiceRepository.FindById(invoiceId);
+            if (invoice == null)
+            {
+                return null;
+            }
+            return InvoiceResponse.From(invoice);
+        }
+
+        public async Task<bool> UpdateInvoice(UpdateInvoiceRequest request)
+        {
+            var invoice = await _invoiceRepository.FindById(request.InvoiceId);
+            if (invoice == null)
+            {
+                return false;
+            }
+            invoice.Status = request.Status;
+            invoice.Type = request.Type;
+            await _invoiceRepository.Update(invoice);
+            await _invoiceRepository.SaveChanges();
+            return true;
+        }
+        public async Task<bool> DeleteInvoice(int invoiceId)
+        {
+            var invoice = await _invoiceRepository.FindById(invoiceId);
+            if (invoice == null)
+            {
+               return false;
+            }
+            await _invoiceRepository.Delete(invoice);
+            await _invoiceRepository.SaveChanges();
+            return true;
+        }
+    }
+}

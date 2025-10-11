@@ -20,6 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IInvoiceRepository, InvoiceRepositoty>();
 
 // Register services
 builder.Services.AddScoped<ICookieService, CookieService>();
@@ -27,6 +28,8 @@ builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+
 
 // Register seeders
 builder.Services.AddScoped<RoleSeeder>();

@@ -1,0 +1,144 @@
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Vanfist.Constants;
+using Vanfist.DTOs.Requests;
+using Vanfist.DTOs.Responses;
+using Vanfist.Services;
+
+namespace Vanfist.Controllers
+{
+    [Authorize]
+    [ApiController]
+    [Route("api/[controller]")]
+    public class InvoiceApiController : ControllerBase
+    {
+        private readonly IInvoiceService _invoiceService;
+
+        public InvoiceApiController(IInvoiceService invoiceService)
+        {
+            _invoiceService = invoiceService;
+        }
+
+        private int? GetCurrentUserId()
+        {
+            var claim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (claim == null) return null;
+            if (int.TryParse(claim.Value, out var id)) return id;
+            return null;
+        }
+
+        // GET: api/InvoiceApi
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<InvoiceResponse>>> GetAll()
+        {
+            if (User.IsInRole(Role.Admin))
+            {
+                var invoices = await _invoiceService.GetAllInvoice();
+                return Ok(invoices);
+            }
+
+            var userId = GetCurrentUserId();
+            if (userId == null) return Unauthorized();
+
+            var invoicesByUser = await _invoiceService.GetAllInvoiceByAccountId(userId.Value);
+            return Ok(invoicesByUser);
+        }
+
+        // GET: api/InvoiceApi/{id}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<InvoiceResponse>> GetById(int id)
+        {
+            var invoice = await _invoiceService.GetInvoice(id);
+            if (invoice == null)
+                return NotFound();
+
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userId = GetCurrentUserId();
+                if (userId == null) return Unauthorized();
+                if (invoice.AccountId != userId.Value) return Forbid();
+            }
+
+            return Ok(invoice);
+        }
+
+        // GET: api/InvoiceApi/account/{accountId}
+        [HttpGet("account/{accountId}")]
+        public async Task<ActionResult<IEnumerable<InvoiceResponse>>> GetByAccountId(int accountId)
+        {
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userId = GetCurrentUserId();
+                if (userId == null) return Unauthorized();
+                if (userId.Value != accountId) return Forbid();
+            }
+
+            var invoices = await _invoiceService.GetAllInvoiceByAccountId(accountId);
+            return Ok(invoices);
+        }
+
+        // POST: api/InvoiceApi
+        [HttpPost]
+        public async Task<ActionResult<InvoiceResponse>> Create([FromBody] CreateInvoiceRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // Non-admin users can only create invoices for themselves
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userId = GetCurrentUserId();
+                if (userId == null) return Unauthorized();
+                request.AccountId = userId.Value;
+            }
+
+            var invoice = await _invoiceService.CreateInvoice(request);
+            return CreatedAtAction(nameof(GetById), new { id = invoice.Id }, invoice);
+        }
+
+        // PUT: api/InvoiceApi
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateInvoiceRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var invoice = await _invoiceService.GetInvoice(request.InvoiceId);
+            if (invoice == null) return NotFound();
+
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userId = GetCurrentUserId();
+                if (userId == null) return Unauthorized();
+                if (invoice.AccountId != userId.Value) return Forbid();
+            }
+
+            var success = await _invoiceService.UpdateInvoice(request);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        // DELETE: api/InvoiceApi/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var invoice = await _invoiceService.GetInvoice(id);
+            if (invoice == null) return NotFound();
+
+            if (!User.IsInRole(Role.Admin))
+            {
+                var userId = GetCurrentUserId();
+                if (userId == null) return Unauthorized();
+                if (invoice.AccountId != userId.Value) return Forbid();
+            }
+
+            var success = await _invoiceService.DeleteInvoice(id);
+            if (!success) return NotFound();
+
+            return NoContent();
+        }
+    }
+}

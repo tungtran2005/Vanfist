@@ -5,6 +5,7 @@
 
 	var initial = string.IsNullOrWhiteSpace((string)account.FirstName) ? "U" : ((string)account.FirstName).Substring(0, 1).ToUpperInvariant();
 }
+<input type="hidden" id="accountId" value="@account.Id" />
 
 <link rel="stylesheet" href="~/css/account.css" asp-append-version="true"/>
 
@@ -224,65 +225,5 @@
 </div>
 
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const links = document.querySelectorAll('.section-link');
-            const sections = document.querySelectorAll('.content-section');
-
-            function showSection(name) {
-                sections.forEach(s => s.style.display = 'none');
-                const el = document.getElementById(`section-${name}`);
-                if (el) el.style.display = '';
-            }
-
-            links.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const section = this.getAttribute('data-section');
-                    showSection(section);
-                });
-            });
-
-            // Default section
-            showSection('personal');
-
-            // Validate new password confirmation before submit
-            const form = document.getElementById('changePasswordForm');
-            if (form) {
-                const newPwd = form.querySelector('#NewPassword');
-                const confirmPwd = form.querySelector('#ConfirmPassword');
-                const submitBtn = form.querySelector('#btnChangePasswordSubmit');
-                const help = document.getElementById('ConfirmPasswordHelp');
-
-                function validatePasswordsMatch() {
-                    const match = confirmPwd.value.length > 0 && newPwd.value === confirmPwd.value;
-                    if (!match) {
-                        help.classList.remove('d-none');
-                        confirmPwd.setCustomValidity('Mật khẩu xác nhận không khớp.');
-                        submitBtn.disabled = true;
-                    } else {
-                        help.classList.add('d-none');
-                        confirmPwd.setCustomValidity('');
-                        submitBtn.disabled = false;
-                    }
-                }
-
-                newPwd.addEventListener('input', validatePasswordsMatch);
-                confirmPwd.addEventListener('input', validatePasswordsMatch);
-
-                form.addEventListener('submit', function (e) {
-                    validatePasswordsMatch();
-                    if (!form.checkValidity()) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        form.reportValidity();
-                    }
-                });
-
-                // Khởi tạo trạng thái nút submit
-                validatePasswordsMatch();
-            }
-        });
-    </script>
+    <script src="~/js/account.js"></script>
 }
