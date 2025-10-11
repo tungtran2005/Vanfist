@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Vanfist.Entities;
 using Vanfist.Repositories;
+using Vanfist.Services;
 
 namespace Vanfist.Controllers
 {
@@ -9,10 +10,12 @@ namespace Vanfist.Controllers
     public class AdminController : Controller
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IInvoiceService _invoiceService;
 
-        public AdminController(IAccountRepository accountRepository)
+        public AdminController(IAccountRepository accountRepository, IInvoiceService invoiceService)
         {
             _accountRepository = accountRepository;
+            _invoiceService = invoiceService;
         }
 
         public async Task<IActionResult> Index()

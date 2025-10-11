@@ -1,0 +1,17 @@
+﻿using Vanfist.DTOs.Requests;
+using Vanfist.DTOs.Responses;
+using Vanfist.Services.Base;
+
+namespace Vanfist.Services
+{
+    public interface IInvoiceService : IService
+    {
+        Task<InvoiceResponse> CreateInvoice(CreateInvoiceRequest request);
+        Task<IEnumerable<InvoiceResponse>> GetAllInvoice();
+        Task<IEnumerable<InvoiceResponse>> GetAllInvoiceByAccountId(int accountId);
+        Task<InvoiceResponse?> GetInvoice(int invoiceId);
+        Task<bool> UpdateInvoice(UpdateInvoiceRequest request);
+        Task<bool> DeleteInvoice(int invoiceId);
+        Task<PagedResult<InvoiceResponse>> GetPagedInvoice(InvoiceFilterRequest request);
+    }
+}

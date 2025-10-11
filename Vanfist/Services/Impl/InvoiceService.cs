@@ -1,4 +1,6 @@
-﻿using Vanfist.DTOs.Requests;
+﻿using Microsoft.EntityFrameworkCore;
+using Vanfist.Constants;
+using Vanfist.DTOs.Requests;
 using Vanfist.DTOs.Responses;
 using Vanfist.Entities;
 using Vanfist.Repositories;
@@ -14,9 +16,10 @@ namespace Vanfist.Services.Impl
             _invoiceRepository = invoiceRepository;
         }
 
-        public async Task<InvoiceResponse> CreateInvoice(InvoiceRequest request)
+
+        public async Task<InvoiceResponse> CreateInvoice(CreateInvoiceRequest request)
         {
-            var invoice = new Invoice
+            var invoice = new Entities.Invoice
             {
                 AccountId = request.AccountId,
                 ModelId = request.ModelId,
@@ -36,6 +39,11 @@ namespace Vanfist.Services.Impl
             return invoices.Select(InvoiceResponse.From).ToList();
         }
 
+        public async Task<IEnumerable<InvoiceResponse>> GetAllInvoiceByAccountId(int accountId)
+        {
+            var invoices = await _invoiceRepository.FindByAccountId(accountId);
+            return invoices.Select(InvoiceResponse.From).ToList();
+        }
         public async Task<InvoiceResponse?> GetInvoice(int invoiceId)
         {
             var invoice = await _invoiceRepository.FindById(invoiceId);
@@ -48,7 +56,7 @@ namespace Vanfist.Services.Impl
 
         public async Task<bool> UpdateInvoice(UpdateInvoiceRequest request)
         {
-            var invoice = await _invoiceRepository.FindById(request.invoiceId);
+            var invoice = await _invoiceRepository.FindById(request.InvoiceId);
             if (invoice == null)
             {
                 return false;
@@ -70,5 +78,40 @@ namespace Vanfist.Services.Impl
             await _invoiceRepository.SaveChanges();
             return true;
         }
+
+        public async Task<PagedResult<InvoiceResponse>> GetPagedInvoice(InvoiceFilterRequest request, string role)
+        {
+            var query = _invoiceRepository.Query();
+
+            if (role != Constants.Role.Admin)
+            {
+                query = query.Where(i => i.AccountId == request.AccountId);
+            }
+
+            if (!string.IsNullOrEmpty(request.Status))
+                query = query.Where(i => i.Status == request.Status);
+
+            if (!string.IsNullOrEmpty(request.Type))
+                query = query.Where(i => i.Type == request.Type);
+
+            var totalCount = await query.CountAsync();
+
+            var invoices = await query
+                .OrderByDescending(i => i.CreatedAt)
+                .Skip((request.Page - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync();
+
+            var responses = invoices.Select(InvoiceResponse.From).ToList();
+
+            return new PagedResult<InvoiceResponse>
+            {
+                Page = request.Page,
+                PageSize = request.PageSize,
+                TotalCount = totalCount,
+                Items = responses
+            };
+        }
+
     }
 }

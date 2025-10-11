@@ -24,6 +24,7 @@ builder.Services.AddScoped<IModelRepository, ModelRepository>();
 builder.Services.AddScoped<IAttachmentRepository, AttachmentRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+builder.Services.AddScoped<IInvoiceRepository, InvoiceRepositoty>();
 
 // Register services
 builder.Services.AddScoped<ICookieService, CookieService>();
@@ -34,6 +35,8 @@ builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IModelService, ModelService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
 
 // Register seeders
