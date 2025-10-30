@@ -25,15 +25,22 @@ namespace Vanfist.Services.Impl
 
         public async Task<InvoiceResponse> CreateInvoice(CreateInvoiceRequest request)
         {
+            var account = await _accountService.GetCurrentAccount();
             var invoice = new Entities.Invoice
             {
-                AccountId = request.AccountId,
+                AccountId = account.Id,
                 ModelId = request.ModelId,
                 RequestDate = request.RequestDate,
                 Description = request.Description,
                 TotalPrice = request.TotalPrice,
-                Status = request.Status,
-                Type = request.Type,
+                Type = Vanfist.Constants.Invoice.Type.Service,
+                Status = Vanfist.Constants.Invoice.Status.Pending,
+                City = request.City,
+                Details = request.Details,
+                Email = request.Email,
+                Lastname = request.Lastname,
+                FirstName = request.FirstName,
+                Number = request.Number
             };
             await _invoiceRepository.Save(invoice);
             await _invoiceRepository.SaveChanges();
@@ -131,11 +138,10 @@ namespace Vanfist.Services.Impl
 
             if (account != null)
             {
-                var accountId = _accountService.GetCurrentAccount().Id;
 
                 var invoice1 = new Invoice()
                 {
-                    AccountId = accountId,
+                    AccountId = account.Id,
                     RequestDate = DateTime.Now,
                     Description = request.Description,
                     ModelId = request.ModelId,
@@ -143,7 +149,13 @@ namespace Vanfist.Services.Impl
                     Type = Vanfist.Constants.Invoice.Type.Service,
                     Status = Vanfist.Constants.Invoice.Status.Pending,
                     City = request.City,
-                    Details = request.Details
+                    Details = request.Details,
+                    Email = request.Email,
+                    Lastname = request.LastName,
+                    FirstName = request.FirstName,
+                    Number = request.Number
+
+
                 };
 
                 _invoiceRepository.Save(invoice1);

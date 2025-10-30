@@ -1,0 +1,113 @@
+﻿@model Vanfist.DTOs.Responses.PagedResult<Vanfist.DTOs.Responses.InvoiceResponse>
+@using Vanfist.Constants
+
+@if (Model == null || !Model.Items.Any())
+{
+    <div class="text-muted">Không có giao dịch nào.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Mã đơn</th>
+                    @* <th>Tên khách hàng</th> *@
+                    <th>Tổng tiền</th>
+                    <th>Ngày tạo</th>
+                    <th>Số điện thoại</th>
+                    <th>Thành phố</th>
+                    <th>Loại</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.Items)
+                {
+                    <tr>
+                        <td>@i.Id</td>
+                        @* <td>@i.FirstName</td> *@
+                        <td>@i.TotalPrice.ToString("N0") ₫</td>
+                        <td>@i.CreatedAt.ToString("dd/MM/yyyy")</td>
+                        <td>@i.Number</td>
+                        <td>@i.City</td>
+                        <td>
+                            @switch (i.Type)
+                            {
+                                case Invoice.Type.Service:
+                                    <span class="badge bg-info text-dark">Tư vấn</span>
+                                    break;
+                                case Invoice.Type.Repair:
+                                    <span class="badge bg-secondary">Đặt cọc</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-light text-dark">Không xác định</span>
+                                    break;
+                            }
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <select class="form-select form-select-sm"
+                                        onchange="updateInvoiceStatus(@i.Id, this.value, '@i.Type')">
+                                    <option value="@Invoice.Status.Pending"
+                                            selected="@(i.Status == Invoice.Status.Pending)">
+                                        Chờ xử lý
+                                    </option>
+                                    <option value="@Invoice.Status.Paid"
+                                            selected="@(i.Status == Invoice.Status.Paid)">
+                                        Đã thanh toán
+                                    </option>
+                                    <option value="@Invoice.Status.Cancelled"
+                                            selected="@(i.Status == Invoice.Status.Cancelled)">
+                                        Đã hủy
+                                    </option>
+                                </select>
+                            }
+                            else
+                            {
+                                @if (i.Status == Invoice.Status.Pending)
+                                {
+                                    <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                                }
+                                else if (i.Status == Invoice.Status.Paid)
+                                {
+                                    <span class="badge bg-success">Đã thanh toán</span>
+                                }
+                                else if (i.Status == Invoice.Status.Cancelled)
+                                {
+                                    <span class="badge bg-danger">Đã hủy</span>
+                                }
+                            }
+                        </td>
+
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="deleteInvoice(@i.Id)">Xóa</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-3">
+            <li class="page-item @(Model.Page <= 1 ? "disabled" : "")">
+                <a class="page-link" href="#" onclick="loadInvoicePage(@(Model.Page - 1)); return false;">Trước</a>
+            </li>
+
+            @for (int p = 1; p <= Math.Ceiling((double)Model.TotalCount / Model.PageSize); p++)
+            {
+                <li class="page-item @(p == Model.Page ? "active" : "")">
+                    <a class="page-link" href="#" onclick="loadInvoicePage(@p); return false;">@p</a>
+                </li>
+            }
+
+            <li class="page-item @((Model.Page * Model.PageSize >= Model.TotalCount) ? "disabled" : "")">
+                <a class="page-link" href="#" onclick="loadInvoicePage(@(Model.Page + 1)); return false;">Sau</a>
+            </li>
+        </ul>
+    </nav>
+}
