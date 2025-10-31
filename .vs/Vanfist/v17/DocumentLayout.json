@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\Vanfist\\Vanfist\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\vanfist\\vanfist\\vanfist\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\vanfist\\vanfist\\vanfist\\views\\invoice\\_invoicelistpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\views\\invoice\\_invoicelistpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\vanfist\\vanfist\\vanfist\\controllers\\invoicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\controllers\\invoicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\vanfist\\vanfist\\vanfist\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\views\\home\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\vanfist\\vanfist\\vanfist\\services\\impl\\invoiceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\vanfist\\vanfist\\vanfist\\dtos\\requests\\createinvoicerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\dtos\\requests\\createinvoicerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|c:\\users\\admin\\onedrive\\m\u00E1y t\u00EDnh\\ky1_n3\\web\\vanfist\\vanfist\\vanfist\\views\\invoice\\_invoicelistpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{78BEFF3C-C4A3-404E-84F3-E1A171FD1EFB}|Vanfist\\Vanfist.csproj|solutionrelative:vanfist\\views\\invoice\\_invoicelistpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 1288,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "CreateInvoiceRequest.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\Vanfist\\Vanfist\\Vanfist\\DTOs\\Requests\\CreateInvoiceRequest.cs",
               "RelativeDocumentMoniker": "Vanfist\\DTOs\\Requests\\CreateInvoiceRequest.cs",
@@ -62,12 +62,11 @@
               "RelativeToolTip": "Vanfist\\DTOs\\Requests\\CreateInvoiceRequest.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T14:01:57.642Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T14:01:57.642Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Invoice.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\Vanfist\\Vanfist\\Vanfist\\Constants\\Invoice.cs",
               "RelativeDocumentMoniker": "Vanfist\\Constants\\Invoice.cs",
@@ -75,25 +74,24 @@
               "RelativeToolTip": "Vanfist\\Constants\\Invoice.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T13:51:11.396Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T13:51:11.396Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\Vanfist\\Vanfist\\Vanfist\\Views\\Home\\Details.cshtml",
               "RelativeDocumentMoniker": "Vanfist\\Views\\Home\\Details.cshtml",
               "ToolTip": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\Vanfist\\Vanfist\\Vanfist\\Views\\Home\\Details.cshtml",
               "RelativeToolTip": "Vanfist\\Views\\Home\\Details.cshtml",
-              "ViewState": "AgIAAOYAAAAAAAAAAAAAANEAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAMAAAAAAAAAAAAAAAMsAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-10-30T13:02:18.056Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "InvoiceService.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\Vanfist\\Vanfist\\Vanfist\\Services\\Impl\\InvoiceService.cs",
               "RelativeDocumentMoniker": "Vanfist\\Services\\Impl\\InvoiceService.cs",
@@ -101,8 +99,7 @@
               "RelativeToolTip": "Vanfist\\Services\\Impl\\InvoiceService.cs",
               "ViewState": "AgIAAHkAAAAAAAAAAADwvy8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T12:13:21.081Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T12:13:21.081Z"
             },
             {
               "$type": "Document",
@@ -112,14 +109,14 @@
               "RelativeDocumentMoniker": "Vanfist\\Controllers\\InvoiceController.cs",
               "ToolTip": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\Vanfist\\Vanfist\\Vanfist\\Controllers\\InvoiceController.cs",
               "RelativeToolTip": "Vanfist\\Controllers\\InvoiceController.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAADgv0IAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-30T11:36:44.046Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "_InvoiceListPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\M\u00E1y t\u00EDnh\\KY1_N3\\WEB\\Vanfist\\Vanfist\\Vanfist\\Views\\Invoice\\_InvoiceListPartial.cshtml",
               "RelativeDocumentMoniker": "Vanfist\\Views\\Invoice\\_InvoiceListPartial.cshtml",
