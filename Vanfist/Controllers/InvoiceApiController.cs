@@ -30,7 +30,7 @@ namespace Vanfist.Controllers
             var account = await _accountService.GetCurrentAccount();
             if (account == null)
             {
-                return Unauthorized(new { message = "b?n ch?a ??ng nh?p" });
+                return Unauthorized(new { message = "B?n ch?a ??ng nh?p" });
             }
             request.AccountId = account.Id;
             var result = await _invoiceService.GetPagedInvoice(request, role);

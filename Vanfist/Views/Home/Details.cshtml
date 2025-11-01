@@ -77,8 +77,11 @@
                     <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary btn-lg shadow-sm hover-rise">
                         <i class="bi bi-arrow-left"></i> Quay lại
                     </a>
-                    <a href="#consultation-form" class="btn btn-primary btn-lg shadow-sm hover-rise">
+                    @* <a href="#consultation-form" class="btn btn-primary btn-lg shadow-sm hover-rise">
                         <i class="bi bi-person-lines-fill"></i> Đăng ký tư vấn
+                    </a> *@
+                    <a href="#consultation-form" class="btn btn-primary btn-lg shadow-sm hover-rise">
+                        <i class="bi bi-person-lines-fill"  id="buy">Mua ngay</i>
                     </a>
                 </div>
             </div>
@@ -89,37 +92,37 @@
 <div class="container py-5" id="consultation-form">
     <div class="card shadow-lg border-0 rounded-4 overflow-hidden animate__animated animate__fadeInUp">
         <div class="card-body p-5">
-            <h2 class="card-title text-center fw-bold mb-5">Đăng Ký Tư Vấn</h2>
-            <form asp-controller="Home" asp-action="SubmitConsultation" method="post">
+            <h2 class="card-title text-center fw-bold mb-5">Thông tin khách hàng</h2>
+            <form id="invoiceForm" method="post">
+                <input type="hidden" name="ModelId" value="@Model.Id" />
                 <div class="row g-4">
-                    <input type="hidden" name="ModelId" value="@Model.Id" />
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="LastName" name="LastName">
+                            <input type="text" class="form-control" id="LastName" name="LastName" required>
                             <label for="LastName">Họ</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="FirstName" name="FirstName">
+                            <input type="text" class="form-control" id="FirstName" name="FirstName" required>
                             <label for="FirstName">Tên</label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="Number" name="Number">
-                            <label for="Email">Số điện thoại</label>
+                            <input type="text" class="form-control" id="Number" name="Number" required>
+                            <label for="Number">Số điện thoại</label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <input type="email" class="form-control" id="Email" name="Email">
+                            <input type="email" class="form-control" id="Email" name="Email" required>
                             <label for="Email">Email</label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="City" name="City">
+                            <input type="text" class="form-control" id="City" name="City" required>
                             <label for="City">Thành phố</label>
                         </div>
                     </div>
@@ -132,13 +135,13 @@
                     <div class="col-12">
                         <div class="form-floating">
                             <textarea class="form-control" id="Description" name="Description" style="height: 100px"></textarea>
-                            <label for="Description">Mô tả</label>
+                            <label for="Description">Ghi chú</label>
                         </div>
                     </div>
                 </div>
                 <div class="text-center mt-5">
                     <button type="submit" class="btn btn-primary btn-lg shadow-sm hover-rise">
-                        <i class="bi bi-check-circle"></i> Gửi Đăng Ký
+                        <i class="bi bi-check-circle">Xác nhận mua</i>
                     </button>
                 </div>
             </form>
@@ -146,6 +149,11 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- CSS -->
 <style>
     .hover-zoom:hover {
@@ -175,3 +183,49 @@
 <!-- Bootstrap Icons + JS  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(function(){
+        $("#invoiceForm").on("submit", function(e){
+            e.preventDefault();
+
+            const payload = {
+                ModelId: @Model.Id,
+                LastName: $("#LastName").val() || "Khách",
+                FirstName: $("#FirstName").val() || "Hàng",
+                Number: $("#Number").val() || "0000000000",
+                Email: $("#Email").val() || "khachhang@vanfist.com",
+                City: $("#City").val() || "Không xác định",
+                Address: $("#Address").val() || ("Đăng ký tư vấn sản phẩm: " + "@Model.Name"),
+                Description: $("#Description").val() || "Không có ghi chú",
+                TotalPrice : @Model.Price,
+                Details: "Mua sản phẩm: " + @Model.Id,
+                RequestDate: new Date().toISOString(),
+                Status: "Pending",
+                Type: "Service"
+            };
+
+                $.ajax({
+                url: '/Invoice/CreateInvoice',
+                method: 'POST',
+                data: payload,
+                success: function(res){
+                    if(res.success){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Mã đơn: ' + res.id
+                        });
+                        $("#invoiceForm")[0].reset();
+                    } else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                },
+                error: function(err){
+                    Swal.fire('Lỗi', 'Có lỗi xảy ra', 'error');
+                }
+            });
+
+        });
+    });
+
+</script>

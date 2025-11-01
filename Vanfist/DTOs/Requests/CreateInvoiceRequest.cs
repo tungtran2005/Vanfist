@@ -25,5 +25,23 @@ namespace Vanfist.DTOs.Requests
 
         [Required, StringLength(255)]
         public string Type { get; set; }
+
+        [Required, StringLength(255)]
+        public string Lastname { get; set; }
+
+        [Required, StringLength(255)]
+        public string FirstName { get; set; }
+
+        [Required, StringLength(50)]
+        public string Number { get; set; }
+
+        [Required, StringLength(255)]
+        public string Email { get; set; }
+
+        [Required, StringLength(255)]
+        public string City { get; set; }
+
+        [Required, StringLength(255)]
+        public string Details { get; set; }
     }
 }

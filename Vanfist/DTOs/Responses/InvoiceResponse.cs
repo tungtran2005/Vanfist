@@ -11,8 +11,13 @@ namespace Vanfist.DTOs.Responses
         public string Status { get; set; }
         public string Type { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string City { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Number { get; set; }
+        public string Details { get; set; }
 
-        public InvoiceResponse(int id, int accountId, int modelId, float totalPrice, string status, string type, DateTime createdAt)
+        public InvoiceResponse(int id, int accountId, int modelId, float totalPrice, string status, string type, DateTime createdAt, string city, string details, string firstName, string lastName, string number)
         {
             Id = id;
             AccountId = accountId;
@@ -21,6 +26,11 @@ namespace Vanfist.DTOs.Responses
             Status = status;
             Type = type;
             CreatedAt = createdAt;
+            City = city;
+            Details = details;
+            FirstName = firstName;
+            LastName = lastName;
+            Number = number;
         }
 
         public static InvoiceResponse From(Invoice invoice)
@@ -32,7 +42,12 @@ namespace Vanfist.DTOs.Responses
                 invoice.TotalPrice,
                 invoice.Status,
                 invoice.Type,
-                invoice.CreatedAt
+                invoice.CreatedAt,
+                invoice.City,
+                invoice.Details,
+                invoice.FirstName,
+                invoice.Lastname,
+                invoice.Number
             );
         }
 
@@ -46,6 +61,11 @@ namespace Vanfist.DTOs.Responses
                    $"\n\tStatus: {Status}," +
                    $"\n\tType: {Type}," +
                    $"\n\tCreatedAt: {CreatedAt}" +
+                   $"\n\tCity: {City}," +
+                   $"\n\tDetails: {Details}," +
+                   $"\n\tFirstName: {FirstName}," +
+                   $"\n\tLastName: {LastName}," +
+                   $"\n\tNumber: {Number}," +
                    $"\n}}";
         }
     }

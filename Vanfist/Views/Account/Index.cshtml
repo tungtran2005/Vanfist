@@ -205,11 +205,11 @@
 
 			<!-- Transactions -->
 			<div id="section-transactions" class="card shadow-sm content-section" style="display:none;">
-				<div class="card-header bg-white fw-semibold">Lịch sử giao dịch</div>
-				<div class="card-body">
-					<div class="text-muted">Nội dung lịch sử giao dịch.</div>
+				<div class="card-header bg-white fw-semibold">Đơn hàng của bạn</div>
+				<div class="card-body" id="transactionsContainer">
 				</div>
 			</div>
+
 
 			<!-- Maintenance -->
 			<div id="section-maintenance" class="card shadow-sm content-section" style="display:none;">
@@ -248,8 +248,11 @@
 	</div>
 </div>
 
+
 @section Scripts {
-	@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 			const links = document.querySelectorAll('.section-link');
@@ -272,7 +275,6 @@
 			// Default section
 			showSection('personal');
 
-			// Validate new password confirmation before submit
 			const form = document.getElementById('changePasswordForm');
 			if (form) {
 				const newPwd = form.querySelector('#NewPassword');
@@ -305,9 +307,60 @@
 					}
 				});
 
-				// Khởi tạo trạng thái nút submit
 				validatePasswordsMatch();
 			}
 		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$("#transactionsContainer").load("/Invoice/GetPagedInvoicePartial");
+		});
+		function loadInvoicePage(page) {
+			$("#transactionsContainer").load(`/Invoice/GetPagedInvoicePartial?page=${page}`);
+		}
+
+		function deleteInvoice(id) {
+			if (!confirm("Bạn có chắc muốn xóa hóa đơn #" + id + " không?")) return;
+
+			$.ajax({
+				url: '/Invoice/DeleteInvoice',
+				type: 'POST',
+				data: { id: id },
+				success: function (res) {
+					if (res.success) {
+						alert(res.message);
+						$("#transactionsContainer").load('/Invoice/GetPagedInvoicePartial');
+					} else {
+						alert(res.message);
+					}
+				},
+				error: function () {
+					alert("Lỗi trong quá trình xóa hóa đơn!");
+				}
+			});
+		}
+		function updateInvoiceStatus(invoiceId, Status, Type) {
+			$.ajax({
+				url: '/Invoice/UpdateInvoice',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					invoiceId: invoiceId,
+					status: Status,
+					type: Type
+				}),
+				success: function (res) {
+					if (res.success) {
+						alert(res.message);
+						loadInvoicePage(1);
+					} else {
+						alert(res.message);
+					}
+				},
+				error: function () {
+					alert('Có lỗi xảy ra khi cập nhật!');
+				}
+			});
+		}
 	</script>
 }
