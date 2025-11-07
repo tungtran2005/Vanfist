@@ -197,7 +197,7 @@
                 City: $("#City").val() || "Không xác định",
                 Address: $("#Address").val() || ("Đăng ký tư vấn sản phẩm: " + "@Model.Name"),
                 Description: $("#Description").val() || "Không có ghi chú",
-                TotalPrice : @Model.Price,
+                TotalPrice : @Json.Serialize(Model.Price),
                 Details: "Mua sản phẩm: " + @Model.Id,
                 RequestDate: new Date().toISOString(),
                 Status: "Pending",
