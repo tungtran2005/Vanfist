@@ -16,8 +16,9 @@ namespace Vanfist.DTOs.Responses
         public string LastName { get; set; }
         public string Number { get; set; }
         public string Details { get; set; }
+        public string ModelName { get; set; }
 
-        public InvoiceResponse(int id, int accountId, int modelId, float totalPrice, string status, string type, DateTime createdAt, string city, string details, string firstName, string lastName, string number)
+        public InvoiceResponse(int id, int accountId, int modelId, float totalPrice, string status, string type, DateTime createdAt, string city, string details, string firstName, string lastName, string number, string modelName)
         {
             Id = id;
             AccountId = accountId;
@@ -31,6 +32,7 @@ namespace Vanfist.DTOs.Responses
             FirstName = firstName;
             LastName = lastName;
             Number = number;
+            ModelName = modelName;
         }
 
         public static InvoiceResponse From(Invoice invoice)
@@ -47,7 +49,8 @@ namespace Vanfist.DTOs.Responses
                 invoice.Details,
                 invoice.FirstName,
                 invoice.Lastname,
-                invoice.Number
+                invoice.Number,
+                invoice.Model.Name
             );
         }
 
@@ -66,6 +69,7 @@ namespace Vanfist.DTOs.Responses
                    $"\n\tFirstName: {FirstName}," +
                    $"\n\tLastName: {LastName}," +
                    $"\n\tNumber: {Number}," +
+                   $"\n\tModelName: {ModelName}," +
                    $"\n}}";
         }
     }

@@ -13,13 +13,15 @@ namespace Vanfist.Services.Impl
     {
         private readonly IInvoiceRepository _invoiceRepository;
         private readonly IAccountService _accountService;
-
+        private readonly IModelService _modelService;
         public InvoiceService(
             IInvoiceRepository invoiceRepository,
-            IAccountService accountService)
+            IAccountService accountService,
+            IModelService modelService)
         {
             _invoiceRepository = invoiceRepository;
             _accountService = accountService;
+            _modelService = modelService;
         }
 
 
@@ -44,6 +46,8 @@ namespace Vanfist.Services.Impl
             };
             await _invoiceRepository.Save(invoice);
             await _invoiceRepository.SaveChanges();
+            var model = await _modelService.FindByIdModel(request.ModelId);
+            invoice.Model.Name = model.Name;
             return InvoiceResponse.From(invoice);
         }
 
