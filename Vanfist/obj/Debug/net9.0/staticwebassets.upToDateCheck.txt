@@ -560,9 +560,6 @@ wwwroot\uploads\30\cf1236b4-ee46-4a7c-9033-45b7942872d2.jpg
 wwwroot\uploads\30\d4a3c15d-4a80-40ed-909f-605a85d703c7.jpg
 wwwroot\uploads\30\ec018fae-6b4e-4f55-9b71-ef7e3efe66dd.jpg
 wwwroot\uploads\30\fb11b7b7-34c6-4dbe-8048-45f9da028785.jpg
-wwwroot\uploads\31\39f97943-b365-42b1-ac39-484f3a157e9b.png
-wwwroot\uploads\32\c88d7999-dc94-4310-aa0c-8fdcc95b151b.jpg
-wwwroot\uploads\33\dda5bd40-ba5b-4ce6-a869-7719b05c582d.jpg
 wwwroot\uploads\33\f255f7dc-7637-4e49-8950-429fbd1774ba.png
 wwwroot\uploads\3\017213ac-2dec-483c-bf7b-6a25d6b3ee00.jpg
 wwwroot\uploads\3\263e34ab-167f-4bce-932f-469fc4393416.png

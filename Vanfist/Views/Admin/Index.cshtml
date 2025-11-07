@@ -60,7 +60,12 @@
             <div id="section-products" class="card shadow-sm content-section" style="display:none;">
                 <div class="card-header bg-white fw-semibold">Quản lý sản phẩm</div>
                 <div class="card-body">
-                    <div class="text-muted">Danh sách sản phẩm sẽ hiển thị ở đây.</div>
+                    <div class="text-muted">
+						<a href="@Url.Action("Create", "Model")"
+						   class="btn btn-success btn-sm shadow-sm hover-rise">
+							<i class="bi bi-plus-circle"></i> Tạo sản phẩm mới
+						</a>
+					</div>
                 </div>
             </div>
 
